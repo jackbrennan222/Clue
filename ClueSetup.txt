@@ -1,13 +1,13 @@
 // Rooms and room cards
-Room, Conservatory, C
-Room, Kitchen, K
-Room, Ballroom, B
-Room, Billiard Room, R
+Room, CTLM, C
+Room, Marquez, M
+Room, Hill, H
+Room, Alderson, A
 Room, Library, L
-Room, Study, S
-Room, Dining Room, D
-Room, Lounge, O
-Room, Hall, H
+Room, Green, G
+Room, Market, R
+Room, Dober, D
+Room, Kaff, K
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
