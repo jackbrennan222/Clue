@@ -5,36 +5,36 @@ import java.util.Set;
 
 public class TestBoardCell {
 	private int row,col;
-	private boolean room,occupied;
+	private boolean isRoom,isOccupied;
 	private Set<TestBoardCell> adjSet = new HashSet<TestBoardCell>();
 	
 	public TestBoardCell(int row, int col) {
 		this.row = row;
 		this.col = col;
-		room = occupied = false;
+		isRoom = isOccupied = false;
 	}
 	
-	void addAdjacency(TestBoardCell cell) {
+	public void addAdjacency(TestBoardCell cell) {
 		adjSet.add(cell);
 	}
 	
-	Set<TestBoardCell> getAdjList() {
+	public Set<TestBoardCell> getAdjList() {
 		return adjSet;
 	}
 	
 	public void setRoom(boolean room) {
-		this.room = room;
+		this.isRoom = room;
 	}
 	
 	public boolean isRoom() {
-		return room;
+		return isRoom;
 	}
 	
 	public void setOccupied(boolean occupied) {
-		this.occupied = occupied;
+		this.isOccupied = occupied;
 	}
 	
 	public boolean getOccupied() {
-		return occupied;
+		return isOccupied;
 	}
 }
