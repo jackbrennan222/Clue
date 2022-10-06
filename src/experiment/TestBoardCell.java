@@ -34,7 +34,7 @@ public class TestBoardCell {
 		this.isOccupied = occupied;
 	}
 	
-	public boolean getOccupied() {
+	public boolean isOccupied() {
 		return isOccupied;
 	}
 }
