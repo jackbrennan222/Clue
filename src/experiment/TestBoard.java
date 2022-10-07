@@ -16,7 +16,12 @@ public class TestBoard {
 	public TestBoard(int numRows, int numCols) {
 		this.numRows = numRows;
 		this.numCols = numCols;
-		this.gameboard = new TestBoardCell[numRows][numCols];
+		gameboard = new TestBoardCell[numRows][numCols];
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numCols; j++) {
+				gameboard[i][j] = new TestBoardCell(i, j);
+			}
+		}
 		
 		adjList = new HashMap<TestBoardCell, HashSet<TestBoardCell>>();
 		
