@@ -2,9 +2,7 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
-import org.junit.jupiter.*;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 
 import java.util.Set;
 

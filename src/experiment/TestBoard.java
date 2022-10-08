@@ -2,15 +2,11 @@ package experiment;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 
 public class TestBoard {
 	
 	private int numRows,numCols;
 	private TestBoardCell[][] gameboard;
-	private Map<TestBoardCell, HashSet<TestBoardCell>> adjList;
 	private HashSet<TestBoardCell> targets,visited;
 	
 	public TestBoard(int numRows, int numCols) {
@@ -23,24 +19,20 @@ public class TestBoard {
 			}
 		}
 		
-		adjList = new HashMap<TestBoardCell, HashSet<TestBoardCell>>();
-		
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
-				HashSet<TestBoardCell> vals = new HashSet<TestBoardCell>(); 
-				if (i - 1 >= 0 && ! this.gameboard[i-1][j].isOccupied()) {
-					vals.add(gameboard[i-1][j]);
+				if (i - 1 >= 0 && !gameboard[i-1][j].isOccupied()) {
+					gameboard[i][j].addAdjacency(gameboard[i-1][j]);
 				}
-				if (i + 1 < numRows && ! this.gameboard[i+1][j].isOccupied()) {
-					vals.add(gameboard[i+1][j]);
+				if (i + 1 < numRows && !gameboard[i+1][j].isOccupied()) {
+					gameboard[i][j].addAdjacency(gameboard[i+1][j]);
 				}
-				if (j - 1 >= 0 && ! this.gameboard[i][j-1].isOccupied()) {
-					vals.add(gameboard[i][j-1]);
+				if (j - 1 >= 0 && !gameboard[i][j-1].isOccupied()) {
+					gameboard[i][j].addAdjacency(gameboard[i][j-1]);
 				}
-				if (j + 1 < numCols && ! this.gameboard[i][j+1].isOccupied()) {
-					vals.add(gameboard[i][j+1]);
+				if (j + 1 < numCols && !gameboard[i][j+1].isOccupied()) {
+					gameboard[i][j].addAdjacency(gameboard[i][j+1]);
 				}
-				adjList.put(gameboard[i][j], vals);
 			}
 		}
 	}
