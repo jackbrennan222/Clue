@@ -21,16 +21,16 @@ public class TestBoard {
 		
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
-				if (i - 1 >= 0 && !gameboard[i-1][j].isOccupied()) {
+				if (i - 1 >= 0) {
 					gameboard[i][j].addAdjacency(gameboard[i-1][j]);
 				}
-				if (i + 1 < numRows && !gameboard[i+1][j].isOccupied()) {
+				if (i + 1 < numRows) {
 					gameboard[i][j].addAdjacency(gameboard[i+1][j]);
 				}
-				if (j - 1 >= 0 && !gameboard[i][j-1].isOccupied()) {
+				if (j - 1 >= 0) {
 					gameboard[i][j].addAdjacency(gameboard[i][j-1]);
 				}
-				if (j + 1 < numCols && !gameboard[i][j+1].isOccupied()) {
+				if (j + 1 < numCols) {
 					gameboard[i][j].addAdjacency(gameboard[i][j+1]);
 				}
 			}
@@ -48,15 +48,14 @@ public class TestBoard {
 	
 	private void findAllTargets(TestBoardCell thisCell, int numSteps) {
 		for (TestBoardCell adjCell : thisCell.getAdjList()) {
-			if (! visited.contains(adjCell)) {
-				visited.add(adjCell);
-				if (numSteps == 1) {
-					targets.add(adjCell);
-				} else {
-					findAllTargets(adjCell, numSteps - 1);
-				}
-				visited.remove(adjCell);
+			if (visited.contains(adjCell)) continue;
+			visited.add(adjCell);
+			if (numSteps == 1 || adjCell.isRoom()) {
+				targets.add(adjCell);
+			} else {
+				findAllTargets(adjCell, numSteps - 1);
 			}
+			visited.remove(adjCell);
 		}
 	}
 	
