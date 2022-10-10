@@ -6,12 +6,13 @@ import java.util.Set;
 public class TestBoardCell {
 	private int row,col;
 	private boolean isRoom,isOccupied;
-	private Set<TestBoardCell> adjSet = new HashSet<TestBoardCell>();
+	private Set<TestBoardCell> adjSet;
 	
 	public TestBoardCell(int row, int col) {
 		this.row = row;
 		this.col = col;
 		isRoom = isOccupied = false;
+		adjSet = new HashSet<TestBoardCell>();
 	}
 	
 	public void addAdjacency(TestBoardCell cell) {

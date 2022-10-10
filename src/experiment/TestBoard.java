@@ -5,33 +5,33 @@ import java.util.Set;
 
 public class TestBoard {
 	
-	private int numRows,numCols;
-	private TestBoardCell[][] gameboard;
+	private TestBoardCell[][] grid;
 	private HashSet<TestBoardCell> targets,visited;
 	
-	public TestBoard(int numRows, int numCols) {
-		this.numRows = numRows;
-		this.numCols = numCols;
-		gameboard = new TestBoardCell[numRows][numCols];
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numCols; j++) {
-				gameboard[i][j] = new TestBoardCell(i, j);
+	final static int COLS = 4;
+	final static int ROWS = 4;
+	
+	public TestBoard() {
+		grid = new TestBoardCell[ROWS][COLS];
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++) {
+				grid[i][j] = new TestBoardCell(i, j);
 			}
 		}
 		
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numCols; j++) {
+		for (int i = 0; i < ROWS; i++) {
+			for (int j = 0; j < COLS; j++) {
 				if (i - 1 >= 0) {
-					gameboard[i][j].addAdjacency(gameboard[i-1][j]);
+					grid[i][j].addAdjacency(grid[i-1][j]);
 				}
-				if (i + 1 < numRows) {
-					gameboard[i][j].addAdjacency(gameboard[i+1][j]);
+				if (i + 1 < ROWS) {
+					grid[i][j].addAdjacency(grid[i+1][j]);
 				}
 				if (j - 1 >= 0) {
-					gameboard[i][j].addAdjacency(gameboard[i][j-1]);
+					grid[i][j].addAdjacency(grid[i][j-1]);
 				}
-				if (j + 1 < numCols) {
-					gameboard[i][j].addAdjacency(gameboard[i][j+1]);
+				if (j + 1 < COLS) {
+					grid[i][j].addAdjacency(grid[i][j+1]);
 				}
 			}
 		}
@@ -64,6 +64,6 @@ public class TestBoard {
 	}
 	
 	public TestBoardCell getCell(int r, int c) {
-		return gameboard[r][c];
+		return grid[r][c];
 	}
 }
