@@ -89,11 +89,26 @@ public class BoardTestsExp {
 		TestBoardCell cell3 = board.getCell(1, 2); //store the cell at location in a variable
 		board.calcTargets(cell3, 5); //calc targets for the cell with given pathLength
 		Set<TestBoardCell> targets3 = board.getTargets(); //get the target list of the target calc
+		assertTrue(targets3.contains(board.getCell(0, 0)));
+		assertTrue(targets3.contains(board.getCell(0, 2)));
+		assertTrue(targets3.contains(board.getCell(1, 1)));
+		assertTrue(targets3.contains(board.getCell(1, 3)));
+		assertTrue(targets3.contains(board.getCell(2, 0)));
+		assertTrue(targets3.contains(board.getCell(2, 2)));
+		assertTrue(targets3.contains(board.getCell(3, 1)));
+		assertTrue(targets3.contains(board.getCell(3, 3)));
 		assertEquals(8, targets3.size()); //test if list is the right size
 		
 		TestBoardCell cell4 = board.getCell(1, 2); //store the cell at location in a variable
 		board.calcTargets(cell4, 6); //calc targets for the cell with given pathLength
 		Set<TestBoardCell> targets4 = board.getTargets(); //get the target list of the target calc
+		assertTrue(targets4.contains(board.getCell(0, 1)));
+		assertTrue(targets4.contains(board.getCell(0, 3)));
+		assertTrue(targets4.contains(board.getCell(1, 0)));
+		assertTrue(targets4.contains(board.getCell(2, 1)));
+		assertTrue(targets4.contains(board.getCell(2, 3)));
+		assertTrue(targets4.contains(board.getCell(3, 0)));
+		assertTrue(targets4.contains(board.getCell(3, 2)));
 		assertEquals(7, targets4.size()); //test if list is the right size
 	}
 	
