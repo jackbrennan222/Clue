@@ -1,11 +1,13 @@
 package clueGame;
 
 import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 
 public class Board {
 	private BoardCell[][] grid;
@@ -28,16 +30,13 @@ public class Board {
 		
 		try {
 			loadSetupConfig();
-			loadLayoutConfig();
+			try {
+				loadLayoutConfig();
+			} catch (BadConfigFormatException e) {
+				e.printStackTrace();
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
-		
-		grid = new BoardCell[numRows][numColumns];
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numColumns; j++) {
-				grid[i][j] = new BoardCell(i, j);
-			}
 		}
 		
 		for (int i = 0; i < numRows; i++) {
@@ -69,11 +68,11 @@ public class Board {
 	}
 	
 	public int getNumRows() {
-		return 0;
+		return numRows;
 	}
 
 	public int getNumColumns() {
-		return 0;
+		return numColumns;
 	}
 
 	public void loadSetupConfig() throws FileNotFoundException {
@@ -87,22 +86,59 @@ public class Board {
 				roomMap.put(line.charAt(line.length() - 1), new Room(line.substring(0, line.indexOf(','))));
 			}
 		}
+		in.close();
 	}
 	
-	public void loadLayoutConfig() throws FileNotFoundException {
+	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader fr = new FileReader(layoutConfigFile);
 		Scanner in = new Scanner(fr);
 		String line = in.nextLine();
 		String[] lineRay = line.split(",");
 		numColumns = lineRay.length;
-		numRows++;
+		ArrayList<String[]> tempBoard = new ArrayList<String[]>();
+		tempBoard.add(lineRay);
 		while (in.hasNext()) {
 			line = in.nextLine();
 			lineRay = line.split(",");
-			if (lineRay.length != 0) {
-				numRows++;
+			tempBoard.add(lineRay);
+		}
+		numRows = tempBoard.size();
+		grid = new BoardCell[numRows][numColumns];
+		in.close();
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				grid[i][j] = new BoardCell(i, j);
+				grid[i][j].setInitial(tempBoard.get(i)[j].charAt(0));
+				if (tempBoard.get(i)[j].length() > 1) {
+					switch(tempBoard.get(i)[j].charAt(1)) {
+					case '#':
+						grid[i][j].setRoomLabel(true);
+						theInstance.getRoom(grid[i][j]).setLabelCell(grid[i][j]);
+						break;
+					case '*': 
+						grid[i][j].setRoomCenter(true);
+						theInstance.getRoom(grid[i][j]).setCenterCell(grid[i][j]);
+						break;
+					case '^': 
+						grid[i][j].setDoorDirection(DoorDirection.UP);
+						break;
+					case '>': 
+						grid[i][j].setDoorDirection(DoorDirection.RIGHT);
+						break;
+					case '<': 
+						grid[i][j].setDoorDirection(DoorDirection.LEFT);
+						break;
+					case 'v': 
+						grid[i][j].setDoorDirection(DoorDirection.DOWN);
+						break;
+					default:
+						grid[i][j].setSecretPassage(tempBoard.get(i)[j].charAt(1));
+						break;
+					}
+				}
 			}
 		}
+		
 	}
 	
 	public void calcTargets(BoardCell startCell, int pathLength) {

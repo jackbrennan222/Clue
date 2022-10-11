@@ -14,6 +14,8 @@ public class BoardCell {
 		this.row = row;
 		this.col = col;
 		adjList = new HashSet<BoardCell>();
+		this.roomLabel = this.roomCenter = this.isRoom = this.isOccupied = false;
+		this.doorDirection = DoorDirection.NONE;
 	}
 	
 	public void addAdjacency(BoardCell cell) {
@@ -61,7 +63,7 @@ public class BoardCell {
 	}
 	
 	public DoorDirection getDoorDirection() {
-		return null;
+		return doorDirection;
 	}
 	
 	public void setInitial(char initial) {
