@@ -1,0 +1,169 @@
+commit 3ade7c4e38497983fc9549a154b6d1683056357c
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Mon Oct 10 22:34:36 2022 -0600
+
+    C14A-2 Done
+
+commit 67a1d623eb7198ade236c0557199ead6931f0141
+Merge: 2e1a013 3e1bfe9
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Mon Oct 10 21:02:14 2022 -0600
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit 2e1a0137681ed9e01e2ce586296b46773466157f
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Mon Oct 10 21:02:05 2022 -0600
+
+    finished all unit tests to make them pass
+
+commit 3e1bfe95f5571bd9fac54a34ed9ab679c95ae6c4
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Mon Oct 10 20:17:17 2022 -0600
+
+    File Moving For Init
+
+commit 8be7ebf23a285c391bc6f290cca11fa2b1e26f2e
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Mon Oct 10 20:15:34 2022 -0600
+
+    ClueInitFiles added
+
+commit 7c28b931e04f48eb2354a6df93a52c8f95cb82bb
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Mon Oct 10 14:01:56 2022 -0600
+
+    finished making all testTargetsNormal pass
+
+commit 984e545f135b1e03261c22966a9bfdd0ad3f9685
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Mon Oct 10 12:33:43 2022 -0600
+
+    made progress on fixing up testtargetsnormal
+
+commit 78ef70fddb2cd97910efa120028b33d9ccd5c649
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Mon Oct 10 11:39:39 2022 -0600
+
+    updated adj unit tests to pass
+
+commit 87d92ead57d0972a6b91369528e2b1d0acbdf1bc
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Fri Oct 7 22:00:17 2022 -0600
+
+    finished commenting boardtestsexp
+
+commit 5111608d9c490018fac08dce5c4b98449fd9a255
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Fri Oct 7 21:55:51 2022 -0600
+
+    finished tests and added partial comments
+
+commit 2c74b5112e377e35046183c65ea226f234d5612a
+Merge: f341f44 c548b91
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Fri Oct 7 21:48:04 2022 -0600
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit f341f44faf0e26d3e382774479194ecd65ee970b
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Fri Oct 7 21:47:49 2022 -0600
+
+    added more test cases and fixed up the code
+
+commit c548b915be144ff18703786fc13cbf9a8715a833
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Fri Oct 7 21:29:16 2022 -0600
+
+    Created readme.txt
+
+commit aecfb98c06a7c798434e6069c56e8e4e9415a236
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Fri Oct 7 19:54:24 2022 -0600
+
+    added adjacency tests
+
+commit 1d6416174a756791d597fa1e40dd6fb00f8764cc
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Fri Oct 7 19:01:30 2022 -0600
+
+    updated adj list
+
+commit 1595154b34681f7006aaee67208e3b0967ec2443
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Thu Oct 6 20:30:21 2022 -0600
+
+    fixed gameboard being full of nulls
+
+commit ba9901b7eba38cc276b9c51151f8e77dcd60af18
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Thu Oct 6 12:12:37 2022 -0600
+
+    added tests in boardtests
+
+commit 9dedbdb69ea073478e436a51827ef23519f4ed07
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Oct 6 12:06:19 2022 -0600
+
+    Finished TestBoard.java
+
+commit 6e07b80a343079a92a85d3536228d8c32e0cb6b9
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Oct 6 11:29:47 2022 -0600
+
+    Refactored TestBoardCell.java
+
+commit 60681c5ba0bdd6ee504d0f932a053afb20eab3d2
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Thu Oct 6 11:01:06 2022 -0600
+
+    added files for assignment 2
+
+commit 36422b52854f034889a08f1ea5281cac150dd261
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Tue Oct 4 12:12:23 2022 -0600
+
+    changed cluelayout.csv
+
+commit 3e21d3ad939bbb7f3e28c8a6662f5023960ef51a
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Tue Oct 4 12:11:32 2022 -0600
+
+    Custom Rooms changed
+
+commit dbf19ed67f0834e1233e79858aa9eeb3193cf202
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Tue Oct 4 12:02:34 2022 -0600
+
+    changed room names
+
+commit 5b7338ec538819e45b0500ea36c350105c8e4f31
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Tue Oct 4 11:48:46 2022 -0600
+
+    Added ClueLayout.xlsx
+
+commit 5b84decea560c066fc0f39bebb1e807e4ce1cc7e
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Tue Oct 4 11:47:28 2022 -0600
+
+    added board csv file
+
+commit c237f8ad429edd6800de9c4ffc7c6d314ace0635
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Tue Oct 4 11:28:13 2022 -0600
+
+    ClueSetup.txt updated
+
+commit aef65ce8e0d188f7ee614590ef755fca83af3878
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Tue Oct 4 11:23:41 2022 -0600
+
+    Added ClueSetup.txt
+
+commit 0100c453fea8ea93a62b3550f015874545b66780
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Tue Oct 4 11:17:53 2022 -0600
+
+    Initial
