@@ -1,8 +1,8 @@
 package clueGame;
 
 public class Room {
-	private String name;
-	private BoardCell centerCell,labelCell;
+	private String name; // room name
+	private BoardCell centerCell,labelCell; // cell where center of room is, cell where label will be printed
 	
 	public Room(String name) {
 		this.name = name;
