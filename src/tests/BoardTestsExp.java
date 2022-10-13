@@ -1,13 +1,11 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.*;
 
 import java.util.Set;
 
-import experiment.TestBoard;
-import experiment.TestBoardCell;
+import experiment.*;
 
 public class BoardTestsExp {
 	TestBoard board;

@@ -182,4 +182,8 @@ public class Board {
 	public Room getRoom(BoardCell cell) {
 		return roomMap.get(cell.getInitial());
 	}
+	
+	public Set<BoardCell> getAdjList(int r, int c) {
+		return theInstance.getCell(r, c).getAdjList();
+	}
 }
