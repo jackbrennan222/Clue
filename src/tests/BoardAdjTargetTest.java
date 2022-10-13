@@ -23,8 +23,12 @@ public class BoardAdjTargetTest {
 	}
 	
 	@Test
-	public void testAdjacencyDoor()
-	{
+	public void testAdjacenciesRoom() {
+		
+	}
+	
+	@Test
+	public void testAdjacencyDoor() {
 		Set<BoardCell> testList = board.getAdjList(3, 7);
 		assertEquals(4, testList.size());
 		assertTrue(testList.contains(board.getCell(2, 7)));
@@ -45,5 +49,41 @@ public class BoardAdjTargetTest {
 		assertTrue(testList.contains(board.getCell(21, 19)));
 		assertTrue(testList.contains(board.getCell(22, 17)));
 		assertTrue(testList.contains(board.getCell(21, 16)));
+	}
+	
+	@Test
+	public void testAdjacencyWalkways() {
+		
+	}
+	
+	@Test
+	public void testTargetsInCTLM() {
+		
+	}
+	
+	@Test
+	public void testTargetsInKaffadar() {
+		
+	}
+	
+	@Test
+	public void testTargetsAtDoor() {
+		
+	}
+	
+	@Test
+	public void testTargetsInWalkway1() {
+		
+	}
+	
+	@Test
+	public void testTargetsInWalkway2() {
+		
+	}
+	
+	@Test
+	public void testTargetsOccupied() {
+		
+>>>>>>> 0e4e044362d309303ed46baedff5f5dabe9fc352
 	}
 }
