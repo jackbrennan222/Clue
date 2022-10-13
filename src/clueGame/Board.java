@@ -30,13 +30,13 @@ public class Board {
 		
 		try {
 			loadSetupConfig();
-			try {
-				loadLayoutConfig();
-			} catch (BadConfigFormatException e) {
-				e.printStackTrace();
-			}
+			loadLayoutConfig();
+		} catch (BadConfigFormatException e) {
+			e.printStackTrace();
+			return;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			return;
 		}
 		
 		for (int i = 0; i < numRows; i++) {
@@ -75,13 +75,14 @@ public class Board {
 		return numColumns;
 	}
 
-	public void loadSetupConfig() throws FileNotFoundException {
+	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader fr = new FileReader(setupConfigFile);
 		Scanner in = new Scanner(fr);
 		String line;
 		while ( in.hasNext() ) {
 			line = in.nextLine();
 			if (line.charAt(0) != '/') {
+				if (!line.substring(0, 4).equals("Room") && !line.substring(0, 5).equals("Space")) throw new BadConfigFormatException();
 				line = line.substring(line.indexOf(",") + 2, line.length());
 				roomMap.put(line.charAt(line.length() - 1), new Room(line.substring(0, line.indexOf(','))));
 			}
@@ -100,6 +101,7 @@ public class Board {
 		while (in.hasNext()) {
 			line = in.nextLine();
 			lineRay = line.split(",");
+			if (lineRay.length != numColumns) throw new BadConfigFormatException();
 			tempBoard.add(lineRay);
 		}
 		numRows = tempBoard.size();
@@ -107,6 +109,7 @@ public class Board {
 		in.close();
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
+				if (!roomMap.containsKey(tempBoard.get(i)[j].charAt(0))) throw new BadConfigFormatException();
 				grid[i][j] = new BoardCell(i, j);
 				grid[i][j].setInitial(tempBoard.get(i)[j].charAt(0));
 				if (tempBoard.get(i)[j].length() > 1) {
@@ -138,6 +141,7 @@ public class Board {
 				}
 			}
 		}
+		in.close();
 		
 	}
 	
