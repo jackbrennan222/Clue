@@ -4,20 +4,22 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BoardCell {
-	private int row,col;
-	private char initial,secretPassage;
-	private DoorDirection doorDirection;
-	private boolean roomLabel,roomCenter,isRoom,isOccupied;
-	private Set<BoardCell> adjList;
+	private int row,col; // location vars
+	private char initial,secretPassage; // characters to represent the room and possible secret passageways
+	private DoorDirection doorDirection; // enum to denote door direction
+	private boolean roomLabel,roomCenter,isRoom,isOccupied; // booleans to represent if a cell is a label, center, in a room, or occupied by a player
+	private Set<BoardCell> adjList; // the cell's list of adjacent cells
 	
+	// constructor
 	public BoardCell(int row, int col) {
 		this.row = row;
 		this.col = col;
 		adjList = new HashSet<BoardCell>();
-		this.roomLabel = this.roomCenter = this.isRoom = this.isOccupied = false;
-		this.doorDirection = DoorDirection.NONE;
+		this.roomLabel = this.roomCenter = this.isRoom = this.isOccupied = false; // assume false until changed
+		this.doorDirection = DoorDirection.NONE; // assume no door
 	}
 	
+	// add cell to adjList
 	public void addAdjacency(BoardCell cell) {
 		adjList.add(cell);
 	}
