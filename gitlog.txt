@@ -1,3 +1,27 @@
+commit 4176111cf01c5ef3715ecfae7e6226e97bfd91c7
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Oct 13 11:17:17 2022 -0600
+
+    Finished Commenting for C15A-1
+
+commit 69f7a21a91a170063c7555af5c2662f3a965a667
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Oct 12 21:53:00 2022 -0600
+
+    Finished Init 2 -No Comments
+
+commit fb758b653bdd768310c8ceaf9a1e5239c874a0e2
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Tue Oct 11 12:12:04 2022 -0600
+
+    Board Init Complete w/o BadConfigFormatException
+
+commit 801e8caff7c2958246bfea7666dda07af464cf60
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Mon Oct 10 23:26:38 2022 -0600
+
+    added tests for c14a-2
+
 commit df9ab58c2fe7c8a6b8dc0f433e4d30808b53d1af
 Author: Jack Brennan <jackbrennan222@gmail.com>
 Date:   Mon Oct 10 22:41:22 2022 -0600

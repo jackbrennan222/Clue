@@ -15,4 +15,49 @@ public class BoardAdjTargetTest {
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		board.initialize();
 	}
+	
+	@Test
+	public void testAdjacenciesRoom() {
+		
+	}
+	
+	@Test
+	public void testAdjacencyDoor() {
+		
+	}
+	
+	@Test
+	public void testAdjacencyWalkways() {
+		
+	}
+	
+	@Test
+	public void testTargetsInCTLM() {
+		
+	}
+	
+	@Test
+	public void testTargetsInKaffadar() {
+		
+	}
+	
+	@Test
+	public void testTargetsAtDoor() {
+		
+	}
+	
+	@Test
+	public void testTargetsInWalkway1() {
+		
+	}
+	
+	@Test
+	public void testTargetsInWalkway2() {
+		
+	}
+	
+	@Test
+	public void testTargetsOccupied() {
+		
+	}
 }
