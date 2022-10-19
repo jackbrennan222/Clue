@@ -1,3 +1,59 @@
+commit b73daa14fbe195fc99a12ba4ee217aebb16a45ce
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Fri Oct 14 20:03:31 2022 -0600
+
+    added comments and updated excel board file
+
+commit 1cb7a6b0bddfd8d14ff87c3715b233efc0341d47
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Thu Oct 13 21:58:09 2022 -0600
+
+    Same thing
+
+commit ddd3d43ac552005091c71eaa476cd3a8da1a8592
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Thu Oct 13 21:56:54 2022 -0600
+
+    Finished BoardAdjTargetTest -No Comment
+
+commit 79054f2aa2bcf274376e7b9d3e645339bcaee485
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Oct 13 12:00:15 2022 -0600
+
+    Class progress on BoardAdjTargetTest
+
+commit 6002fe591f6235fb70674514926eefdcee8d799e
+Merge: fa8d596 0e4e044
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Thu Oct 13 11:38:29 2022 -0600
+
+    merged
+
+commit fa8d596324677b6a62f05a3ea7a63ff2b374b4f3
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Thu Oct 13 11:35:54 2022 -0600
+
+    finished adj door test
+
+commit 0e4e044362d309303ed46baedff5f5dabe9fc352
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Oct 13 11:35:06 2022 -0600
+
+    BoardAdjTargetTest empty methods
+
+commit 2015d88714760b136f3843d0792cc1f74710e4d6
+Merge: 5f640bc 4176111
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Thu Oct 13 11:26:50 2022 -0600
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit 5f640bc8414f70490ecf1900a23974e2822e11b4
+Author: eswanson3 <eswanson1@mines.edu>
+Date:   Thu Oct 13 11:26:36 2022 -0600
+
+    added c15A-2 files
+
 commit 4176111cf01c5ef3715ecfae7e6226e97bfd91c7
 Author: jackbrennan222 <jbrennan@mines.edu>
 Date:   Thu Oct 13 11:17:17 2022 -0600

@@ -65,7 +65,7 @@ public class FileInitTest {
 				if (cell.isDoorway())
 					numDoors++;
 			}
-		assertEquals(8, numDoors);
+		assertEquals(9, numDoors);
 	}
 	
 	@Test

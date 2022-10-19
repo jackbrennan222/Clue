@@ -1,0 +1,1 @@
+The CTLM room has a door that opens left, the Alderson room has a door that opens down, the Kaff room has a door that opens right, the Library room has a door that opens up. CTLM is at the top and Kaff is at the bottom of ClueSetup.txt

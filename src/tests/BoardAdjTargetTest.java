@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Set;
 
 import org.junit.jupiter.api.*;
@@ -91,8 +92,8 @@ public class BoardAdjTargetTest {
 		// test walkway in between 2 rooms
 		testList = board.getAdjList(17, 2);
 		assertEquals(2, testList.size());
-		assertTrue(testList.contains(board.getCell(12, 1)));
-		assertTrue(testList.contains(board.getCell(12, 3)));
+		assertTrue(testList.contains(board.getCell(17, 1)));
+		assertTrue(testList.contains(board.getCell(17, 3)));
 	}
 	
 	// test targets in CTLM
@@ -113,16 +114,16 @@ public class BoardAdjTargetTest {
 		assertTrue(targets.contains(board.getCell(2, 7)));
 		assertTrue(targets.contains(board.getCell(4, 7)));
 		assertTrue(targets.contains(board.getCell(3, 8)));
-		assertTrue(targets.contains(board.getCell(21, 17)));
+		assertTrue(targets.contains(board.getCell(21, 19)));
 		
 		// tests a roll of 4 out of CTLM
 		board.calcTargets(board.getCell(3, 3), 4);
 		targets = board.getTargets();
-		assertEquals(9, targets.size());
+		assertEquals(7, targets.size());
 		assertTrue(targets.contains(board.getCell(1, 8)));
 		assertTrue(targets.contains(board.getCell(2, 7)));
 		assertTrue(targets.contains(board.getCell(3, 8)));
-		assertTrue(targets.contains(board.getCell(19, 17)));
+		assertTrue(targets.contains(board.getCell(21, 19)));
 	}
 	
 	// test targets in Kaff
@@ -140,7 +141,7 @@ public class BoardAdjTargetTest {
 		board.calcTargets(board.getCell(21, 19), 2);
 		targets = board.getTargets();
 		assertEquals(4, targets.size());
-		assertTrue(targets.contains(board.getCell(3, 7)));
+		assertTrue(targets.contains(board.getCell(3, 3)));
 		assertTrue(targets.contains(board.getCell(21, 16)));
 		assertTrue(targets.contains(board.getCell(20, 17)));
 		assertTrue(targets.contains(board.getCell(22, 17)));
@@ -148,11 +149,11 @@ public class BoardAdjTargetTest {
 		// tests a roll of 4 out of Kaff
 		board.calcTargets(board.getCell(21, 19), 4);
 		targets = board.getTargets();
-		assertEquals(11, targets.size());
+		assertEquals(8, targets.size());
 		assertTrue(targets.contains(board.getCell(24, 17)));
 		assertTrue(targets.contains(board.getCell(23, 16)));
-		assertTrue(targets.contains(board.getCell(1, 7)));
-		assertTrue(targets.contains(board.getCell(2, 8)));
+		assertTrue(targets.contains(board.getCell(3, 3)));
+		assertTrue(targets.contains(board.getCell(22, 17)));
 	}
 	
 	// test targets in door cells

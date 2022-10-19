@@ -84,7 +84,6 @@ public class BoardCell {
 		return secretPassage;
 	}
 
-
 	public int getRow() {
 		return row;
 	}
