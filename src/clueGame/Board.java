@@ -8,11 +8,15 @@ import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+/**
+ * @author Erik Swanson
+ * @author Jack Brennan
+ */
 public class Board {
 	private BoardCell[][] grid; // the board
 	private int numRows,numColumns; // numbers of rows and columns
 	private String layoutConfigFile,setupConfigFile; // filenames for the layout and setup files
-	private HashMap<Character, Room> roomMap; // a data structure to map room characters to room strings
+	private HashSet<Character> roomSet; // a data structure to map room characters to room strings
 	private HashMap<Character, Room> configMap;
 	private static Board theInstance = new Board(); // Singleton Pattern instance
 	private HashSet<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
@@ -26,7 +30,7 @@ public class Board {
 	}
 	
 	public void initialize() { // Singleton Pattern "Constructor"
-		roomMap = new HashMap<Character, Room>();
+		roomSet = new HashSet<Character>();
 		configMap = new HashMap<Character, Room>();
 		
 		try { // loading files and catching two different types of errors
@@ -39,7 +43,11 @@ public class Board {
 			e.printStackTrace();
 			return;
 		}
-		
+
+		setupAdjList();
+	}
+
+	public void setupAdjList() {
 		// iterate through board and add all of the adjacent cells
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
@@ -50,7 +58,7 @@ public class Board {
 						curCell.addAdjacency(roomCenter);
 						roomCenter.addAdjacency(curCell);
 					}
-					if (curCell.isRoom() && curCell.getSecretPassage() != '\u0000') {
+					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
 						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
 						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
 					}
@@ -64,7 +72,7 @@ public class Board {
 						curCell.addAdjacency(roomCenter);
 						roomCenter.addAdjacency(curCell);
 					}
-					if (curCell.isRoom() && curCell.getSecretPassage() != '\u0000') {
+					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
 						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
 						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
 					}
@@ -78,7 +86,7 @@ public class Board {
 						curCell.addAdjacency(roomCenter);
 						roomCenter.addAdjacency(curCell);
 					}
-					if (curCell.isRoom() && curCell.getSecretPassage() != '\u0000') {
+					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
 						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
 						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
 					}
@@ -92,7 +100,7 @@ public class Board {
 						curCell.addAdjacency(roomCenter);
 						roomCenter.addAdjacency(curCell);
 					}
-					if (curCell.isRoom() && curCell.getSecretPassage() != '\u0000') {
+					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
 						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
 						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
 					}
@@ -108,14 +116,6 @@ public class Board {
 		this.setupConfigFile = "./data/" + setupConfigFile;
 		this.layoutConfigFile = "./data/" + layoutConfigFile;
 	}
-	
-	public int getNumRows() {
-		return numRows;
-	}
-
-	public int getNumColumns() {
-		return numColumns;
-	}
 
 	// loading setup file and throwing exceptions when necessary
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
@@ -127,7 +127,7 @@ public class Board {
 			if (line.charAt(0) != '/') { // testing if line is a not a comment
 				if (line.substring(0, 4).equals("Room")) {
 					line = line.substring(line.indexOf(",") + 2, line.length()); // grab useful text
-					roomMap.put(line.charAt(line.length() - 1), new Room(line.substring(0, line.indexOf(',')))); // add room to map if not currently in map
+					roomSet.add(line.charAt(line.length() - 1)); // add room to map if not currently in map
 					configMap.put(line.charAt(line.length() - 1), new Room(line.substring(0, line.indexOf(',')))); // add room to map if not currently in map
 				} else if (line.substring(0, 5).equals("Space")) {
 					// TODO: figure out if we need walkways in set
@@ -169,7 +169,7 @@ public class Board {
 				if (!configMap.containsKey(tempBoard.get(i)[j].charAt(0))) throw new BadConfigFormatException(); // when to throw exception
 				grid[i][j] = new BoardCell(i, j); // new cell
 				grid[i][j].setInitial(tempBoard.get(i)[j].charAt(0)); // set initial
-				if (roomMap.containsKey(grid[i][j].getInitial())) {
+				if (roomSet.contains(grid[i][j].getInitial())) {
 					grid[i][j].setRoom(true);
 				}
 				if (tempBoard.get(i)[j].length() > 1) {
@@ -228,6 +228,14 @@ public class Board {
 		}
 	}
 	
+	public int getNumRows() {
+		return numRows;
+	}
+
+	public int getNumColumns() {
+		return numColumns;
+	}
+
 	public Set<BoardCell> getTargets() {
 		return targets;
 	}

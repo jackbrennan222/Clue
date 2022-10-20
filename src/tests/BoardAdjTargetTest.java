@@ -81,7 +81,7 @@ public class BoardAdjTargetTest {
 		assertEquals(1, testList.size());
 		assertTrue(testList.contains(board.getCell(23, 7)));
 		
-		// test walkway next to room but not door
+		// test walkway diagonal to room but not next to door
 		testList = board.getAdjList(7, 7);
 		assertEquals(4, testList.size());
 		assertTrue(testList.contains(board.getCell(6, 7)));
