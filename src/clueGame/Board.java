@@ -43,78 +43,7 @@ public class Board {
 			e.printStackTrace();
 			return;
 		}
-
 		setupAdjList();
-	}
-
-	public void setupAdjList() {
-		// iterate through board and add all of the adjacent cells
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numColumns; j++) {
-				BoardCell curCell = grid[i][j];
-				if (i - 1 >= 0) {
-					if (curCell.getDoorDirection() == DoorDirection.UP) {
-						BoardCell roomCenter = configMap.get(grid[i - 1][j].getInitial()).getCenterCell();
-						curCell.addAdjacency(roomCenter);
-						roomCenter.addAdjacency(curCell);
-					}
-					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
-						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
-						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
-					}
-					if (!grid[i - 1][j].isRoom() && !(grid[i - 1][j].getInitial() == 'X')) {
-						curCell.addAdjacency(grid[i - 1][j]);
-					}
-				}
-				if (i + 1 < numRows) {
-					if (curCell.getDoorDirection() == DoorDirection.DOWN) {
-						BoardCell roomCenter = configMap.get(grid[i + 1][j].getInitial()).getCenterCell();
-						curCell.addAdjacency(roomCenter);
-						roomCenter.addAdjacency(curCell);
-					}
-					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
-						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
-						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
-					}
-					if (!grid[i + 1][j].isRoom() && !(grid[i + 1][j].getInitial() == 'X')) {
-						curCell.addAdjacency(grid[i + 1][j]);
-					}
-				}
-				if (j - 1 >= 0) {
-					if (curCell.getDoorDirection() == DoorDirection.LEFT) {
-						BoardCell roomCenter = configMap.get(grid[i][j - 1].getInitial()).getCenterCell();
-						curCell.addAdjacency(roomCenter);
-						roomCenter.addAdjacency(curCell);
-					}
-					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
-						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
-						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
-					}
-					if (!grid[i][j - 1].isRoom() && !(grid[i][j - 1].getInitial() == 'X')) {
-						curCell.addAdjacency(grid[i][j - 1]);
-					}
-				}
-				if (j + 1 < numColumns) {
-					if (curCell.getDoorDirection() == DoorDirection.RIGHT) {
-						BoardCell roomCenter = configMap.get(grid[i][j + 1].getInitial()).getCenterCell();
-						curCell.addAdjacency(roomCenter);
-						roomCenter.addAdjacency(curCell);
-					}
-					if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
-						BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
-						roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
-					}
-					if (!grid[i][j + 1].isRoom() && !(grid[i][j + 1].getInitial() == 'X')) {
-						curCell.addAdjacency(grid[i][j + 1]);
-					}
-				}
-			}
-		}
-	}
-	
-	public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
-		this.setupConfigFile = "./data/" + setupConfigFile;
-		this.layoutConfigFile = "./data/" + layoutConfigFile;
 	}
 
 	// loading setup file and throwing exceptions when necessary
@@ -142,65 +71,116 @@ public class Board {
 		in.close();
 	}
 
-	// loading layout file and throwing exceptions when necessary
-	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
-		FileReader fr = new FileReader(layoutConfigFile);
-		Scanner in = new Scanner(fr);
-		String line = in.nextLine(); // current line
-		String[] lineRay = line.split(","); // current line split into an array
-		numColumns = lineRay.length;
-		ArrayList<String[]> tempBoard = new ArrayList<String[]>();
-		tempBoard.add(lineRay);
-		while (in.hasNext()) { // loop through csv file
-			line = in.nextLine();
-			lineRay = line.split(",");
-			if (lineRay.length != numColumns) {
-				in.close();
-				throw new BadConfigFormatException(); // when to throw an exception
-			}
+		// loading layout file and throwing exceptions when necessary
+		public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
+			FileReader fr = new FileReader(layoutConfigFile);
+			Scanner in = new Scanner(fr);
+			String line = in.nextLine(); // current line
+			String[] lineRay = line.split(","); // current line split into an array
+			numColumns = lineRay.length;
+			ArrayList<String[]> tempBoard = new ArrayList<String[]>();
 			tempBoard.add(lineRay);
-		}
-		numRows = tempBoard.size();
-		grid = new BoardCell[numRows][numColumns]; // initializing board with dimensions
-		in.close();
-		// iterate through board creating cells with correct attributes for each location
-		for (int i = 0; i < numRows; i++) {
-			for (int j = 0; j < numColumns; j++) {
-				if (!configMap.containsKey(tempBoard.get(i)[j].charAt(0))) throw new BadConfigFormatException(); // when to throw exception
-				grid[i][j] = new BoardCell(i, j); // new cell
-				grid[i][j].setInitial(tempBoard.get(i)[j].charAt(0)); // set initial
-				if (roomSet.contains(grid[i][j].getInitial())) {
-					grid[i][j].setRoom(true);
+			while (in.hasNext()) { // loop through csv file
+				line = in.nextLine();
+				lineRay = line.split(",");
+				if (lineRay.length != numColumns) {
+					in.close();
+					throw new BadConfigFormatException(); // when to throw an exception
 				}
-				if (tempBoard.get(i)[j].length() > 1) {
-					// this switch statement deals with special spaces (spaces with more attributes than name and location)
-					switch(tempBoard.get(i)[j].charAt(1)) {
-					case '#':
-						grid[i][j].setRoomLabel(true);
-						theInstance.getRoom(grid[i][j]).setLabelCell(grid[i][j]);
-						break;
-					case '*': 
-						grid[i][j].setRoomCenter(true);
-						theInstance.getRoom(grid[i][j]).setCenterCell(grid[i][j]);
-						break;
-					case '^': 
-						grid[i][j].setDoorDirection(DoorDirection.UP);
-						break;
-					case '>': 
-						grid[i][j].setDoorDirection(DoorDirection.RIGHT);
-						break;
-					case '<': 
-						grid[i][j].setDoorDirection(DoorDirection.LEFT);
-						break;
-					case 'v': 
-						grid[i][j].setDoorDirection(DoorDirection.DOWN);
-						break;
-					default:
-						grid[i][j].setSecretPassage(tempBoard.get(i)[j].charAt(1));
-						break;
+				tempBoard.add(lineRay);
+			}
+			numRows = tempBoard.size();
+			grid = new BoardCell[numRows][numColumns]; // initializing board with dimensions
+			in.close();
+			// iterate through board creating cells with correct attributes for each location
+			for (int i = 0; i < numRows; i++) {
+				for (int j = 0; j < numColumns; j++) {
+					if (!configMap.containsKey(tempBoard.get(i)[j].charAt(0))) throw new BadConfigFormatException(); // when to throw exception
+					grid[i][j] = new BoardCell(i, j); // new cell
+					grid[i][j].setInitial(tempBoard.get(i)[j].charAt(0)); // set initial
+					if (roomSet.contains(grid[i][j].getInitial())) {
+						grid[i][j].setRoom(true);
+					}
+					if (tempBoard.get(i)[j].length() > 1) {
+						// this switch statement deals with special spaces (spaces with more attributes than name and location)
+						switch(tempBoard.get(i)[j].charAt(1)) {
+						case '#':
+							grid[i][j].setRoomLabel(true);
+							theInstance.getRoom(grid[i][j]).setLabelCell(grid[i][j]);
+							break;
+						case '*': 
+							grid[i][j].setRoomCenter(true);
+							theInstance.getRoom(grid[i][j]).setCenterCell(grid[i][j]);
+							break;
+						case '^': 
+							grid[i][j].setDoorDirection(DoorDirection.UP);
+							break;
+						case '>': 
+							grid[i][j].setDoorDirection(DoorDirection.RIGHT);
+							break;
+						case '<': 
+							grid[i][j].setDoorDirection(DoorDirection.LEFT);
+							break;
+						case 'v': 
+							grid[i][j].setDoorDirection(DoorDirection.DOWN);
+							break;
+						default:
+							grid[i][j].setSecretPassage(tempBoard.get(i)[j].charAt(1));
+							break;
+						}
 					}
 				}
 			}
+		}
+
+	private void setupAdjList() {
+		// iterate through board and add all of the adjacent cells
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				BoardCell curCell = grid[i][j];
+				if (i - 1 >= 0) {
+					if (curCell.getDoorDirection() == DoorDirection.UP) {
+						BoardCell roomCenter = configMap.get(grid[i - 1][j].getInitial()).getCenterCell();
+						curCell.addAdjacency(roomCenter);
+						roomCenter.addAdjacency(curCell);
+					}
+					calcAdj(i - 1, j, curCell);
+				}
+				if (i + 1 < numRows) {
+					if (curCell.getDoorDirection() == DoorDirection.DOWN) {
+						BoardCell roomCenter = configMap.get(grid[i + 1][j].getInitial()).getCenterCell();
+						curCell.addAdjacency(roomCenter);
+						roomCenter.addAdjacency(curCell);
+					}
+					calcAdj(i + 1, j, curCell);
+				}
+				if (j - 1 >= 0) {
+					if (curCell.getDoorDirection() == DoorDirection.LEFT) {
+						BoardCell roomCenter = configMap.get(grid[i][j - 1].getInitial()).getCenterCell();
+						curCell.addAdjacency(roomCenter);
+						roomCenter.addAdjacency(curCell);
+					}
+					calcAdj(i, j - 1, curCell);
+				}
+				if (j + 1 < numColumns) {
+					if (curCell.getDoorDirection() == DoorDirection.RIGHT) {
+						BoardCell roomCenter = configMap.get(grid[i][j + 1].getInitial()).getCenterCell();
+						curCell.addAdjacency(roomCenter);
+						roomCenter.addAdjacency(curCell);
+					}
+					calcAdj(i, j + 1, curCell);
+				}
+			}
+		}
+	}
+
+	private void calcAdj(int i, int j, BoardCell curCell) {
+		if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
+			BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
+			roomCenter.addAdjacency(configMap.get(curCell.getSecretPassage()).getCenterCell());
+		}
+		if (grid[i][j].getInitial() == 'W') {
+			curCell.addAdjacency(grid[i][j]);
 		}
 	}
 	
@@ -226,6 +206,11 @@ public class Board {
 			}
 			visited.remove(adjCell);
 		}
+	}
+
+	public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
+		this.setupConfigFile = "./data/" + setupConfigFile;
+		this.layoutConfigFile = "./data/" + layoutConfigFile;
 	}
 	
 	public int getNumRows() {
