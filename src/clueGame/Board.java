@@ -30,8 +30,8 @@ public class Board {
 	}
 	
 	public void initialize() { // Singleton Pattern "Constructor"
-		roomSet = new HashSet<Character>();
-		configMap = new HashMap<Character, Room>();
+		roomSet = new HashSet<>();
+		configMap = new HashMap<>();
 		
 		try { // loading files and catching two different types of errors
 			loadSetupConfig();
@@ -50,21 +50,29 @@ public class Board {
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader fr = new FileReader(setupConfigFile);
 		Scanner in = new Scanner(fr);
-		String line; // a string to hold the line of text
 		while ( in.hasNext() ) { // loop through text file
-			line = in.nextLine(); // grab current line
-			if (line.charAt(0) != '/') { // testing if line is a not a comment
-				if (line.substring(0, 4).equals("Room")) {
-					line = line.substring(line.indexOf(",") + 2, line.length()); // grab useful text
-					roomSet.add(line.charAt(line.length() - 1)); // add room to map if not currently in map
-					configMap.put(line.charAt(line.length() - 1), new Room(line.substring(0, line.indexOf(',')))); // add room to map if not currently in map
-				} else if (line.substring(0, 5).equals("Space")) {
-					line = line.substring(line.indexOf(",") + 2, line.length()); // grab useful text
-					configMap.put(line.charAt(line.length() - 1), new Room(line.substring(0, line.indexOf(',')))); // add room to map if not currently in map
-				} else {
-					in.close();
-					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
-				}
+			String line = in.nextLine(); // grab current line
+			if (line.startsWith("//")) { continue; } // testing if line is a not a comment
+			if (line.indexOf(',') == -1) {
+				in.close();
+				throw new BadConfigFormatException();
+			}
+			String[] info = line.split(",");
+			if (info.length != 3) {
+				in.close();
+				throw new BadConfigFormatException();
+			}
+			String cellType = info[0].strip();
+			String cellName = info[1].strip();
+			char cellInitial = info[2].strip().charAt(0);
+			if (cellType.equals("Room")) {
+				roomSet.add(cellInitial); // add room to map if not currently in map
+				configMap.put(cellInitial, new Room(cellName)); // add room to map if not currently in map
+			} else if (line.startsWith("Space")) {
+				configMap.put(cellInitial, new Room(cellName)); // add room to map if not currently in map
+			} else {
+				in.close();
+				throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
 			}
 		}
 		in.close();
@@ -76,7 +84,6 @@ public class Board {
 		Scanner in = new Scanner(fr);
 		numColumns = -1;
 		ArrayList<BoardCell[]> boardAR = new ArrayList<>();
-		// tempBoard.add(lineRay);
 		while (in.hasNext()) { // loop through csv file
 			String line = in.nextLine();
 			String[] lineRay = line.split(",");
@@ -99,7 +106,7 @@ public class Board {
 				if (roomSet.contains(initial)) {
 					curCell.setRoom(true);
 				}
-				if (label.length() == 1) { continue; }
+				if (label.length() != 2) { continue; }
 				char modifier = label.charAt(1);
 				switch (modifier) {
 					case '#':
@@ -188,8 +195,8 @@ public class Board {
 	
 	// calculate targets based on a given cell and length to travel
 	public void calcTargets(BoardCell startCell, int pathLength) {
-		visited = new HashSet<BoardCell>();
-		targets = new HashSet<BoardCell>();
+		visited = new HashSet<>();
+		targets = new HashSet<>();
 		
 		visited.add(startCell);
 		
