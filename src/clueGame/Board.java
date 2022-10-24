@@ -37,10 +37,10 @@ public class Board {
 			loadSetupConfig();
 			loadLayoutConfig();
 		} catch (BadConfigFormatException e) {
-			e.printStackTrace();
+			System.out.println(e);
 			return;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 			return;
 		}
 		setupAdjList();
@@ -63,7 +63,7 @@ public class Board {
 					configMap.put(line.charAt(line.length() - 1), new Room(line.substring(0, line.indexOf(',')))); // add room to map if not currently in map
 				} else {
 					in.close();
-					throw new BadConfigFormatException(); // situation when we will throw an exception
+					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
 				}
 			}
 		}
@@ -84,7 +84,7 @@ public class Board {
 			lineRay = line.split(",");
 			if (lineRay.length != numColumns) {
 				in.close();
-				throw new BadConfigFormatException(); // when to throw an exception
+				throw new BadConfigFormatException("layout file lines are not equal length"); // when to throw an exception
 			}
 			BoardCell[] row = new BoardCell[numColumns];
 			for (int i = 0; i < numColumns; i++) {
@@ -128,7 +128,7 @@ public class Board {
 		// iterate through board creating cells with correct attributes for each location
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
-				if (!configMap.containsKey(tempBoard.get(i)[j].charAt(0))) throw new BadConfigFormatException(); // when to throw exception
+				if (!configMap.containsKey(tempBoard.get(i)[j].charAt(0))) throw new BadConfigFormatException("layout file room not present in setup file"); // when to throw exception
 				grid[i][j] = new BoardCell(i, j); // new cell
 				grid[i][j].setInitial(tempBoard.get(i)[j].charAt(0)); // set initial
 				if (roomSet.contains(grid[i][j].getInitial())) {
