@@ -1,1 +1,4 @@
-Jack Brennan and Erik Swanson
+Jack Brennan
+Erik Swanson
+
+Section B
