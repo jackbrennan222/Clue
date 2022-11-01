@@ -20,6 +20,9 @@ public class Board {
 	private HashMap<Character, Room> configMap;
 	private static Board theInstance = new Board(); // Singleton Pattern instance
 	private HashSet<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
+	private Player[] players; 
+	private Solution theAnswer;
+	private Card[] deck;
 	
 	private Board() {
 		super();
@@ -248,5 +251,17 @@ public class Board {
 	
 	public Set<BoardCell> getAdjList(int r, int c) {
 		return theInstance.getCell(r, c).getAdjList();
+	}
+	
+	public Card[] getDeck() {
+		return deck;
+	}
+	
+	public Player[] getPlayers() {
+		return players;
+	}
+	
+	public Solution getTheAnswer() {
+		return theAnswer;
 	}
 }
