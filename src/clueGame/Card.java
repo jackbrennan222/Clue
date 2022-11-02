@@ -8,8 +8,13 @@ public class Card {
 		
 	}
 	
+	public Card(String name, CardType cardType) {
+		this.cardName = name;
+		this.cardType = cardType;
+	}
+	
 	public boolean equals(Card target) {
-		return true;
+		return false;
 	}
 	
 	public CardType getCardType() {

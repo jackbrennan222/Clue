@@ -35,6 +35,9 @@ public class Board {
 	public void initialize() { // Singleton Pattern "Constructor"
 		roomSet = new HashSet<>();
 		configMap = new HashMap<>();
+		players = new ArrayList<Player>();
+		deck = new ArrayList<Card>();
+		theAnswer = new Solution(new Card("", CardType.PERSON), new Card("", CardType.ROOM), new Card("", CardType.WEAPON));
 		
 		try { // loading files and catching two different types of errors
 			loadSetupConfig();

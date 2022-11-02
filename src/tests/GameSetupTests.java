@@ -2,8 +2,8 @@ package tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -27,9 +27,18 @@ public class GameSetupTests {
     @Test
     void playersTest() {
         ArrayList<Player> players = board.getPlayers();
-
-
         assertEquals(players.size(), 6);
+        
+        int humans = 0;
+        int robots = 0;
+        
+        for (Player p : players) {
+        	if (p.getClass() == new HumanPlayer().getClass()) { humans++; }
+        	else if (p.getClass() == new ComputerPlayer().getClass()) { robots++; }
+        }
+        
+        assertEquals(humans, 1);
+        assertEquals(robots, 5);
     }
 
     @Test
@@ -54,7 +63,14 @@ public class GameSetupTests {
 
     @Test
     void testSolution() {
-
+        Solution ans = board.getTheAnswer();
+        assertTrue(ans.getPerson().equals(new Card("", CardType.PERSON)));
+        assertTrue(ans.getRoom().equals(new Card("", CardType.ROOM)));
+        assertTrue(ans.getWeapon().equals(new Card("", CardType.WEAPON)));
     }
-
+    
+    @Test
+    void testPlayerHands() {
+    	
+    }
 }
