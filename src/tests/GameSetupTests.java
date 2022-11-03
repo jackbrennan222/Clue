@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.*;
 
@@ -72,13 +73,11 @@ public class GameSetupTests {
     void testPlayerHands() {
     	ArrayList<Player> players = board.getPlayers();
         assertEquals(players.size(), 6);
-        for (int i = 0; i < players.size() - 1; i++) {
-            Player p1 = players.get(i);
-            Player p2 = players.get(i + 1);
-            ArrayList<Card> p1Hand = p1.getHand();
-            ArrayList<Card> p2Hand = p2.getHand();
-            for (Card c : p1Hand) {
-                assertFalse(p2Hand.contains(c));
+        HashSet<Card> cardSet = new HashSet<Card>();
+        for (Player p : players) {
+            for (Card c : p.getHand()) {
+            	assertFalse(cardSet.contains(c));
+            	cardSet.add(c);
             }
         }
     }
