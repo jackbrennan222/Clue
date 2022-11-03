@@ -9,7 +9,7 @@ public abstract class Player {
 	private int row,col;
 	private ArrayList<Card> hand;
 	
-	public Player() {
+	public Player(String name, Color color) {
 		hand = new ArrayList<Card>();
 	}
 	

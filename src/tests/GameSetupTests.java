@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.jupiter.api.*;
 
 import clueGame.*;
@@ -32,8 +33,8 @@ public class GameSetupTests {
         int robots = 0;
         
         for (Player p : players) {
-        	if (p.getClass() == new HumanPlayer().getClass()) { humans++; }
-        	else if (p.getClass() == new ComputerPlayer().getClass()) { robots++; }
+        	if (p instanceof HumanPlayer) { humans++; }
+        	else if (p instanceof ComputerPlayer) { robots++; }
         }
         
         assertEquals(humans, 1);

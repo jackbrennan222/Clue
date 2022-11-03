@@ -7,6 +7,7 @@ import java.util.Scanner;
 import java.util.Set;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.awt.Color;
 
 /**
  * @author Erik Swanson
@@ -38,7 +39,7 @@ public class Board {
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
 		theAnswer = new Solution(new Card("", CardType.PERSON), new Card("", CardType.ROOM), new Card("", CardType.WEAPON));
-		
+
 		try { // loading files and catching two different types of errors
 			loadSetupConfig();
 			loadLayoutConfig();
@@ -64,22 +65,71 @@ public class Board {
 				throw new BadConfigFormatException();
 			}
 			String[] info = line.split(",");
-			if (info.length != 3) {
+			if (info.length == 2) {
+				String type = info[0].strip();
+				String name = info[1].strip();
+				if (type.equals("Weapon")) {
+					Card weapon = new Card(name, CardType.WEAPON);
+					deck.add(weapon);
+				} else {
+					in.close();
+					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
+				}
+			} else if (info.length == 3) {
+				String type = info[0].strip();
+				String name = info[1].strip();
+				String extra = info[2].strip();
+				if (type.equals("Room")) {
+					roomSet.add(extra.charAt(0)); // add room to map if not currently in map
+					configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
+				} else if (type.equals("Space")) {
+					configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
+				} else if (type.equals("Human")) {
+					Color color;
+					switch (extra.toLowerCase()) {
+						case "red":
+							color = Color.RED;
+							break;
+						default:
+							in.close();
+							throw new BadConfigFormatException("bad color input");
+					}
+					Player player = new HumanPlayer(name, color);
+					players.add(player);
+				} else if (type.equals("Computer")) {
+					Color color;
+					switch (extra.toLowerCase()) {
+						case "red":
+							color = Color.RED;
+							break;
+						default:
+							in.close();
+							throw new BadConfigFormatException("bad color input");
+					}
+					Player player = new ComputerPlayer(name, color);
+					players.add(player);
+				}else {
+					in.close();
+					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
+				}
+			} else {
 				in.close();
 				throw new BadConfigFormatException();
 			}
-			String cellType = info[0].strip();
-			String cellName = info[1].strip();
-			char cellInitial = info[2].strip().charAt(0);
-			if (cellType.equals("Room")) {
-				roomSet.add(cellInitial); // add room to map if not currently in map
-				configMap.put(cellInitial, new Room(cellName)); // add room to map if not currently in map
-			} else if (line.startsWith("Space")) {
-				configMap.put(cellInitial, new Room(cellName)); // add room to map if not currently in map
-			} else {
-				in.close();
-				throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
-			}
+			// String cellType = info[0].strip();
+			// String cellName = info[1].strip();
+			// String cellInitial = info[2].strip();
+			// if (cellType.equals("Room")) {
+			// 	roomSet.add(cellInitial.charAt(0)); // add room to map if not currently in map
+			// 	configMap.put(cellInitial.charAt(0), new Room(cellName)); // add room to map if not currently in map
+			// } else if (cellType.equals("Space")) {
+			// 	configMap.put(cellInitial.charAt(0), new Room(cellName)); // add room to map if not currently in map
+			// } else if (cellType.equals("Human")) {
+			// 	Player player = new HumanPlayer(cellName, null);
+			// } else {
+			// 	in.close();
+			// 	throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
+			// }
 		}
 		in.close();
 	}

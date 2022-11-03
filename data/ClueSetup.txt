@@ -11,3 +11,16 @@ Room, Kaff, K
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
+// Weapons and players
+Weapon, Weapon1
+Weapon, Weapon2
+Weapon, Weapon3
+Weapon, Weapon4
+Weapon, Weapon5
+Weapon, Weapon6
+Human, Name1, Red
+Computer, Name2, Red
+Computer, Name3, Red
+Computer, Name4, Red
+Computer, Name5, Red
+Computer, Name6, Red
