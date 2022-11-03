@@ -2,6 +2,7 @@ package clueGame;
 
 import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
@@ -38,7 +39,6 @@ public class Board {
 		configMap = new HashMap<>();
 		players = new ArrayList<Player>();
 		deck = new ArrayList<Card>();
-		theAnswer = new Solution(new Card("", CardType.PERSON), new Card("", CardType.ROOM), new Card("", CardType.WEAPON));
 
 		try { // loading files and catching two different types of errors
 			loadSetupConfig();
@@ -51,6 +51,7 @@ public class Board {
 			return;
 		}
 		setupAdjList();
+		theAnswer = createSolution();
 	}
 
 	// loading setup file and throwing exceptions when necessary
@@ -82,6 +83,7 @@ public class Board {
 				if (type.equals("Room")) {
 					roomSet.add(extra.charAt(0)); // add room to map if not currently in map
 					configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
+					deck.add(new Card(name, CardType.ROOM));
 				} else if (type.equals("Space")) {
 					configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
 				} else if (type.equals("Human")) {
@@ -96,6 +98,7 @@ public class Board {
 					}
 					Player player = new HumanPlayer(name, color);
 					players.add(player);
+					deck.add(new Card(name, CardType.PERSON));
 				} else if (type.equals("Computer")) {
 					Color color;
 					switch (extra.toLowerCase()) {
@@ -108,6 +111,7 @@ public class Board {
 					}
 					Player player = new ComputerPlayer(name, color);
 					players.add(player);
+					deck.add(new Card(name, CardType.PERSON));
 				}else {
 					in.close();
 					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
@@ -116,20 +120,6 @@ public class Board {
 				in.close();
 				throw new BadConfigFormatException();
 			}
-			// String cellType = info[0].strip();
-			// String cellName = info[1].strip();
-			// String cellInitial = info[2].strip();
-			// if (cellType.equals("Room")) {
-			// 	roomSet.add(cellInitial.charAt(0)); // add room to map if not currently in map
-			// 	configMap.put(cellInitial.charAt(0), new Room(cellName)); // add room to map if not currently in map
-			// } else if (cellType.equals("Space")) {
-			// 	configMap.put(cellInitial.charAt(0), new Room(cellName)); // add room to map if not currently in map
-			// } else if (cellType.equals("Human")) {
-			// 	Player player = new HumanPlayer(cellName, null);
-			// } else {
-			// 	in.close();
-			// 	throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
-			// }
 		}
 		in.close();
 	}
@@ -247,6 +237,30 @@ public class Board {
 		if (grid[i][j].getInitial() == 'W') {
 			curCell.addAdjacency(grid[i][j]);
 		}
+	}
+
+	private Solution createSolution() {
+		Collections.sort(deck);
+		int numRooms = roomSet.size();
+		int numPersons = players.size();
+		int numWeapons = deck.size() - numPersons - numRooms;
+		
+		if (numPersons < 1 || numWeapons < 1) {
+			return new Solution(null, null, null);
+		}
+		
+		Card solRoom, solPerson, solWeapon;
+		
+		int randRoom = (int)(Math.random() * (numRooms - 1));
+		solRoom = deck.get(randRoom);
+		
+		int randPerson = numRooms + (int)(Math.random() * (numPersons - 1));
+		solPerson = deck.get(randPerson);
+		
+		int randWeapon = numRooms + numPersons + (int)(Math.random() * (numWeapons - 1));
+		solWeapon = deck.get(randWeapon);
+		
+		return new Solution(solRoom, solPerson, solWeapon);
 	}
 	
 	// calculate targets based on a given cell and length to travel

@@ -65,9 +65,9 @@ public class GameSetupTests {
     @Test
     void testSolution() {
         Solution ans = board.getTheAnswer();
-        assertTrue(ans.getPerson().equals(new Card("", CardType.PERSON)));
-        assertTrue(ans.getRoom().equals(new Card("", CardType.ROOM)));
-        assertTrue(ans.getWeapon().equals(new Card("", CardType.WEAPON)));
+        assertTrue(ans.getPerson().getCardType() == CardType.PERSON);
+        assertTrue(ans.getRoom().getCardType() == CardType.ROOM);
+        assertTrue(ans.getWeapon().getCardType() == CardType.WEAPON);
     }
     
     @Test
