@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
+
+import javax.swing.text.AttributeSet.ColorAttribute;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.awt.Color;
@@ -25,6 +28,8 @@ public class Board {
 	private ArrayList<Player> players; 
 	private Solution theAnswer;
 	private ArrayList<Card> deck;
+
+	private HashMap<String, Color> colorMap = new HashMap<>();
 	
 	private Board() {
 		super();
@@ -58,6 +63,7 @@ public class Board {
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader fr = new FileReader(setupConfigFile);
 		Scanner in = new Scanner(fr);
+		fillColorMap();
 		while ( in.hasNext() ) { // loop through text file
 			String line = in.nextLine(); // grab current line
 			if (line.startsWith("//")) { continue; } // testing if line is a not a comment
@@ -87,28 +93,20 @@ public class Board {
 				} else if (type.equals("Space")) {
 					configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
 				} else if (type.equals("Human")) {
-					Color color;
-					switch (extra.toLowerCase()) {
-						case "red":
-							color = Color.RED;
-							break;
-						default:
-							in.close();
-							throw new BadConfigFormatException("bad color input");
+					if (!colorMap.containsKey(extra.toLowerCase())) {
+						in.close();
+						throw new BadConfigFormatException("bad color input");
 					}
+					Color color = colorMap.get(extra.toLowerCase());
 					Player player = new HumanPlayer(name, color);
 					players.add(player);
 					deck.add(new Card(name, CardType.PERSON));
 				} else if (type.equals("Computer")) {
-					Color color;
-					switch (extra.toLowerCase()) {
-						case "red":
-							color = Color.RED;
-							break;
-						default:
-							in.close();
-							throw new BadConfigFormatException("bad color input");
+					if (!colorMap.containsKey(extra.toLowerCase())) {
+						in.close();
+						throw new BadConfigFormatException("bad color input");
 					}
+					Color color = colorMap.get(extra.toLowerCase());
 					Player player = new ComputerPlayer(name, color);
 					players.add(player);
 					deck.add(new Card(name, CardType.PERSON));
@@ -122,6 +120,22 @@ public class Board {
 			}
 		}
 		in.close();
+	}
+
+	private void fillColorMap() {
+		colorMap.put("red", Color.RED);
+		colorMap.put("green", Color.GREEN);
+		colorMap.put("blue", Color.BLUE);
+		colorMap.put("yellow", Color.YELLOW);
+		colorMap.put("magenta", Color.MAGENTA);
+		colorMap.put("cyan", Color.CYAN);
+		colorMap.put("black", Color.BLACK);
+		colorMap.put("white", Color.WHITE);
+		colorMap.put("gray", Color.GRAY);
+		colorMap.put("light_gray", Color.LIGHT_GRAY);
+		colorMap.put("dark_gray", Color.DARK_GRAY);
+		colorMap.put("orange", Color.ORANGE);
+		colorMap.put("pink", Color.PINK);
 	}
 
 	// loading layout file and throwing exceptions when necessary
