@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import org.junit.jupiter.api.*;
 
@@ -71,6 +70,16 @@ public class GameSetupTests {
     
     @Test
     void testPlayerHands() {
-    	
+    	ArrayList<Player> players = board.getPlayers();
+        assertEquals(players.size(), 6);
+        for (int i = 0; i < players.size() - 1; i++) {
+            Player p1 = players.get(i);
+            Player p2 = players.get(i + 1);
+            ArrayList<Card> p1Hand = p1.getHand();
+            ArrayList<Card> p2Hand = p2.getHand();
+            for (Card c : p1Hand) {
+                assertFalse(p2Hand.contains(c));
+            }
+        }
     }
 }
