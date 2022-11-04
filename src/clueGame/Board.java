@@ -25,20 +25,19 @@ public class Board {
 	private HashMap<Character, Room> configMap;
 	private static Board theInstance = new Board(); // Singleton Pattern instance
 	private HashSet<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
-	private ArrayList<Player> players; 
-	private Solution theAnswer;
-	private ArrayList<Card> deck;
+	private ArrayList<Player> players; // ArrayList to store the players
+	private Solution theAnswer; // Solution instance to hold the referential answer to the game
+	private ArrayList<Card> deck; // ArrayList to hold all of the cards
 
-	private HashMap<String, Color> colorMap = new HashMap<>();
+	private HashMap<String, Color> colorMap = new HashMap<>(); // Map to switch strings to awt.colors objects
 	
 	private Board() {
 		super();
 	}
 	
-	public static Board getInstance() {
-		return theInstance;
-	}
-	
+	/**
+	 * a faux constructor 
+	 */
 	public void initialize() { // Singleton Pattern "Constructor"
 		roomSet = new HashSet<>();
 		configMap = new HashMap<>();
@@ -59,7 +58,12 @@ public class Board {
 		theAnswer = createSolution();
 	}
 
-	// loading setup file and throwing exceptions when necessary
+	/**
+	 * loading setup file and throwing exceptions when necessary
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws BadConfigFormatException
+	 */
 	public void loadSetupConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader fr = new FileReader(setupConfigFile);
 		Scanner in = new Scanner(fr);
@@ -95,33 +99,36 @@ public class Board {
 				} else if (type.equals("Human")) {
 					if (!colorMap.containsKey(extra.toLowerCase())) {
 						in.close();
-						throw new BadConfigFormatException("bad color input");
+						throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
 					}
 					Color color = colorMap.get(extra.toLowerCase());
 					Player player = new HumanPlayer(name, color);
-					players.add(player);
-					deck.add(new Card(name, CardType.PERSON));
+					players.add(player); // add new player to game
+					deck.add(new Card(name, CardType.PERSON)); // add new card for the person
 				} else if (type.equals("Computer")) {
-					if (!colorMap.containsKey(extra.toLowerCase())) {
+					if (!colorMap.containsKey(extra.toLowerCase())) { 
 						in.close();
-						throw new BadConfigFormatException("bad color input");
+						throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
 					}
 					Color color = colorMap.get(extra.toLowerCase());
 					Player player = new ComputerPlayer(name, color);
-					players.add(player);
-					deck.add(new Card(name, CardType.PERSON));
+					players.add(player); // add new computer player to the game
+					deck.add(new Card(name, CardType.PERSON)); // add new card for the person
 				}else {
 					in.close();
 					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
 				}
 			} else {
 				in.close();
-				throw new BadConfigFormatException();
+				throw new BadConfigFormatException(); // situation when we will throw an exception
 			}
 		}
 		in.close();
 	}
 
+	/**
+	 * used to initiate the colorMap data structure
+	 */
 	private void fillColorMap() {
 		colorMap.put("red", Color.RED);
 		colorMap.put("green", Color.GREEN);
@@ -138,7 +145,12 @@ public class Board {
 		colorMap.put("pink", Color.PINK);
 	}
 
-	// loading layout file and throwing exceptions when necessary
+	/**
+	 * loading layout file and throwing exceptions when necessary
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws BadConfigFormatException
+	 */
 	public void loadLayoutConfig() throws FileNotFoundException, BadConfigFormatException {
 		FileReader fr = new FileReader(layoutConfigFile);
 		Scanner in = new Scanner(fr);
@@ -202,6 +214,9 @@ public class Board {
 		boardAR.toArray(grid);
 	}
 
+	/**
+	 * setup list for all cells mapped to a list of their adjacent cells
+	 */
 	private void setupAdjList() {
 		// iterate through board and add all of the adjacent cells
 		for (int i = 0; i < numRows; i++) {
@@ -243,6 +258,13 @@ public class Board {
 		}
 	}
 
+	/**
+	 * calculate adjacent cells
+	 * 
+	 * @param i
+	 * @param j
+	 * @param curCell
+	 */
 	private void calcAdj(int i, int j, BoardCell curCell) {
 		if (curCell.isRoom() && roomSet.contains(curCell.getSecretPassage())) {
 			BoardCell roomCenter = configMap.get(curCell.getInitial()).getCenterCell();
@@ -253,18 +275,25 @@ public class Board {
 		}
 	}
 
+	/**
+	 * create the solution
+	 * 
+	 * @return a randomly selected Solution object
+	 */
 	private Solution createSolution() {
 		Collections.sort(deck);
 		int numRooms = roomSet.size();
 		int numPersons = players.size();
 		int numWeapons = deck.size() - numPersons - numRooms;
 		
+		// incorrect conditions to generate an answer
 		if (numPersons < 1 || numWeapons < 1) {
 			return new Solution(null, null, null);
 		}
 		
 		Card solRoom, solPerson, solWeapon;
 		
+		// randomly indexed cards for all three CardTypes
 		int randRoom = (int)(Math.random() * (numRooms - 1));
 		solRoom = deck.get(randRoom);
 		
@@ -277,7 +306,12 @@ public class Board {
 		return new Solution(solRoom, solPerson, solWeapon);
 	}
 	
-	// calculate targets based on a given cell and length to travel
+	/**
+	 * calculate targets based on a given cell and length to travel
+	 * 
+	 * @param startCell
+	 * @param pathLength
+	 */
 	public void calcTargets(BoardCell startCell, int pathLength) {
 		visited = new HashSet<>();
 		targets = new HashSet<>();
@@ -287,7 +321,12 @@ public class Board {
 		findAllTargets(startCell, pathLength);
 	}
 	
-	// recursive method to create an adjacency list
+	/**
+	 * recursive method to create an adjacency list
+	 * 
+	 * @param thisCell
+	 * @param numSteps
+	 */
 	private void findAllTargets(BoardCell thisCell, int numSteps) {
 		for (BoardCell adjCell : thisCell.getAdjList()) {
 			if (visited.contains(adjCell) || (adjCell.isOccupied() && !adjCell.isRoom())) continue; // don't add visited/occupied cells
@@ -300,10 +339,17 @@ public class Board {
 			visited.remove(adjCell);
 		}
 	}
-
+	// setters
+	
 	public void setConfigFiles(String layoutConfigFile, String setupConfigFile) {
 		this.setupConfigFile = "./data/" + setupConfigFile;
 		this.layoutConfigFile = "./data/" + layoutConfigFile;
+	}
+	
+	// getters
+
+	public static Board getInstance() {
+		return theInstance;
 	}
 	
 	public int getNumRows() {
