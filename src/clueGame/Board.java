@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ public class Board {
 		}
 		setupAdjList();
 		theAnswer = createSolution();
+		dealCards();
 	}
 
 	/**
@@ -302,8 +304,30 @@ public class Board {
 		
 		int randWeapon = numRooms + numPersons + (int)(Math.random() * (numWeapons - 1));
 		solWeapon = deck.get(randWeapon);
+
+		// deck.remove(solRoom);
+		// deck.remove(solPerson);
+		// deck.remove(solWeapon);
 		
 		return new Solution(solRoom, solPerson, solWeapon);
+	}
+
+	private void dealCards() {
+		if (players.size() < 1) { return; }
+		ArrayList<Card> cardsAval = (ArrayList<Card>) deck.clone();
+		cardsAval.remove(theAnswer.getRoom());
+		cardsAval.remove(theAnswer.getPerson());
+		cardsAval.remove(theAnswer.getWeapon());
+		int size = cardsAval.size();
+		for (int i = 0; i < size; i++) {
+			int playerPos = i % players.size();
+			Player player = players.get(playerPos);
+			Random rand = new Random();
+			int index = rand.nextInt(cardsAval.size());
+			Card card = cardsAval.get(index);
+			player.updateHand(card);
+			cardsAval.remove(card);
+		}
 	}
 	
 	/**

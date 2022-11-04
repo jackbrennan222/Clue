@@ -9,9 +9,9 @@ public class ComputerPlayer extends Player {
 	}
 	
 	@Override
-	public void updateHand() {
+	public void updateHand(Card card) {
 		// TODO Auto-generated method stub
-
+		hand.add(card);
 	}
 
 }
