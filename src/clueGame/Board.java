@@ -57,7 +57,7 @@ public class Board {
 		}
 		setupAdjList();
 		theAnswer = createSolution();
-		dealCards();
+		deal();
 	}
 
 	/**
@@ -312,7 +312,7 @@ public class Board {
 		return new Solution(solRoom, solPerson, solWeapon);
 	}
 
-	private void dealCards() {
+	private void deal() {
 		if (players.size() < 1) { return; }
 		ArrayList<Card> cardsAval = (ArrayList<Card>) deck.clone();
 		cardsAval.remove(theAnswer.getRoom());
@@ -328,6 +328,14 @@ public class Board {
 			player.updateHand(card);
 			cardsAval.remove(card);
 		}
+	}
+
+	public boolean checkAccusation(Card room, Card person, Card weapon) {
+		return room == theAnswer.getRoom() && person == theAnswer.getPerson() && weapon == theAnswer.getPerson();
+	}
+
+	public Card handleSuggestion() {
+		return new Card();
 	}
 	
 	/**

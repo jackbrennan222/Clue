@@ -1,6 +1,6 @@
 package clueGame;
 
-public class Card implements Comparable {
+public class Card implements Comparable<Card> {
 	private String cardName;
 	private CardType cardType;
 	
@@ -14,7 +14,7 @@ public class Card implements Comparable {
 	}
 	
 	public boolean equals(Card target) {
-		return false;
+		return target.cardName == cardName && target.cardType == cardType;
 	}
 	
 	public CardType getCardType() {
@@ -22,8 +22,7 @@ public class Card implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		return this.cardType.compareTo(((Card) o).getCardType());
+	public int compareTo(Card c) {
+		return this.cardType.compareTo(c.getCardType());
 	}
-
 }
