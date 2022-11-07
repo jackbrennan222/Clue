@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
-import javax.swing.text.AttributeSet.ColorAttribute;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.awt.Color;
@@ -304,29 +302,24 @@ public class Board {
 		
 		int randWeapon = numRooms + numPersons + (int)(Math.random() * (numWeapons - 1));
 		solWeapon = deck.get(randWeapon);
-
-		// deck.remove(solRoom);
-		// deck.remove(solPerson);
-		// deck.remove(solWeapon);
 		
 		return new Solution(solRoom, solPerson, solWeapon);
 	}
 
 	private void deal() {
 		if (players.size() < 1) { return; }
-		ArrayList<Card> cardsAval = (ArrayList<Card>) deck.clone();
-		cardsAval.remove(theAnswer.getRoom());
-		cardsAval.remove(theAnswer.getPerson());
-		cardsAval.remove(theAnswer.getWeapon());
-		int size = cardsAval.size();
-		for (int i = 0; i < size; i++) {
+		ArrayList<Card> cardsAvailable = new ArrayList<Card>(deck);
+		cardsAvailable.remove(theAnswer.getRoom());
+		cardsAvailable.remove(theAnswer.getPerson());
+		cardsAvailable.remove(theAnswer.getWeapon());
+		for (int i = cardsAvailable.size(); i > 0; i--) {
 			int playerPos = i % players.size();
 			Player player = players.get(playerPos);
 			Random rand = new Random();
-			int index = rand.nextInt(cardsAval.size());
-			Card card = cardsAval.get(index);
+			int index = rand.nextInt(cardsAvailable.size());
+			Card card = cardsAvailable.get(index);
 			player.updateHand(card);
-			cardsAval.remove(card);
+			cardsAvailable.remove(card);
 		}
 	}
 
