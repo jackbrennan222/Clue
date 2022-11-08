@@ -327,9 +327,10 @@ public class Board {
 		return room.equals(theAnswer.getRoom()) && person.equals(theAnswer.getPerson()) && weapon.equals(theAnswer.getWeapon());
 	}
 
-	public Card handleSuggestion(Card room, Card person, Card weapon) {
+	public Card handleSuggestion(Player player, Solution suggestion) {
 		for (Player p : players) {
-			Card dispute = p.disproveSuggestion(room, person, weapon);
+			if (p.equals(player)) { continue; }
+			Card dispute = p.disproveSuggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
 			if (dispute != null) {
 				return dispute;
 			}

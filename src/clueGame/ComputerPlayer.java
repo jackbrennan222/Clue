@@ -16,10 +16,6 @@ public class ComputerPlayer extends Player {
 		return;
 	}
 
-	public Card disproveSuggestion() {
-		return new Card();
-	}
-
 	public Solution createSuggestion() {
 		return new Solution(null, null, null);
 	}

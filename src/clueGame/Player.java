@@ -22,7 +22,9 @@ public abstract class Player {
 
 	public abstract void updateHand(Card card);
 
-	public abstract void updateSeen(Card card);
+	public void updateSeen(Card card) {
+		seenCards.add(card);
+	}
 
 	public Card disproveSuggestion(Card room, Card person, Card weapon) {
 		ArrayList<Card> matches = new ArrayList<>();
@@ -34,6 +36,9 @@ public abstract class Player {
 		}
 		if (hand.contains(weapon)) {
 			matches.add(weapon);
+		}
+		if (matches.isEmpty()) {
+			return null;
 		}
 		Random rand = new Random();
 		return matches.get(rand.nextInt(matches.size()));

@@ -15,8 +15,4 @@ public class HumanPlayer extends Player {
 	public void updateSeen(Card card) {
 		return;
 	}
-
-	public Card disproveSuggestion() {
-		return new Card();
-	}
 }
