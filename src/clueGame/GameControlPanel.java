@@ -73,6 +73,7 @@ public class GameControlPanel extends JPanel {
 	
 	public void setTurn(Player player, int roll) {
 		turnPlayer.setText(player.getName());
+		turnPlayer.setBackground(player.getColor());
 		rollField.setText(Integer.toString(roll));
 	}
 	

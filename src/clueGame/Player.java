@@ -16,6 +16,8 @@ public abstract class Player {
 	public Player(String name, Color color) {
 		hand = new ArrayList<Card>();
 		seenCards = new HashSet<Card>();
+		this.name = name;
+		this.color = color;
 	}
 	
 	public ArrayList<Card> getHand() {
@@ -53,5 +55,9 @@ public abstract class Player {
 	
 	public String getName() {
 		return name;
+	}
+
+	public Color getColor() {
+		return color;
 	}
 }
