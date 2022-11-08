@@ -7,12 +7,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import clueGame.*;
 
 public class GameSolutionTest {
     private Board board;
+
+    @BeforeAll
+    void fixedSetup() {
+        Card 
+
+
+    }
 
     @BeforeEach
     void setup() {
@@ -45,21 +53,36 @@ public class GameSolutionTest {
     }
 
     @Test 
-    void testSuggestion() {
+    void testDisproveSuggestion() {
+        // TODO: come back not done idk how to do this
         Player player = board.getPlayers().get(0);
         ArrayList<Card> playerHand = player.getHand();
         ArrayList<Card> deck = board.getDeck();
+        Boolean inHand = false;
         Card room = deck.get(0);
         Card person = deck.get(15);
         Card weapon = deck.get(9);
         for (Card c : playerHand) {
             if (c.getCardType() == CardType.ROOM) {
                 room = c;
+                inHand = true;
             } else if (c.getCardType() == CardType.PERSON) {
                 person = c;
+                inHand = true;
             } else if (c.getCardType() == CardType.WEAPON) {
                 weapon = c;
+                inHand = true;
             }
         }
+        Card disproves = board.handleSuggestion(room, person, weapon);
+
+        if (inHand) {
+            assertTrue(playerHand.contains(disproves));
+        } else {
+            assertEquals(disproves, null);
+        }
     }
+
+    @Test
+
 }

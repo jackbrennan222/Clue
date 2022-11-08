@@ -328,7 +328,13 @@ public class Board {
 	}
 
 	public Card handleSuggestion(Card room, Card person, Card weapon) {
-		return new Card();
+		for (Player p : players) {
+			Card dispute = p.disproveSuggestion(room, person, weapon);
+			if (dispute != null) {
+				return dispute;
+			}
+		}
+		return null;
 	}
 	
 	/**
