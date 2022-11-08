@@ -2,8 +2,13 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class ComputerPlayer extends Player {
+	private Set<BoardCell> visitedRooms = new HashSet<BoardCell>();
+
 	public ComputerPlayer(String name, Color color) {
 		super(name, color);
 	}
@@ -28,14 +33,28 @@ public class ComputerPlayer extends Player {
 				if (c.getCardType() == CardType.WEAPON) { unseenWeapons.add(c); }
 			}
 		}
-		int randIndex = (int)(Math.random() * (unseenPersons.size()-1));
+		Random rand = new Random();
+		int randIndex = rand.nextInt(unseenPersons.size());
 		suggestionPerson = unseenPersons.get(randIndex);
-		randIndex = (int)(Math.random() * (unseenWeapons.size()-1));
+		randIndex = rand.nextInt(unseenWeapons.size());
 		suggestionWeapon = unseenWeapons.get(randIndex);
 		return new Solution(currRoomCard, suggestionPerson, suggestionWeapon);
 	}
 
 	public BoardCell selectTarget() {
-		return new BoardCell(0, 0);
+		Set<BoardCell> targets = Board.getInstance().getTargets();
+		ArrayList<BoardCell> roomTargets = new ArrayList<>();
+		for (BoardCell bc : targets) {
+			if (bc.isRoom()) {
+				roomTargets.add(bc);
+			}
+		}
+		Random rand = new Random();
+		if (!roomTargets.isEmpty()) {
+			return roomTargets.get(rand.nextInt(roomTargets.size()));
+		}
+		BoardCell[] targetsArr = new BoardCell[targets.size()];
+		targets.toArray(targetsArr);
+		return targetsArr[rand.nextInt(targets.size())];
 	}
 }
