@@ -1,16 +1,15 @@
 package clueGame;
 
-import java.util.HashSet;
-import java.util.Random;
+import java.awt.Color;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.awt.Color;
 
 /**
  * @author Erik Swanson
@@ -130,9 +129,10 @@ public class Board {
 	 * used to initiate the colorMap data structure
 	 */
 	private void fillColorMap() {
-		colorMap.put("red", Color.RED);
+		float ratio = 0.33f;
+		colorMap.put("red", lighter(Color.RED, ratio));
 		colorMap.put("green", Color.GREEN);
-		colorMap.put("blue", Color.BLUE);
+		colorMap.put("blue", lighter(Color.BLUE, ratio));
 		colorMap.put("yellow", Color.YELLOW);
 		colorMap.put("magenta", Color.MAGENTA);
 		colorMap.put("cyan", Color.CYAN);
@@ -144,6 +144,22 @@ public class Board {
 		colorMap.put("orange", Color.ORANGE);
 		colorMap.put("pink", Color.PINK);
 	}
+
+	public Color lighter(Color color, float ratio) {
+        return mergeColors(Color.WHITE, ratio, color, 1 - ratio);
+    }
+
+    public static Color mergeColors(Color a, float fa, Color b, float fb) {
+        if (a == null) {
+            return b;
+        }
+        if (b == null) {
+            return a;
+        }
+        return new Color((fa * a.getRed() + fb * b.getRed()) / (fa + fb) / 255f,
+                (fa * a.getGreen() + fb * b.getGreen()) / (fa + fb) / 255f,
+                (fa * a.getBlue() + fb * b.getBlue()) / (fa + fb) / 255f);
+    }
 
 	/**
 	 * loading layout file and throwing exceptions when necessary

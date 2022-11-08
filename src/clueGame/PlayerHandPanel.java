@@ -86,7 +86,7 @@ public class PlayerHandPanel extends JPanel {
 		board.initialize();
 
         for (Card c : board.getDeck()) {
-            board.getPlayers().get(0).seenCards.add(c);
+            board.getPlayers().get(0).seenCards.add(c); 
         }
 
         PlayerHandPanel panel = new PlayerHandPanel();
