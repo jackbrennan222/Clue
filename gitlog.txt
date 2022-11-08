@@ -1,3 +1,81 @@
+commit 9bc6539e49251d344bc3fd18564888ace5894353
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Mon Nov 7 23:36:41 2022 -0700
+
+    ComputerAITests done
+
+commit eb6c1d165549aec688f3746335a1fea1fbc3db12
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 23:07:07 2022 -0700
+
+    added selecttargets test
+
+commit 524aaba7a258c3f6ea4a748f6dc0beec97084b05
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 22:49:17 2022 -0700
+
+    added tests
+
+commit c0c285304abdf80b387a79125a5d41f076f8a3fb
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 22:46:17 2022 -0700
+
+    created ai test file
+
+commit de02f486e666da91c81072f04a3714494a8ce5b8
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 22:42:51 2022 -0700
+
+    added select target
+
+commit bb21c7e33005a05b24447c5e6143a68db5afcfd4
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Mon Nov 7 22:24:34 2022 -0700
+
+    ComputerPlayer AI Progress
+
+commit 8032629af73268efcc80b919ed04dab33c3e94cd
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 21:53:01 2022 -0700
+
+    added comments
+
+commit b9f4767a4327cc0378567889ce029ffd507bd43e
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 21:46:13 2022 -0700
+
+    finished game solution tests
+
+commit 86f0911b21650ade708029eb84d6f2176ee08ace
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 21:26:30 2022 -0700
+
+    updated tests
+
+commit 57bcfba5559da660f8827958db927ca00b51699c
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 20:52:00 2022 -0700
+
+    added more tests
+
+commit 6a7d272d58176e13d4fa8c853c04c5d969b7cd7b
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 19:43:47 2022 -0700
+
+    added some tests to gamesolution
+
+commit 5e017ed1bda08314e56c6a2142a06831dffe45b4
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Mon Nov 7 15:54:00 2022 -0700
+
+    added reverse iteration
+
+commit 3045ca074f78aa36ee6b4497008c1cf66dc423f0
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Sun Nov 6 18:33:26 2022 -0700
+
+    implement skeleton methods
+
 commit 5368fe802ef85a6fd0138f084e12d4eceab41a91
 Author: eswanson224 <eswanson224@gmail.com>
 Date:   Fri Nov 4 23:23:13 2022 -0600
