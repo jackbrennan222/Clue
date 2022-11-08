@@ -13,6 +13,12 @@ public class ComputerPlayer extends Player {
 		super(name, color);
 	}
 	
+	public ComputerPlayer(String name, int row, int col, Color color) {
+		super(name, color);
+		this.row = row;
+		this.col = col;
+	}
+	
 	public void updateHand(Card card) {
 		hand.add(card);
 	}

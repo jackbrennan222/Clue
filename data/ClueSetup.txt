@@ -18,9 +18,9 @@ Weapon, Weapon3
 Weapon, Weapon4
 Weapon, Weapon5
 Weapon, Weapon6
-Human, Name1, Red
+Human, Name1, White
 Computer, Name2, Orange
 Computer, Name3, Magenta
-Computer, Name4, Yellow
-Computer, Name5, White
-Computer, Name6, Black
+Computer, Name4, Blue
+Computer, Name5, Red
+Computer, Name6, Green

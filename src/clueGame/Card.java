@@ -17,6 +17,10 @@ public class Card implements Comparable<Card> {
 		return target.cardName == cardName && target.cardType == cardType;
 	}
 	
+	public String getCardName() {
+		return cardName;
+	}
+
 	public CardType getCardType() {
 		return cardType;
 	}

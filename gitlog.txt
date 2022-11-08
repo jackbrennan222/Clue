@@ -1,3 +1,57 @@
+commit 9a19590f65294ecf6729cc63dd0d7aeeb97ca90c
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 16:36:49 2022 -0700
+
+    Touch up PlayerHandPanel
+
+commit 14a1fc002edc3018fcd081dd0d628307cce35379
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 16:21:55 2022 -0700
+
+    Finished PlayerHandPanel
+
+commit ef1b9ba26c98bbbbbc22b5278a80800a4b333ef7
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 15:26:42 2022 -0700
+
+    Progress on PlayerHandPanel
+
+commit 0bea8f8b477b34612fc36b727b76e3dc4140c4f7
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 14:34:40 2022 -0700
+
+    New git log
+
+commit 3078fc2f5ab7da9ea53cc9c5a03ae99079ab3daf
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 14:29:16 2022 -0700
+
+    GameControlPanel done
+
+commit 6827b819770cb69dc597dbf064571957c7d4c718
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 14:24:50 2022 -0700
+
+    More Progress on ControlPanel
+
+commit 3c6156ba3685c017a27c8bc48ef755bd13bfe769
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 12:39:32 2022 -0700
+
+    More Changes to GUI
+
+commit 6fa7dc3e5123310f578e398ab880f72a69071118
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Tue Nov 8 12:18:12 2022 -0700
+
+    Started GUI
+
+commit ecf71805395757f893b243fa867b2a99059b22e3
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Mon Nov 7 23:39:41 2022 -0700
+
+    Gitlog
+
 commit 9bc6539e49251d344bc3fd18564888ace5894353
 Author: Jack Brennan <jackbrennan222@gmail.com>
 Date:   Mon Nov 7 23:36:41 2022 -0700

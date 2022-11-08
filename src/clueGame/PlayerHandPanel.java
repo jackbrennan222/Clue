@@ -1,0 +1,100 @@
+package clueGame;
+
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+public class PlayerHandPanel extends JPanel {
+    private JPanel outerPanel,peoplePanel,roomsPanel,weaponsPanel;
+    private Player human;
+
+    public PlayerHandPanel() {
+        for (Player p : Board.getInstance().getPlayers()) {
+            if (p instanceof HumanPlayer) {
+                human = p;
+            }
+        }
+
+        setLayout(new GridLayout(0,1));
+
+        outerPanel = new JPanel();
+        outerPanel.setLayout(new GridLayout(3,0));
+        outerPanel.setBorder(new TitledBorder(new EtchedBorder(), "Known Cards"));
+
+        peoplePanel = createPanel(CardType.PERSON, "People");
+        roomsPanel = createPanel(CardType.ROOM, "Rooms");
+        weaponsPanel = createPanel(CardType.WEAPON, "Weapons");
+        
+        outerPanel.add(peoplePanel);
+        outerPanel.add(roomsPanel);
+        outerPanel.add(weaponsPanel);
+
+        add(outerPanel);
+    }
+
+    public JPanel createPanel(CardType type, String title) {
+        JPanel panel = new JPanel();
+        panel.setBorder(new TitledBorder(new EtchedBorder(), title));
+        panel.setLayout(new GridLayout(0,1));
+
+        JLabel handLabel,seenLabel;
+        handLabel = new JLabel("In Hand:");
+        seenLabel = new JLabel("Seen:");
+
+        panel.add(handLabel);
+        for (Card c : human.getHand()) {
+            if (c.getCardType() == type) { 
+                JTextField cardField = new JTextField(c.getCardName());
+                cardField.setBackground(human.getColor());
+                cardField.setEditable(false);
+                panel.add(cardField);
+            }
+        }
+
+        panel.add(seenLabel);
+        for (Card c : Board.getInstance().getDeck()) {
+            if (c.getCardType() == type) {
+                if (human.seenCards.contains(c)) {
+                    JTextField cardField = new JTextField(c.getCardName());
+                    cardField.setEditable(false);
+                    for (Player p : Board.getInstance().getPlayers()) {
+                        if (p instanceof ComputerPlayer && p.getHand().contains(c)) {
+                            cardField.setBackground(p.getColor());
+                            panel.add(cardField);
+                        }
+                    }
+                }
+            }
+        }
+
+        return panel;
+    }
+
+    public static void main(String[] args) {
+        // get board instance because it's singleton
+		Board board = Board.getInstance();
+		// set the proper config files
+		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
+		// initialize the board
+		board.initialize();
+
+        for (Card c : board.getDeck()) {
+            board.getPlayers().get(0).seenCards.add(c); 
+        }
+
+        PlayerHandPanel panel = new PlayerHandPanel();
+        JFrame frame = new JFrame();
+        frame.setContentPane(panel);
+        frame.setSize(150,600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.setResizable(false);
+    }
+}
