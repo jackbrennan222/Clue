@@ -1,3 +1,27 @@
+commit 9a19590f65294ecf6729cc63dd0d7aeeb97ca90c
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 16:36:49 2022 -0700
+
+    Touch up PlayerHandPanel
+
+commit 14a1fc002edc3018fcd081dd0d628307cce35379
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 16:21:55 2022 -0700
+
+    Finished PlayerHandPanel
+
+commit ef1b9ba26c98bbbbbc22b5278a80800a4b333ef7
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 15:26:42 2022 -0700
+
+    Progress on PlayerHandPanel
+
+commit 0bea8f8b477b34612fc36b727b76e3dc4140c4f7
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 14:34:40 2022 -0700
+
+    New git log
+
 commit 3078fc2f5ab7da9ea53cc9c5a03ae99079ab3daf
 Author: Jack Brennan <jackbrennan222@gmail.com>
 Date:   Tue Nov 8 14:29:16 2022 -0700
