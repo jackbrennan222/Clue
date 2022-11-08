@@ -66,10 +66,6 @@ public class Board {
 		while ( in.hasNext() ) { // loop through text file
 			String line = in.nextLine(); // grab current line
 			if (line.startsWith("//")) { continue; } // testing if line is a not a comment
-			if (line.indexOf(',') == -1) {
-				in.close();
-				throw new BadConfigFormatException();
-			}
 			String[] info = line.split(",");
 			if (info.length == 2) {
 				String type = info[0].strip();
@@ -85,33 +81,41 @@ public class Board {
 				String type = info[0].strip();
 				String name = info[1].strip();
 				String extra = info[2].strip();
-				if (type.equals("Room")) {
-					roomSet.add(extra.charAt(0)); // add room to map if not currently in map
-					configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
-					deck.add(new Card(name, CardType.ROOM));
-				} else if (type.equals("Space")) {
-					configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
-				} else if (type.equals("Human")) {
-					if (!colorMap.containsKey(extra.toLowerCase())) {
+				Color color;
+				Player player;
+				// TODO: figure out why tests fail on initial run but pass after debugging
+				switch (type) {
+					case "Room":
+						roomSet.add(extra.charAt(0)); // add room to map if not currently in map
+						configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
+						deck.add(new Card(name, CardType.ROOM));
+						break;
+					case "Space":
+						configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
+						break;
+					case "Human":
+						if (!colorMap.containsKey(extra.toLowerCase())) {
+							in.close();
+							throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
+						}
+						color = colorMap.get(extra.toLowerCase());
+						player = new HumanPlayer(name, color);
+						players.add(player); // add new player to game
+						deck.add(new Card(name, CardType.PERSON)); // add new card for the person
+						break;
+					case "Computer":
+						if (!colorMap.containsKey(extra.toLowerCase())) { 
+							in.close();
+							throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
+						}
+						color = colorMap.get(extra.toLowerCase());
+						player = new ComputerPlayer(name, color);
+						players.add(player); // add new computer player to the game
+						deck.add(new Card(name, CardType.PERSON)); // add new card for the person
+						break;
+					default:
 						in.close();
-						throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
-					}
-					Color color = colorMap.get(extra.toLowerCase());
-					Player player = new HumanPlayer(name, color);
-					players.add(player); // add new player to game
-					deck.add(new Card(name, CardType.PERSON)); // add new card for the person
-				} else if (type.equals("Computer")) {
-					if (!colorMap.containsKey(extra.toLowerCase())) { 
-						in.close();
-						throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
-					}
-					Color color = colorMap.get(extra.toLowerCase());
-					Player player = new ComputerPlayer(name, color);
-					players.add(player); // add new computer player to the game
-					deck.add(new Card(name, CardType.PERSON)); // add new card for the person
-				}else {
-					in.close();
-					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
+						throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
 				}
 			} else {
 				in.close();
