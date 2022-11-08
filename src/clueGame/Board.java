@@ -20,13 +20,13 @@ public class Board {
 	private BoardCell[][] grid; // the board
 	private int numRows,numColumns; // numbers of rows and columns
 	private String layoutConfigFile,setupConfigFile; // filenames for the layout and setup files
-	private HashSet<Character> roomSet; // a data structure to map room characters to room strings
-	private HashMap<Character, Room> configMap;
+	private HashSet<Character> roomSet = new HashSet<>(); // a data structure to map room characters to room strings
+	private HashMap<Character, Room> configMap = new HashMap<>();
 	private static Board theInstance = new Board(); // Singleton Pattern instance
 	private HashSet<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
-	private ArrayList<Player> players; // ArrayList to store the players
+	private ArrayList<Player> players = new ArrayList<Player>(); // ArrayList to store the players
 	private Solution theAnswer; // Solution instance to hold the referential answer to the game
-	private ArrayList<Card> deck; // ArrayList to hold all of the cards
+	private ArrayList<Card> deck = new ArrayList<Card>(); // ArrayList to hold all of the cards
 
 	private HashMap<String, Color> colorMap = new HashMap<>(); // Map to switch strings to awt.colors objects
 	
@@ -38,11 +38,6 @@ public class Board {
 	 * a faux constructor 
 	 */
 	public void initialize() { // Singleton Pattern "Constructor"
-		roomSet = new HashSet<>();
-		configMap = new HashMap<>();
-		players = new ArrayList<Player>();
-		deck = new ArrayList<Card>();
-
 		try { // loading files and catching two different types of errors
 			loadSetupConfig();
 			loadLayoutConfig();
