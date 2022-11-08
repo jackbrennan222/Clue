@@ -3,10 +3,8 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.awt.Color;
 import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +15,20 @@ public class GameSolutionTest {
     private Board board;
     private static Player player;
     private static Player player2;
+    private static Player player3;
     private static Card room;
     private static Card person;
     private static Card weapon;
     private static Card room2;
     private static Card person2;
     private static Card weapon2;
+    private static Card room3;
+    private static Card person3;
+    private static Card weapon3;
+    private static Card room4;
+    private static Card person4;
+    private static Card weapon4;
+    private static ArrayList<Player> players;
 
     @BeforeAll
     static void fixedSetup() {
@@ -34,8 +40,17 @@ public class GameSolutionTest {
         person2 = new Card("person2", CardType.PERSON);
         weapon2 = new Card("weapon2", CardType.WEAPON);
 
+        room3 = new Card("room3", CardType.ROOM);
+        person3 = new Card("person3", CardType.PERSON);
+        weapon3 = new Card("weapon3", CardType.WEAPON);
+
+        room4 = new Card("room3", CardType.ROOM);
+        person4 = new Card("person3", CardType.PERSON);
+        weapon4 = new Card("weapon3", CardType.WEAPON);
+
         player = new HumanPlayer("name", Color.RED);
         player2 = new ComputerPlayer("name2", Color.BLUE);
+        player3 = new ComputerPlayer("name", Color.GREEN);
 
         player.updateHand(room);
         player.updateHand(person);
@@ -44,6 +59,15 @@ public class GameSolutionTest {
         player2.updateHand(room2);
         player2.updateHand(person2);
         player2.updateHand(weapon2);
+
+        player3.updateHand(room3);
+        player3.updateHand(person3);
+        player3.updateHand(weapon3);
+
+        players = new ArrayList<>();
+        players.add(player);
+        players.add(player2);
+        players.add(player3);
     }
 
     @BeforeEach
@@ -57,27 +81,31 @@ public class GameSolutionTest {
     }
 
     @Test
-    void testAccusation() {
+    void checkAccusation() {
         Solution solution = board.getTheAnswer();
         Card solRoom = solution.getRoom();
         Card solPerson = solution.getPerson();
         Card solWeapon = solution.getWeapon();
+
         Boolean accusation = board.checkAccusation(solRoom, solPerson, solWeapon);
         assertTrue(accusation);
+
         ArrayList<Card> deck = board.getDeck();
         Card altRoom = deck.get(0).equals(solRoom) ? deck.get(1) : deck.get(0);
         accusation = board.checkAccusation(altRoom, solPerson, solWeapon);
         assertFalse(accusation);
+
         Card altPerson = deck.get(15).equals(solPerson) ? deck.get(16) : deck.get(15);
         accusation = board.checkAccusation(solRoom, altPerson, solWeapon);
         assertFalse(accusation);
+
         Card altWeapon = deck.get(9).equals(solPerson) ? deck.get(10) : deck.get(9);
         accusation = board.checkAccusation(solRoom, solPerson, altWeapon);
         assertFalse(accusation);
     }
 
     @Test 
-    void testDisproveSuggestion() {
+    void disproveSuggestion() {
         Card disprove = player.disproveSuggestion(room, person2, weapon2);
         assertEquals(disprove, room);
         disprove = player.disproveSuggestion(room, person, weapon2);
@@ -87,24 +115,31 @@ public class GameSolutionTest {
     }
 
     @Test
-    void testHandleSuggestion() {
-        Player player = board.getPlayers().get(0);
-        Card solRoom = board.getTheAnswer().getRoom();
-        Card solPerson = board.getTheAnswer().getPerson();
-        Card solWeapon = board.getTheAnswer().getWeapon();
-        Solution suggestion = new Solution(solRoom, solPerson, solWeapon);
-        Card disprove = board.handleSuggestion(player, suggestion);
-        assertEquals(disprove, null);
-        Card pCard = player.getHand().get(0);
-        if (pCard.getCardType() == CardType.ROOM) {
-            suggestion = new Solution(pCard, solPerson, solWeapon);
-        } else if (pCard.getCardType() == CardType.PERSON) {
-            suggestion = new Solution(solRoom, pCard, solWeapon);
-        } else if (pCard.getCardType() == CardType.WEAPON) {
-            suggestion = new Solution(solRoom, solPerson, pCard);
-        }
-        disprove = board.handleSuggestion(player, suggestion);
+    void handleSuggestion() {
+        Solution suggestion = new Solution(room4, person4, weapon4);
+        Card disprove = handleSuggestion(player, suggestion);
         assertEquals(disprove, null);
 
+        suggestion = new Solution(room, person, weapon);
+        disprove = handleSuggestion(player, suggestion);
+        assertEquals(disprove, null);
+
+        suggestion = new Solution(room2, person4, weapon4);
+        disprove = handleSuggestion(player, suggestion);
+        assertEquals(disprove, room2);
+
+        suggestion = new Solution(room2, person3, weapon4);
+        disprove = handleSuggestion(player, suggestion);
+        assertEquals(disprove, room2);
     }
+    private Card handleSuggestion(Player player, Solution suggestion) {
+		for (Player p : players) {
+			if (p.equals(player)) { continue; }
+			Card dispute = p.disproveSuggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
+			if (dispute != null) {
+				return dispute;
+			}
+		}
+		return null;
+	}
 }
