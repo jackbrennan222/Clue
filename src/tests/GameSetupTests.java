@@ -3,7 +3,6 @@ package tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.junit.jupiter.api.*;
@@ -11,10 +10,10 @@ import org.junit.jupiter.api.*;
 import clueGame.*;
 
 public class GameSetupTests {
-    private Board board;
+    private static Board board;
 
-    @BeforeEach
-    void setup() {
+    @BeforeAll
+    static void setup() {
         // get board instance because it's singleton
 		board = Board.getInstance();
 		// set the proper config files
@@ -25,14 +24,13 @@ public class GameSetupTests {
 
     @Test
     void playersTest() {
-        ArrayList<Player> players = board.getPlayers();
-        assertEquals(players.size(), 6); // make sure that the proper amount of players are initialized
+        assertEquals(board.getPlayers().size(), 6); // make sure that the proper amount of players are initialized
         
         int humans = 0;
         int robots = 0;
         
         // count the number of human and computer players
-        for (Player p : players) {
+        for (Player p : board.getPlayers()) {
         	if (p instanceof HumanPlayer) { humans++; }
         	else if (p instanceof ComputerPlayer) { robots++; }
         }
@@ -43,19 +41,18 @@ public class GameSetupTests {
 
     @Test
     void createDeckTest() {
-        ArrayList<Card> deck = board.getDeck();
         int rooms = 0;
         int weapons = 0;
         int people = 0;
 
-        for (Card c : deck) {
+        for (Card c : board.getDeck()) {
             CardType type = c.getCardType();
             if (type == CardType.ROOM) { rooms++; }
             else if (type == CardType.WEAPON) { weapons++; }
             else if (type == CardType.PERSON) { people++; }
         }
         
-        assertEquals(deck.size(), 21); // make sure there are right number of cards in the deck
+        assertEquals(board.getDeck().size(), 21); // make sure there are right number of cards in the deck
         assertEquals(rooms, 9); // make sure there are the right number of rooms in the deck
         assertEquals(weapons, 6); // make sure there are the right number of weapons in the deck
         assertEquals(people, 6); // make sure there are the right number of people in the deck

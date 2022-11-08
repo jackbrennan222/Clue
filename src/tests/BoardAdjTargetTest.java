@@ -12,16 +12,16 @@ import clueGame.BoardCell;
 
 public class BoardAdjTargetTest {
 	private static Board board;
-	
-	@BeforeEach
-	public void setup() {
-		// get board instance because it's singleton
+
+    @BeforeAll
+    static void setup() {
+        // get board instance because it's singleton
 		board = Board.getInstance();
 		// set the proper config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// initialize the board
 		board.initialize();
-	}
+    }
 	
 	// test adjacencies in rooms
 	// these cells are light orange on the planning spreadsheet

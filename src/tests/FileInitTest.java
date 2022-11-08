@@ -7,17 +7,17 @@ import org.junit.jupiter.api.*;
 import clueGame.*;
 
 public class FileInitTest {
-	Board board;
-	
-	@BeforeEach
-	public void setup() {
-		// get board instance because it's singleton
+	private static Board board;
+
+    @BeforeAll
+    static void setup() {
+        // get board instance because it's singleton
 		board = Board.getInstance();
 		// set the proper config files
 		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
 		// initialize the board
 		board.initialize();
-	}
+    }
 	
 	@Test
 	public void testRoomLabels() {

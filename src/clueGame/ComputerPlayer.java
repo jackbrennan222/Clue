@@ -44,11 +44,15 @@ public class ComputerPlayer extends Player {
 		Set<BoardCell> targets = Board.getInstance().getTargets();
 		ArrayList<BoardCell> roomTargets = new ArrayList<>();
 		for (BoardCell bc : targets) {
-			if (bc.isRoom() && !visitedRooms.contains(bc)) {
+			if (bc.isRoom()) {
 				roomTargets.add(bc);
 			}
 		}
 		Random rand = new Random();
+		for (BoardCell c : visitedRooms) {
+			targets.remove(c);
+			roomTargets.remove(c);
+		}
 		if (!roomTargets.isEmpty()) {
 			return roomTargets.get(rand.nextInt(roomTargets.size()));
 		}

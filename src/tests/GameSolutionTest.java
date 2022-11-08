@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import clueGame.*;
 
 public class GameSolutionTest {
-    private Board board;
+    private static Board board;
     private static Player player;
     private static Player player2;
     private static Player player3;
@@ -69,10 +69,7 @@ public class GameSolutionTest {
         players.add(player);
         players.add(player2);
         players.add(player3);
-    }
 
-    @BeforeEach
-    void setup() {
         // get board instance because it's singleton
 		board = Board.getInstance();
 		// set the proper config files

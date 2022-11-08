@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,13 +21,17 @@ public class Board {
 	private BoardCell[][] grid; // the board
 	private int numRows,numColumns; // numbers of rows and columns
 	private String layoutConfigFile,setupConfigFile; // filenames for the layout and setup files
-	private HashSet<Character> roomSet = new HashSet<>(); // a data structure to map room characters to room strings
-	private HashMap<Character, Room> configMap = new HashMap<>();
+	private Set<Character> roomSet = new HashSet<Character>(); // a data structure to map room characters to room strings
+	private Map<Character, Room> configMap = new HashMap<Character, Room>();
 	private static Board theInstance = new Board(); // Singleton Pattern instance
-	private HashSet<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
+	private Set<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
 	private ArrayList<Player> players = new ArrayList<Player>(); // ArrayList to store the players
 	private Solution theAnswer; // Solution instance to hold the referential answer to the game
 	private ArrayList<Card> deck = new ArrayList<Card>(); // ArrayList to hold all of the cards
+	private Set<Card> deck2 = new HashSet<Card>();
+	private Set<Card> roomCards = new HashSet<Card>();
+	private Set<Card> playerCards = new HashSet<Card>();
+	private Set<Card> weaponCards = new HashSet<Card>();
 
 	private HashMap<String, Color> colorMap = new HashMap<>(); // Map to switch strings to awt.colors objects
 	
@@ -72,7 +77,8 @@ public class Board {
 				String name = info[1].strip();
 				if (type.equals("Weapon")) {
 					Card weapon = new Card(name, CardType.WEAPON);
-					deck.add(weapon);
+					deck2.add(weapon);
+					weaponCards.add(weapon);
 				} else {
 					in.close();
 					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
@@ -83,12 +89,15 @@ public class Board {
 				String extra = info[2].strip();
 				Color color;
 				Player player;
+				Card card;
 				// TODO: figure out why tests fail on initial run but pass after debugging
 				switch (type) {
 					case "Room":
 						roomSet.add(extra.charAt(0)); // add room to map if not currently in map
 						configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
-						deck.add(new Card(name, CardType.ROOM));
+						card = new Card(name, CardType.ROOM);
+						deck2.add(card);
+						roomCards.add(card);
 						break;
 					case "Space":
 						configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
@@ -101,7 +110,9 @@ public class Board {
 						color = colorMap.get(extra.toLowerCase());
 						player = new HumanPlayer(name, color);
 						players.add(player); // add new player to game
-						deck.add(new Card(name, CardType.PERSON)); // add new card for the person
+						card = new Card(name, CardType.PERSON);
+						deck2.add(card); // add new card for the person
+						playerCards.add(card);
 						break;
 					case "Computer":
 						if (!colorMap.containsKey(extra.toLowerCase())) { 
@@ -111,7 +122,9 @@ public class Board {
 						color = colorMap.get(extra.toLowerCase());
 						player = new ComputerPlayer(name, color);
 						players.add(player); // add new computer player to the game
-						deck.add(new Card(name, CardType.PERSON)); // add new card for the person
+						card = new Card(name, CardType.PERSON);
+						deck2.add(card); // add new card for the person
+						playerCards.add(card);
 						break;
 					default:
 						in.close();

@@ -16,10 +16,10 @@ import org.junit.jupiter.api.BeforeEach;
 import clueGame.*;
 
 public class ComputerAITest {
-    private Board board;
+    private static Board board;
 
-    @BeforeEach
-    void setup() {
+    @BeforeAll
+    static void setup() {
         // get board instance because it's singleton
 		board = Board.getInstance();
 		// set the proper config files
