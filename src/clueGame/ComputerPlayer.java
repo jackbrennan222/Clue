@@ -29,7 +29,6 @@ public class ComputerPlayer extends Player {
 		for (Card c : Board.getInstance().getDeck()) {
 			if (!seenCards.contains(c) && !hand.contains(c)) {
 				if (c.getCardType() == CardType.PERSON) { unseenPersons.add(c); }
-			} else if (!seenCards.contains(c) && !hand.contains(c)) {
 				if (c.getCardType() == CardType.WEAPON) { unseenWeapons.add(c); }
 			}
 		}

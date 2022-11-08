@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -14,6 +15,7 @@ public abstract class Player {
 	
 	public Player(String name, Color color) {
 		hand = new ArrayList<Card>();
+		seenCards = new HashSet<Card>();
 	}
 	
 	public ArrayList<Card> getHand() {
@@ -42,5 +44,10 @@ public abstract class Player {
 		}
 		Random rand = new Random();
 		return matches.get(rand.nextInt(matches.size()));
+	}
+
+	public void setPos(int row, int col) {
+		this.row = row;
+		this.col = col;
 	}
 }

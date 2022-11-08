@@ -3,6 +3,7 @@ package tests;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,6 +50,32 @@ public class ComputerAITest {
 
     @Test
     void createSuggestion() {
-        
+        // setup for tests, seeing all but two cards
+        ComputerPlayer comp = new ComputerPlayer("Dude", Color.MAGENTA);
+        comp.setPos(0, 0);
+        for (int i = 0; i < board.getDeck().size(); i++) {
+            if (i != 13 && i != 20) {
+                comp.updateSeen(board.getDeck().get(i));      
+            } 
+        }
+        // tests to see if room person and weapon are correct
+        Solution suggestion = comp.createSuggestion();
+        assertTrue(suggestion.getRoom().equals(board.getDeck().get(0)));
+        assertEquals(suggestion.getPerson(), board.getDeck().get(13));
+        assertEquals(suggestion.getWeapon(), board.getDeck().get(20));
+
+        // setup for tests, seeing all but four cards
+        comp = new ComputerPlayer("Dude", Color.MAGENTA);
+        comp.setPos(0, 0);
+        for (int i = 0; i < board.getDeck().size(); i++) {
+            if (i != 13 && i != 14 && i != 19 && i != 20) {
+                comp.updateSeen(board.getDeck().get(i));      
+            } 
+        }
+
+        // tests to see if person and weapon are correct
+        suggestion = comp.createSuggestion();
+        assertTrue(suggestion.getPerson().equals(board.getDeck().get(13)) || suggestion.getPerson().equals(board.getDeck().get(14)));
+        assertTrue(suggestion.getWeapon().equals(board.getDeck().get(19)) || suggestion.getWeapon().equals(board.getDeck().get(20)));
     }
 }
