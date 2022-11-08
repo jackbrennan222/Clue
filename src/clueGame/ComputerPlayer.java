@@ -45,7 +45,7 @@ public class ComputerPlayer extends Player {
 		Set<BoardCell> targets = Board.getInstance().getTargets();
 		ArrayList<BoardCell> roomTargets = new ArrayList<>();
 		for (BoardCell bc : targets) {
-			if (bc.isRoom()) {
+			if (bc.isRoom() && !visitedRooms.contains(bc)) {
 				roomTargets.add(bc);
 			}
 		}
@@ -56,5 +56,9 @@ public class ComputerPlayer extends Player {
 		BoardCell[] targetsArr = new BoardCell[targets.size()];
 		targets.toArray(targetsArr);
 		return targetsArr[rand.nextInt(targets.size())];
+	}
+
+	public void setVisitedRooms(Set<BoardCell> visitedRooms) {
+		this.visitedRooms = visitedRooms;
 	}
 }

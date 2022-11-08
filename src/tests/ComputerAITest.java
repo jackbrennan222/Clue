@@ -1,12 +1,16 @@
 package tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Set;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 import clueGame.*;
 
@@ -25,9 +29,24 @@ public class ComputerAITest {
 
     @Test
     void selectTargets() {
-
+        // checks to see if random cell is selected if no room is found
+        ComputerPlayer player = (ComputerPlayer) board.getPlayers().get(1);
+        BoardCell pos = board.getCell(8, 10);
+        board.calcTargets(pos, 3);
+        BoardCell dest = player.selectTarget();
+        assertFalse(dest.isRoom());
+        // checks to see if room is selected when available to move to
+        board.calcTargets(pos, 4);
+        dest = player.selectTarget();
+        assertTrue(dest.isRoom());
+        // checks to see if random cell is selected when only visited rooms are available
+        Set<BoardCell> visited = new HashSet<>();
+        visited.add(board.getCell(3, 12));
+        player.setVisitedRooms(visited);
+        dest = player.selectTarget();
+        assertFalse(dest.isRoom());
     }
-    
+
     @Test
     void createSuggestion() {
         
