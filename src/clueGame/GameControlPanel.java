@@ -24,15 +24,20 @@ public class GameControlPanel extends JPanel {
 		topLeft.setLayout(new GridLayout(3,1));
 		whoseTurn = new JLabel("Whose Turn?", SwingConstants.CENTER);
 		turnPlayer = new JTextField();
+		turnPlayer.setEditable(false);
 		topLeft.add(whoseTurn);
 		topLeft.add(turnPlayer);
 		
 		topNextLeft = new JPanel();
-		topNextLeft.setLayout(new GridLayout(3,2));
-		rollLabel = new JLabel("Roll", SwingConstants.CENTER);
+		topNextLeft.setLayout(new BorderLayout());
+		rollLabel = new JLabel("Roll:", SwingConstants.RIGHT);
 		rollField = new JTextField();
-		topNextLeft.add(rollLabel);
-		topNextLeft.add(rollField);
+		rollField.setEditable(false);
+		JPanel holder = new JPanel();
+		holder.setLayout(new GridLayout(0,2));
+		holder.add(rollLabel);
+		holder.add(rollField);
+		topNextLeft.add(holder, BorderLayout.NORTH);
 		
 		accuseButton = new JButton("Make Accusation");
 		nextButton = new JButton("NEXT!");
@@ -49,13 +54,15 @@ public class GameControlPanel extends JPanel {
 		bottomLeft = new JPanel();
 		bottomLeft.setLayout(new GridLayout(1,0));
 		bottomLeft.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
-		guessField = new JTextField(10);
+		guessField = new JTextField();
+		guessField.setEditable(false);
 		bottomLeft.add(guessField);
 		
 		bottomRight = new JPanel();
-		bottomLeft.setLayout(new GridLayout(1,0));
+		// bottomLeft.setLayout(new GridLayout(1,0));
 		bottomRight.setBorder(new TitledBorder( new EtchedBorder(), "Guess Result"));
-		guessResultField = new JTextField(10);
+		guessResultField = new JTextField();
+		guessResultField.setEditable(false);
 		bottomRight.add(guessResultField);
 		
 		bottomPanel.add(bottomLeft);
