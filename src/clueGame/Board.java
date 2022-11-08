@@ -324,10 +324,10 @@ public class Board {
 	}
 
 	public boolean checkAccusation(Card room, Card person, Card weapon) {
-		return room == theAnswer.getRoom() && person == theAnswer.getPerson() && weapon == theAnswer.getPerson();
+		return room.equals(theAnswer.getRoom()) && person.equals(theAnswer.getPerson()) && weapon.equals(theAnswer.getWeapon());
 	}
 
-	public Card handleSuggestion() {
+	public Card handleSuggestion(Card room, Card person, Card weapon) {
 		return new Card();
 	}
 	
