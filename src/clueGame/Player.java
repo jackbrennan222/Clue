@@ -8,9 +8,9 @@ import java.util.Set;
 public abstract class Player {
 	private String name;
 	private Color color;
-	private int row,col;
+	protected int row,col;
 	protected ArrayList<Card> hand;
-	private Set<Card> seenCards;
+	protected Set<Card> seenCards;
 	
 	public Player(String name, Color color) {
 		hand = new ArrayList<Card>();
