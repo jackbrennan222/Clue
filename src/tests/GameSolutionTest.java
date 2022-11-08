@@ -32,6 +32,7 @@ public class GameSolutionTest {
 
     @BeforeAll
     static void fixedSetup() {
+        // create players with fixed hands
         room = new Card("room", CardType.ROOM);
         person = new Card("person", CardType.PERSON);
         weapon = new Card("weapon", CardType.WEAPON);
@@ -86,19 +87,19 @@ public class GameSolutionTest {
         Card solRoom = solution.getRoom();
         Card solPerson = solution.getPerson();
         Card solWeapon = solution.getWeapon();
-
+        // make sure accusation returns true when correct solution is passed in
         Boolean accusation = board.checkAccusation(solRoom, solPerson, solWeapon);
         assertTrue(accusation);
-
+        // make sure accusation with wrong room returns false
         ArrayList<Card> deck = board.getDeck();
         Card altRoom = deck.get(0).equals(solRoom) ? deck.get(1) : deck.get(0);
         accusation = board.checkAccusation(altRoom, solPerson, solWeapon);
         assertFalse(accusation);
-
+        // make sure accusation with wrong person returns false
         Card altPerson = deck.get(15).equals(solPerson) ? deck.get(16) : deck.get(15);
         accusation = board.checkAccusation(solRoom, altPerson, solWeapon);
         assertFalse(accusation);
-
+        // make sure accusation with wrong weapon returns false
         Card altWeapon = deck.get(9).equals(solPerson) ? deck.get(10) : deck.get(9);
         accusation = board.checkAccusation(solRoom, solPerson, altWeapon);
         assertFalse(accusation);
@@ -106,32 +107,37 @@ public class GameSolutionTest {
 
     @Test 
     void disproveSuggestion() {
+        // make sure player returns proper card when one card is in their hand
         Card disprove = player.disproveSuggestion(room, person2, weapon2);
         assertEquals(disprove, room);
+    // make sure player returns proper card when two cards are in their hand
         disprove = player.disproveSuggestion(room, person, weapon2);
         assertTrue(disprove.equals(room) || disprove.equals(person));
+        // make sure player returns null when no card is in their hand
         disprove = player.disproveSuggestion(room2, person2, weapon2);
         assertEquals(disprove, null);
     }
 
     @Test
     void handleSuggestion() {
+        // make sure null is returned when no players have the cards
         Solution suggestion = new Solution(room4, person4, weapon4);
         Card disprove = handleSuggestion(player, suggestion);
         assertEquals(disprove, null);
-
+        // make sure null is returned when player suggesting has all 3 cards
         suggestion = new Solution(room, person, weapon);
         disprove = handleSuggestion(player, suggestion);
         assertEquals(disprove, null);
-
+        // make sure proper card is returned when only 1 player has a card to disprove
         suggestion = new Solution(room2, person4, weapon4);
         disprove = handleSuggestion(player, suggestion);
         assertEquals(disprove, room2);
-
+        // make sure proper card is returned when 2 players have a card to disprove
         suggestion = new Solution(room2, person3, weapon4);
         disprove = handleSuggestion(player, suggestion);
         assertEquals(disprove, room2);
     }
+    // copied from board to be used with fixed players
     private Card handleSuggestion(Player player, Solution suggestion) {
 		for (Player p : players) {
 			if (p.equals(player)) { continue; }
