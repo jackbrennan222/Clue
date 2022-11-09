@@ -12,11 +12,13 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JPanel;
+
 /**
  * @author Erik Swanson
  * @author Jack Brennan
  */
-public class Board {
+public class Board extends JPanel {
 	private BoardCell[][] grid; // the board
 	private int numRows,numColumns; // numbers of rows and columns
 	private String layoutConfigFile,setupConfigFile; // filenames for the layout and setup files
