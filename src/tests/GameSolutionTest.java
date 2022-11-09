@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 import clueGame.*;
 

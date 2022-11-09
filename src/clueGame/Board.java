@@ -9,8 +9,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -26,7 +24,7 @@ public class Board {
 	private Map<Character, Room> configMap = new HashMap<Character, Room>();
 	private static Board theInstance = new Board(); // Singleton Pattern instance
 	private Set<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
-	private ArrayList<Player> players = new ArrayList<Player>(); // ArrayList to store the players
+	private ArrayList<Player> players = new ArrayList<Player>();; // ArrayList to store the players
 	private Solution theAnswer; // Solution instance to hold the referential answer to the game
 	private ArrayList<Card> deck = new ArrayList<Card>(); // ArrayList to hold all of the cards
 	private Set<Card> roomCards = new HashSet<Card>();
@@ -43,6 +41,13 @@ public class Board {
 	 * a faux constructor 
 	 */
 	public void initialize() { // Singleton Pattern "Constructor"
+		roomSet.clear();
+		configMap.clear();
+		deck.clear();
+		players.clear();
+		roomCards.clear();
+		playerCards.clear();
+		weaponCards.clear();
 		try { // loading files and catching two different types of errors
 			loadSetupConfig();
 			loadLayoutConfig();
@@ -90,7 +95,6 @@ public class Board {
 				Color color;
 				Player player;
 				Card card;
-				// TODO: figure out why tests fail on initial run but pass after debugging
 				switch (type) {
 					case "Room":
 						roomSet.add(extra.charAt(0)); // add room to map if not currently in map
