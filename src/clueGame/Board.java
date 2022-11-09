@@ -29,7 +29,6 @@ public class Board {
 	private ArrayList<Player> players = new ArrayList<Player>(); // ArrayList to store the players
 	private Solution theAnswer; // Solution instance to hold the referential answer to the game
 	private ArrayList<Card> deck = new ArrayList<Card>(); // ArrayList to hold all of the cards
-	private Set<Card> deck2 = new HashSet<Card>();
 	private Set<Card> roomCards = new HashSet<Card>();
 	private Set<Card> playerCards = new HashSet<Card>();
 	private Set<Card> weaponCards = new HashSet<Card>();
@@ -78,7 +77,7 @@ public class Board {
 				String name = info[1].strip();
 				if (type.equals("Weapon")) {
 					Card weapon = new Card(name, CardType.WEAPON);
-					deck2.add(weapon);
+					deck.add(weapon);
 					weaponCards.add(weapon);
 				} else {
 					in.close();
@@ -97,7 +96,7 @@ public class Board {
 						roomSet.add(extra.charAt(0)); // add room to map if not currently in map
 						configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
 						card = new Card(name, CardType.ROOM);
-						deck2.add(card);
+						deck.add(card);
 						roomCards.add(card);
 						break;
 					case "Space":
@@ -112,7 +111,7 @@ public class Board {
 						player = new HumanPlayer(name, color);
 						players.add(player); // add new player to game
 						card = new Card(name, CardType.PERSON);
-						deck2.add(card); // add new card for the person
+						deck.add(card); // add new card for the person
 						playerCards.add(card);
 						break;
 					case "Computer":
@@ -124,7 +123,7 @@ public class Board {
 						player = new ComputerPlayer(name, color);
 						players.add(player); // add new computer player to the game
 						card = new Card(name, CardType.PERSON);
-						deck2.add(card); // add new card for the person
+						deck.add(card); // add new card for the person
 						playerCards.add(card);
 						break;
 					default:
