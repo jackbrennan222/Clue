@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestBoardCell {
-	private int row,col; //row and col on the board that the cell is positioned at
+	// private int row,col; //row and col on the board that the cell is positioned at
 	private boolean isRoom,isOccupied; //bool if the cell is a room or is occupied by a piece
 	private Set<TestBoardCell> adjSet; //set of cell adjacent to the cell
 	
 	public TestBoardCell(int row, int col) {
-		this.row = row;
-		this.col = col;
+		// this.row = row;
+		// this.col = col;
 		isRoom = isOccupied = false;
 		adjSet = new HashSet<TestBoardCell>();
 	}
