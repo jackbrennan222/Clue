@@ -47,13 +47,22 @@ public class PlayerHandPanel extends JPanel {
         seenLabel = new JLabel("Seen:");
 
         panel.add(handLabel);
+        
+        int numCardsOfType = 0;
         for (Card c : human.getHand()) {
-            if (c.getCardType() == type) { 
-                JTextField cardField = new JTextField(c.getCardName());
-                cardField.setBackground(human.getColor());
-                cardField.setEditable(false);
-                panel.add(cardField);
-            }
+        	if (c.getCardType() == type) {
+        		numCardsOfType++;
+        		JTextField cardField = new JTextField(c.getCardName());
+        		cardField.setBackground(human.getColor());
+        		cardField.setEditable(false);
+        		panel.add(cardField);
+        	}
+        }
+        if (numCardsOfType == 0) {
+        	JTextField cardField = new JTextField("None");
+    		cardField.setBackground(human.getColor());
+    		cardField.setEditable(false);
+    		panel.add(cardField);
         }
 
         panel.add(seenLabel);
