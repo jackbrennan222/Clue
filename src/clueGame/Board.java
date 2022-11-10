@@ -316,31 +316,22 @@ public class Board extends JPanel {
 	 * @return a randomly selected Solution object
 	 */
 	private Solution createSolution() {
+		// TODO: remove line below after computerAI test / class has been refactored
 		Collections.sort(deck);
-		ArrayList<Card> rooms = new ArrayList<>();
-		ArrayList<Card> people = new ArrayList<>();
-		ArrayList<Card> weapons = new ArrayList<>();
-		int numRooms = roomSet.size();
-		int numPersons = players.size();
-		int numWeapons = deck.size() - numPersons - numRooms;
+		Card[] rooms = roomCards.toArray(new Card[0]);
+		Card[] people = playerCards.toArray(new Card[0]);
+		Card[] weapons = weaponCards.toArray(new Card[0]);
 		
 		// incorrect conditions to generate an answer
-		if (numPersons < 1 || numWeapons < 1) {
+		if (people.length < 1 || weapons.length < 1) {
 			return new Solution(null, null, null);
 		}
 		
-		Card solRoom, solPerson, solWeapon;
-		
 		// randomly indexed cards for all three CardTypes
-		int randRoom = (int)(Math.random() * (numRooms - 1));
-		solRoom = deck.get(randRoom);
-		
-		int randPerson = numRooms + (int)(Math.random() * (numPersons - 1));
-		solPerson = deck.get(randPerson);
-		
-		int randWeapon = numRooms + numPersons + (int)(Math.random() * (numWeapons - 1));
-		solWeapon = deck.get(randWeapon);
-		
+		Random rand = new Random();
+		Card solRoom = rooms[rand.nextInt(rooms.length)];
+		Card solPerson = people[rand.nextInt(people.length)];
+		Card solWeapon = weapons[rand.nextInt(weapons.length)];
 		return new Solution(solRoom, solPerson, solWeapon);
 	}
 
