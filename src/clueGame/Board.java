@@ -188,7 +188,7 @@ public class Board {
 		FileReader fr = new FileReader(layoutConfigFile);
 		Scanner in = new Scanner(fr);
 		numColumns = -1;
-		ArrayList<BoardCell[]> boardAR = new ArrayList<>();
+		ArrayList<BoardCell[]> boardArr = new ArrayList<>();
 		while (in.hasNext()) { // loop through csv file
 			String line = in.nextLine();
 			String[] lineRay = line.split(",");
@@ -199,7 +199,7 @@ public class Board {
 			}
 			BoardCell[] row = new BoardCell[numColumns];
 			for (int i = 0; i < numColumns; i++) {
-				row[i] = new BoardCell(boardAR.size(), i);
+				row[i] = new BoardCell(boardArr.size(), i);
 				BoardCell curCell = row[i];
 				String label = lineRay[i];
 				char initial = label.charAt(0);
@@ -239,12 +239,12 @@ public class Board {
 					break;
 				}
 			}
-			boardAR.add(row);
+			boardArr.add(row);
 		}
 		in.close();
-		numRows = boardAR.size();
+		numRows = boardArr.size();
 		grid = new BoardCell[numRows][numColumns];
-		boardAR.toArray(grid);
+		boardArr.toArray(grid);
 	}
 
 	/**
@@ -315,6 +315,9 @@ public class Board {
 	 */
 	private Solution createSolution() {
 		Collections.sort(deck);
+		ArrayList<Card> rooms = new ArrayList<>();
+		ArrayList<Card> people = new ArrayList<>();
+		ArrayList<Card> weapons = new ArrayList<>();
 		int numRooms = roomSet.size();
 		int numPersons = players.size();
 		int numWeapons = deck.size() - numPersons - numRooms;
@@ -455,5 +458,18 @@ public class Board {
 	
 	public Solution getTheAnswer() {
 		return theAnswer;
+	}
+
+	public Set<Card> getRoomCards() {
+		return roomCards;
+	}
+
+	public Set<Card> getPlayerCards() {
+		return playerCards;
+	}
+
+
+	public Set<Card> getWeaponCards() {
+		return weaponCards;
 	}
 }

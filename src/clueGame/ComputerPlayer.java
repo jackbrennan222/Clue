@@ -24,9 +24,9 @@ public class ComputerPlayer extends Player {
 	}
 
 	public Solution createSuggestion() {
-		BoardCell currCell = Board.getInstance().getCell(row, col);
-		Room currRoom = Board.getInstance().getRoom(currCell);
-		Card currRoomCard = new Card(currRoom.getName(), CardType.ROOM);
+		BoardCell currentCell = Board.getInstance().getCell(row, col);
+		Room currentRoom = Board.getInstance().getRoom(currentCell);
+		Card currentRoomCard = new Card(currentRoom.getName(), CardType.ROOM);
 
 		ArrayList<Card> unseenPersons = new ArrayList<Card>();
 		ArrayList<Card> unseenWeapons = new ArrayList<Card>();
@@ -43,7 +43,7 @@ public class ComputerPlayer extends Player {
 		suggestionPerson = unseenPersons.get(randIndex);
 		randIndex = rand.nextInt(unseenWeapons.size());
 		suggestionWeapon = unseenWeapons.get(randIndex);
-		return new Solution(currRoomCard, suggestionPerson, suggestionWeapon);
+		return new Solution(currentRoomCard, suggestionPerson, suggestionWeapon);
 	}
 
 	public BoardCell selectTarget() {
