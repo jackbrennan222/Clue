@@ -1,3 +1,65 @@
+commit 41f63afaa762d583f04aa3ecd8c5b41689fca01a
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Nov 10 11:00:25 2022 -0700
+
+    Empty Hand Categories now display None card
+
+commit 28d8b34378606d66e0b43a2903a88496adba353d
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 20:52:20 2022 -0700
+
+    Started ClueGame (very WIP)
+
+commit 1d1dd8ecd15f088317d6b8b7ffbecead82b1f88c
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 18:44:51 2022 -0700
+
+    removed unneeded imports
+
+commit ae2906de5d15542ee106ba53cf01ce755bc3c12f
+Merge: 5ba11af 152c9c1
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 18:44:06 2022 -0700
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit 5ba11aff1befb50e09e938259a2e8d47075bced0
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 18:43:53 2022 -0700
+
+    fixed a bunch of stuff and refactored
+
+commit 152c9c1e4e786f27cbba8365e70b608509f59904
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 18:09:59 2022 -0700
+
+    removing unnecessary imports
+
+commit 2e56ce9a691dee192c99c238579058aa42b43a0d
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 18:08:49 2022 -0700
+
+    fixed board
+
+commit 9f32cfa54a91706d151b1ca90367dd7a85d6cd21
+Merge: 8119060 538bcab
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 16:43:58 2022 -0700
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit 8119060ad324148ff9e5cee7565137b4ba222872
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 16:41:22 2022 -0700
+
+    refactored and fixed test files
+
+commit 538bcaba8ad4b6773ffe080bcf8650245e701e0d
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Tue Nov 8 16:37:55 2022 -0700
+
+    Gitlog
+
 commit 9a19590f65294ecf6729cc63dd0d7aeeb97ca90c
 Author: Jack Brennan <jackbrennan222@gmail.com>
 Date:   Tue Nov 8 16:36:49 2022 -0700
@@ -45,6 +107,18 @@ Author: jackbrennan222 <jbrennan@mines.edu>
 Date:   Tue Nov 8 12:18:12 2022 -0700
 
     Started GUI
+
+commit d7a466af5120b4073a20595395ea26ea013ee18a
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 12:14:02 2022 -0700
+
+    board refactoring
+
+commit a210b0545248b3ccdfd96214f86fd690549bbb2a
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 8 11:53:54 2022 -0700
+
+    fixed exception tests sometimes failing
 
 commit ecf71805395757f893b243fa867b2a99059b22e3
 Author: Jack Brennan <jackbrennan222@gmail.com>
