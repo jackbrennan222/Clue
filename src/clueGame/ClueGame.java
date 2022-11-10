@@ -1,22 +1,15 @@
 package clueGame;
 
-import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-import java.awt.Color;
 
-import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class ClueGame extends JFrame {
 
     public static final int CELL_SIZE = 24;
     public static final int MENU_SIZE = 150;
     private static Board board;
-    private int numRows,numCols,rowDim,colDim;
+    private int numRows,numCols,yDim,xDim;
 
     public ClueGame() {
         initialize();
@@ -24,16 +17,17 @@ public class ClueGame extends JFrame {
         numRows = board.getNumRows();
         numCols = board.getNumColumns();
 
-        rowDim = numRows * CELL_SIZE;
-        colDim = numCols * CELL_SIZE;
+        xDim = numCols * CELL_SIZE;
+        yDim = numRows * CELL_SIZE;
         
-        setSize(colDim + MENU_SIZE, rowDim + MENU_SIZE);
-        setLayout(new GridBagLayout());
+        setSize(xDim + MENU_SIZE, yDim + MENU_SIZE);
+        setLayout(new BorderLayout());
 
         GameControlPanel gcp = new GameControlPanel();
         PlayerHandPanel php = new PlayerHandPanel();
         add(gcp, BorderLayout.SOUTH);
-        add(php, BorderLayout.LINE_END);
+        add(php, BorderLayout.EAST);
+        add(board, BorderLayout.CENTER);
     }
 
     private static void initialize() {

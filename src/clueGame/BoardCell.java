@@ -1,5 +1,7 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,6 +11,7 @@ public class BoardCell {
 	private DoorDirection doorDirection; // enum to denote door direction
 	private boolean roomLabel,roomCenter,isRoom,isOccupied; // booleans to represent if a cell is a label, center, in a room, or occupied by a player
 	private Set<BoardCell> adjList; // the cell's list of adjacent cells
+	private Color color;
 	
 	// constructor
 	public BoardCell(int row, int col) {
@@ -19,6 +22,19 @@ public class BoardCell {
 		this.doorDirection = DoorDirection.NONE; // assume no door
 	}
 	
+	public void draw(Graphics2D g, int cellWidth, int cellHeight, int xOffset, int yOffset) {
+		g.setColor(color);
+		g.fillRect(xOffset, yOffset, cellWidth, cellHeight);
+		if (!isRoom()) {	
+			g.setColor(Color.BLACK);
+			g.drawRect(xOffset, yOffset, cellWidth, cellHeight);
+		}
+	}
+	
+	public void drawRoomName(Graphics2D g, String roomName) {
+		
+	}
+	
 	// add cell to adjList
 	public void addAdjacency(BoardCell cell) {
 		adjList.add(cell);
@@ -26,6 +42,10 @@ public class BoardCell {
 	
 	public Set<BoardCell> getAdjList() {
 		return adjList;
+	}
+	
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 	public void setRoom(boolean room) {

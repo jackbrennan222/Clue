@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Random;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -179,6 +181,21 @@ public class Board extends JPanel {
                 (fa * a.getGreen() + fb * b.getGreen()) / (fa + fb) / 255f,
                 (fa * a.getBlue() + fb * b.getBlue()) / (fa + fb) / 255f);
     }
+    
+    @Override
+	protected void paintComponent(Graphics g) {
+    	super.paintComponent(g);
+    	int windowWidth = getWidth();
+    	int windowHeight = getHeight();
+    	int cellWidth = windowWidth / getNumColumns();
+    	int cellHeight = windowHeight / getNumRows();
+    	
+    	for (int r = 0; r < getNumRows(); r++) {
+    		for (int c = 0; c < getNumColumns(); c++) {
+    			grid[r][c].draw((Graphics2D) g, cellWidth, cellHeight, cellWidth * c, cellHeight * r);
+    		}
+    	}
+    }
 
 	/**
 	 * loading layout file and throwing exceptions when necessary
@@ -210,8 +227,16 @@ public class Board extends JPanel {
 					throw new BadConfigFormatException("layout file room not present in setup file");
 				}
 				curCell.setInitial(initial);
+				switch(initial) {
+				case 'X': curCell.setColor(Color.BLACK);
+					break;
+				case 'W': curCell.setColor(Color.YELLOW);
+					break;
+				default: curCell.setColor(Color.GRAY);
+					break;
+				}
 				if (roomSet.contains(initial)) {
-					curCell.setRoom(true);
+					curCell.setRoom(true);							
 				}
 				if (label.length() != 2) { continue; }
 				char modifier = label.charAt(1);

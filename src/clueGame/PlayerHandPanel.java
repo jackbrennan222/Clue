@@ -80,28 +80,6 @@ public class PlayerHandPanel extends JPanel {
                 }
             }
         }
-
         return panel;
-    }
-
-    public static void main(String[] args) {
-        // get board instance because it's singleton
-		Board board = Board.getInstance();
-		// set the proper config files
-		board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-		// initialize the board
-		board.initialize();
-
-        for (Card c : board.getDeck()) {
-            board.getPlayers().get(0).seenCards.add(c); 
-        }
-
-        PlayerHandPanel panel = new PlayerHandPanel();
-        JFrame frame = new JFrame();
-        frame.setContentPane(panel);
-        frame.setSize(150,600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
-        frame.setResizable(false);
     }
 }
