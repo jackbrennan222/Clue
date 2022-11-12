@@ -1,15 +1,12 @@
 package clueGame;
 
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.border.Border;
 
 public class PlayerHandPanel extends JPanel {
     private JPanel outerPanel,peoplePanel,roomsPanel,weaponsPanel;
