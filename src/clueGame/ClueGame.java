@@ -25,8 +25,8 @@ public class ClueGame extends JFrame {
 
         GameControlPanel gcp = new GameControlPanel();
         PlayerHandPanel php = new PlayerHandPanel();
-        add(gcp, BorderLayout.SOUTH);
         add(php, BorderLayout.EAST);
+        add(gcp, BorderLayout.SOUTH);
         add(board, BorderLayout.CENTER);
     }
 

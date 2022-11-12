@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Dimension;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -83,4 +84,12 @@ public class GameControlPanel extends JPanel {
 	public void setGuessResult(String result) {
 		guessResultField.setText(result);
 	}
+
+	/**
+     * Researched in order to get desirable width for this panel in ClueGame JFrame
+     */
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(super.getPreferredSize().width, 150);
+    }
 }

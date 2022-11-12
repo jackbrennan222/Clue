@@ -1,12 +1,15 @@
 package clueGame;
 
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.border.Border;
 
 public class PlayerHandPanel extends JPanel {
     private JPanel outerPanel,peoplePanel,roomsPanel,weaponsPanel;
@@ -64,10 +67,12 @@ public class PlayerHandPanel extends JPanel {
     		panel.add(cardField);
         }
 
+        numCardsOfType = 0;
         panel.add(seenLabel);
         for (Card c : Board.getInstance().getDeck()) {
             if (c.getCardType() == type) {
                 if (human.seenCards.contains(c)) {
+                    numCardsOfType++;
                     JTextField cardField = new JTextField(c.getCardName());
                     cardField.setEditable(false);
                     for (Player p : Board.getInstance().getPlayers()) {
@@ -79,6 +84,29 @@ public class PlayerHandPanel extends JPanel {
                 }
             }
         }
+        if (numCardsOfType == 0) {
+        	JTextField cardField = new JTextField("None");
+    		cardField.setBackground(human.getColor());
+    		cardField.setEditable(false);
+    		panel.add(cardField);
+        }
         return panel;
+    }
+
+    /**
+     * Called to update the panels
+     */
+    public void updatePanels() {
+        peoplePanel  = createPanel(CardType.PERSON, "People");
+        roomsPanel  = createPanel(CardType.ROOM, "Rooms");
+        weaponsPanel  = createPanel(CardType.WEAPON, "Weapons");
+    }
+
+    /**
+     * Researched in order to get desirable width for this panel in ClueGame JFrame
+     */
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(150, super.getPreferredSize().height);
     }
 }
