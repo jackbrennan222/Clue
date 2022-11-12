@@ -8,6 +8,10 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+/**
+ * @author Jack Brennan
+ * @author Erik Swanson
+ */
 public class GameControlPanel extends JPanel {
 	private JPanel topPanel,topLeft,topNextLeft,bottomPanel,bottomLeft,bottomRight;
 	private JLabel whoseTurn, rollLabel;
