@@ -16,10 +16,10 @@ public class GameControlPanel extends JPanel {
 	
 	public GameControlPanel() {
 		setLayout(new GridLayout(2,0));
-		
+		// setup the top panel
 		topPanel = new JPanel();
 		topPanel.setLayout(new GridLayout(1,4));
-		
+		// setup panel for turn info
 		topLeft = new JPanel();
 		topLeft.setLayout(new GridLayout(3,1));
 		whoseTurn = new JLabel("Whose Turn?", SwingConstants.CENTER);
@@ -27,7 +27,7 @@ public class GameControlPanel extends JPanel {
 		turnPlayer.setEditable(false);
 		topLeft.add(whoseTurn);
 		topLeft.add(turnPlayer);
-		
+		// add panel for roll info
 		topNextLeft = new JPanel();
 		topNextLeft.setLayout(new BorderLayout());
 		topNextLeft.setBorder(BorderFactory.createEmptyBorder(0,30,0,30));
@@ -39,48 +39,58 @@ public class GameControlPanel extends JPanel {
 		holder.add(rollLabel);
 		holder.add(rollField);
 		topNextLeft.add(holder, BorderLayout.NORTH);
-		
+		// add buttons for game control
 		accuseButton = new JButton("Make Accusation");
 		nextButton = new JButton("NEXT!");
-		
+		// add other panels to top panel
 		topPanel.add(topLeft);
 		topPanel.add(topNextLeft);
 		topPanel.add(accuseButton);
 		topPanel.add(nextButton);
 		add(topPanel);
-		
+		// add new panel for guess info
 		bottomPanel = new JPanel();
 		bottomPanel.setLayout(new GridLayout(0,2));
-		
+		// create left grid for guess
 		bottomLeft = new JPanel();
 		bottomLeft.setLayout(new GridLayout(1,0));
 		bottomLeft.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
 		guessField = new JTextField("");
 		guessField.setEditable(false);
 		bottomLeft.add(guessField);
-		
+		// create right grid for guess result
 		bottomRight = new JPanel();
 		bottomRight.setLayout(new GridLayout(1,0));
 		bottomRight.setBorder(new TitledBorder( new EtchedBorder(), "Guess Result"));
 		guessResultField = new JTextField("");
 		guessResultField.setEditable(false);
 		bottomRight.add(guessResultField);
-		
+		// add all of bottom panel to window
 		bottomPanel.add(bottomLeft);
 		bottomPanel.add(bottomRight);
 		add(bottomPanel);
 	}
 	
+	/** 
+	 * @param player
+	 * @param roll
+	 */
 	public void setTurn(Player player, int roll) {
 		turnPlayer.setText(player.getName());
 		turnPlayer.setBackground(player.getColor());
 		rollField.setText(Integer.toString(roll));
 	}
 	
+	/** 
+	 * @param guess
+	 */
 	public void setGuess(String guess) {
 		guessField.setText(guess);
 	}
 	
+	/** 
+	 * @param result
+	 */
 	public void setGuessResult(String result) {
 		guessResultField.setText(result);
 	}
