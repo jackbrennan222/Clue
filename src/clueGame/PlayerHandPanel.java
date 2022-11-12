@@ -1,9 +1,7 @@
 package clueGame;
 
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Dimension;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,6 +12,7 @@ public class PlayerHandPanel extends JPanel {
     private JPanel outerPanel,peoplePanel,roomsPanel,weaponsPanel;
     private Player human;
 
+    String s = "unnesseccary";
     public PlayerHandPanel() {
         for (Player p : Board.getInstance().getPlayers()) {
             if (p instanceof HumanPlayer) {
