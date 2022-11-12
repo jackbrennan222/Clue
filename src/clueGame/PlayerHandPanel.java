@@ -12,7 +12,6 @@ public class PlayerHandPanel extends JPanel {
     private JPanel outerPanel,peoplePanel,roomsPanel,weaponsPanel;
     private Player human;
 
-    String s = "unnesseccary";
     public PlayerHandPanel() {
         for (Player p : Board.getInstance().getPlayers()) {
             if (p instanceof HumanPlayer) {
