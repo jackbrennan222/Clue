@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.border.Border;
 
 public class PlayerHandPanel extends JPanel {
     private JPanel outerPanel,peoplePanel,roomsPanel,weaponsPanel;
@@ -97,9 +96,21 @@ public class PlayerHandPanel extends JPanel {
      * Called to update the panels
      */
     public void updatePanels() {
-        peoplePanel  = createPanel(CardType.PERSON, "People");
-        roomsPanel  = createPanel(CardType.ROOM, "Rooms");
-        weaponsPanel  = createPanel(CardType.WEAPON, "Weapons");
+        removeAll();
+
+        outerPanel = new JPanel();
+        outerPanel.setLayout(new GridLayout(3,0));
+        outerPanel.setBorder(new TitledBorder(new EtchedBorder(), "Known Cards"));
+
+        peoplePanel = createPanel(CardType.PERSON, "People");
+        roomsPanel = createPanel(CardType.ROOM, "Rooms");
+        weaponsPanel = createPanel(CardType.WEAPON, "Weapons");
+        
+        outerPanel.add(peoplePanel);
+        outerPanel.add(roomsPanel);
+        outerPanel.add(weaponsPanel);
+
+        add(outerPanel);
     }
 
     /**

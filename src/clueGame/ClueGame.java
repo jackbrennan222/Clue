@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 
@@ -10,6 +11,8 @@ public class ClueGame extends JFrame {
     public static final int MENU_SIZE = 150;
     private static Board board;
     private int numRows,numCols,yDim,xDim;
+    private static GameControlPanel gcp;
+    private static PlayerHandPanel php;
 
     public ClueGame() {
         initialize();
@@ -23,8 +26,8 @@ public class ClueGame extends JFrame {
         setSize(xDim + MENU_SIZE, yDim + MENU_SIZE);
         setLayout(new BorderLayout());
 
-        GameControlPanel gcp = new GameControlPanel();
-        PlayerHandPanel php = new PlayerHandPanel();
+        gcp = new GameControlPanel();
+        php = new PlayerHandPanel();
         add(php, BorderLayout.EAST);
         add(gcp, BorderLayout.SOUTH);
         add(board, BorderLayout.CENTER);
@@ -36,9 +39,15 @@ public class ClueGame extends JFrame {
         board.initialize();
     }
 
+    private void update() {
+        php.updatePanels();
+        revalidate();
+    }
+
     public static void main(String[] args) {
         ClueGame clue = new ClueGame();
         clue.setVisible(true);
         clue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        clue.update();
     }
 }
