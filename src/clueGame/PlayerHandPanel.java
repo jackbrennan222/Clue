@@ -142,39 +142,4 @@ public class PlayerHandPanel extends JPanel {
     public Dimension getPreferredSize() {
         return new Dimension(150, super.getPreferredSize().height);
     }
-
-    
-	/**
-	 * Main to test the panel
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-        // setting up board for information
-        Board board = Board.getInstance();
-        board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
-        board.initialize();
-
-		PlayerHandPanel panel = new PlayerHandPanel();  // create the panel
-		JFrame frame = new JFrame();  // create the frame 
-		frame.setContentPane(panel); // put the panel in the frame
-		frame.setSize(150, 750);  // size the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // allow it to close
-		frame.setVisible(true); // make it visible
-		
-		// test filling in the data
-        System.out.println("Updating Information");
-        for (Card c : board.getDeck()) {
-            board.getPlayers().get(0).seenCards.add(c);
-        }
-        // waiting for a second
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            // bad try-catch
-        }
-        // update visuals
-        panel.updatePanels();
-        System.out.println("Updated");
-	}
 }
