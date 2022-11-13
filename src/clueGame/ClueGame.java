@@ -47,10 +47,5 @@ public class ClueGame extends JFrame {
         clue.setVisible(true);
         clue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         clue.update();
-
-        for (Card c : board.getDeck()) {
-            board.getPlayers().get(0).seenCards.add(c);
-        }
-        clue.update();
     }
 }
