@@ -3,7 +3,6 @@ package clueGame;
 import java.awt.GridLayout;
 import java.awt.Dimension;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
