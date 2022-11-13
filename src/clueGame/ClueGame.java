@@ -41,13 +41,17 @@ public class ClueGame extends JFrame {
 
     private void update() {
         php.updatePanels();
-        revalidate();
     }
 
     public static void main(String[] args) {
         ClueGame clue = new ClueGame();
         clue.setVisible(true);
         clue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        clue.update();
+
+        for (Card c : board.getDeck()) {
+            board.getPlayers().get(0).seenCards.add(c);
+        }
         clue.update();
     }
 }

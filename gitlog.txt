@@ -1,3 +1,116 @@
+commit 96ff6041cefaba7811173fa30266ccecb44c89f9
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 21:26:15 2022 -0700
+
+    added main
+
+commit bbd5ff75e842c68ab47e41b8be5abb2ac566dc89
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 21:26:03 2022 -0700
+
+    added comments and main
+
+commit ddade2721f5a80e58ac47820ef0518a519e0034c
+Merge: db978f3 5ddef39
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 21:16:57 2022 -0700
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit db978f360a19553cb0da235c87760b818ebd8ecc
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 21:16:43 2022 -0700
+
+    added comments
+
+commit 5ddef395c1710d89f2594ef9c2b664b8cbd53611
+Merge: 7ae07e0 819edc4
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Fri Nov 11 20:40:28 2022 -0700
+
+    Merge branch 'main' of https://github.com/jackbrennan222/Clue
+
+commit 7ae07e00538ba0d26445f438d65053de4744098c
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Fri Nov 11 20:40:19 2022 -0700
+
+    Finished update method
+
+commit 404b2eb48474675c67c441cca204471579f6e4d3
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 20:09:37 2022 -0700
+
+    removed stuff
+
+commit 819edc4b488ec56518b7bf0ef4d7590258aa0d77
+Merge: 4b6c67a dfc5c4e
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 20:09:10 2022 -0700
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit 4b6c67ad37f6ac862a1f8650e682880aa36ea1a8
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 20:09:04 2022 -0700
+
+    removed unnecessary
+
+commit dfc5c4e00734cddf1335ed59cd8f8df88bacae01
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Fri Nov 11 20:08:37 2022 -0700
+
+    removed unnecessary
+
+commit c24b3f1e6881835dd353eeb49009119a575ba39c
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Fri Nov 11 20:00:07 2022 -0700
+
+    Add Pref Size Method and Update Function in PHP
+
+commit 1ba5ad1b81f3094f489bf40b39f788c13c9408aa
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Thu Nov 10 20:14:43 2022 -0700
+
+    Removing Unused Imports
+
+commit ffe5386b715890dd573ed1f1bc0fee8b039a87ee
+Merge: 815bd88 f3910ff
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Nov 10 12:12:44 2022 -0700
+
+    Merge branch 'main' of https://github.com/jackbrennan222/Clue
+
+commit 815bd887e7a006491dacba28da9f69840108007f
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Nov 10 12:11:57 2022 -0700
+
+    ClueGame setup
+
+commit f3910ff7b41ea35aceb73bd27b682c8f52e340a9
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Thu Nov 10 12:08:47 2022 -0700
+
+    refact
+
+commit 6539f5e9c552b721c6ae194c8b4c66426afe2b0c
+Merge: e8b89f0 43752ce
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Thu Nov 10 11:29:51 2022 -0700
+
+    Merge branch 'main' of github.com:jackbrennan222/Clue
+
+commit e8b89f08117fdcae829da5057b78658621bc63d2
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Thu Nov 10 11:29:47 2022 -0700
+
+    some refactoring
+
+commit 43752ce508b3bb0f2a4533769317b90f167ee18f
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Nov 10 11:00:58 2022 -0700
+
+    gitlog update
+
 commit 41f63afaa762d583f04aa3ecd8c5b41689fca01a
 Author: jackbrennan222 <jbrennan@mines.edu>
 Date:   Thu Nov 10 11:00:25 2022 -0700
