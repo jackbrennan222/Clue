@@ -46,7 +46,7 @@ public class BoardCell {
 	}
 	
 	public void drawRoomName(Graphics2D g, String roomName, int cellWidth, int cellHeight) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.BLUE);
 		g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
 		g.drawString(roomName, col * cellWidth, row * cellHeight);
 	}

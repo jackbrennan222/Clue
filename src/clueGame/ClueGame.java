@@ -40,6 +40,7 @@ public class ClueGame extends JFrame {
 
     private void update() {
         php.updatePanels();
+        board.repaint();
     }
 
     public static void main(String[] args) {

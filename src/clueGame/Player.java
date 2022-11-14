@@ -1,6 +1,8 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -18,6 +20,14 @@ public abstract class Player {
 		seenCards = new HashSet<Card>();
 		this.name = name;
 		this.color = color;
+	}
+
+	public void draw(Graphics2D g, int cellWidth, int cellHeight, int r) {
+		g.setColor(color);
+		g.fillOval(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+		g.setColor(Color.BLACK);
+		g.setStroke(new BasicStroke(1.5f));
+		g.drawOval(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
 	}
 	
 	public ArrayList<Card> getHand() {

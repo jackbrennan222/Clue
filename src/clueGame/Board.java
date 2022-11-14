@@ -92,10 +92,16 @@ public class Board extends JPanel {
 					in.close();
 					throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
 				}
-			} else if (info.length == 3) {
+			} else if (info.length == 3 || info.length == 5) {
 				String type = info[0].strip();
 				String name = info[1].strip();
 				String extra = info[2].strip();
+				int row = 0;
+				int col = 0;
+				if (info.length == 5) {
+					row = Integer.parseInt(info[3].strip());
+					col = Integer.parseInt(info[4].strip());	
+				}
 				Color color;
 				Player player;
 				Card card;
@@ -117,6 +123,7 @@ public class Board extends JPanel {
 						}
 						color = colorMap.get(extra.toLowerCase());
 						player = new HumanPlayer(name, color);
+						player.setPos(row, col);
 						players.add(player); // add new player to game
 						card = new Card(name, CardType.PERSON);
 						deck.add(card); // add new card for the person
@@ -129,6 +136,7 @@ public class Board extends JPanel {
 						}
 						color = colorMap.get(extra.toLowerCase());
 						player = new ComputerPlayer(name, color);
+						player.setPos(row, col);
 						players.add(player); // add new computer player to the game
 						card = new Card(name, CardType.PERSON);
 						deck.add(card); // add new card for the person
@@ -200,6 +208,13 @@ public class Board extends JPanel {
 			if (room.getLabelCell() != null) {
 				room.getLabelCell().drawRoomName((Graphics2D) g, room.getName(), cellWidth, cellHeight);
 			}
+		}
+
+		int playerDiam = cellHeight;
+		if (playerDiam > cellWidth) { playerDiam = cellWidth; }
+
+		for (Player p : players) {
+			p.draw((Graphics2D) g, cellWidth, cellHeight, playerDiam / 2);
 		}
     }
 
