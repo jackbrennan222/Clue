@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,10 +30,25 @@ public class BoardCell {
 			g.setColor(Color.BLACK);
 			g.drawRect(xOffset, yOffset, cellWidth, cellHeight);
 		}
+		g.setColor(Color.BLUE);
+		switch (doorDirection) {
+			case UP: g.fillRect(xOffset, yOffset, cellWidth, 5);
+				break;
+			case DOWN: g.fillRect(xOffset, yOffset + cellHeight - 5, cellWidth, 5);
+				break;
+			case LEFT: g.fillRect(xOffset, yOffset, 5, cellHeight);
+				break;
+			case RIGHT: g.fillRect(xOffset + cellWidth - 5, yOffset, 5, cellHeight);
+				break;
+			default:
+				break;
+		}
 	}
 	
-	public void drawRoomName(Graphics2D g, String roomName) {
-		
+	public void drawRoomName(Graphics2D g, String roomName, int cellWidth, int cellHeight) {
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
+		g.drawString(roomName, col * cellWidth, row * cellHeight);
 	}
 	
 	// add cell to adjList

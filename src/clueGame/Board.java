@@ -195,6 +195,12 @@ public class Board extends JPanel {
     			grid[r][c].draw((Graphics2D) g, cellWidth, cellHeight, cellWidth * c, cellHeight * r);
     		}
     	}
+
+		for (Room room : configMap.values()) {
+			if (room.getLabelCell() != null) {
+				room.getLabelCell().drawRoomName((Graphics2D) g, room.getName(), cellWidth, cellHeight);
+			}
+		}
     }
 
 	/**
