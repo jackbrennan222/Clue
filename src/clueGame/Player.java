@@ -22,9 +22,19 @@ public abstract class Player {
 		this.color = color;
 	}
 
+	/**
+	 * a function to draw players in the GUI
+	 * 
+	 * @param g
+	 * @param cellWidth
+	 * @param cellHeight
+	 * @param r
+	 */
 	public void draw(Graphics2D g, int cellWidth, int cellHeight, int r) {
+		// background color
 		g.setColor(color);
 		g.fillOval(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+		// outline
 		g.setColor(Color.BLACK);
 		g.setStroke(new BasicStroke(1.5f));
 		g.drawOval(col * cellWidth, row * cellHeight, cellWidth, cellHeight);

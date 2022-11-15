@@ -14,8 +14,8 @@ public class BoardCell {
 	private Set<BoardCell> adjList; // the cell's list of adjacent cells
 	private Color color;
 	
-	// constructor
 	public BoardCell(int row, int col) {
+		// setting up vars
 		this.row = row;
 		this.col = col;
 		adjList = new HashSet<BoardCell>();
@@ -23,13 +23,25 @@ public class BoardCell {
 		this.doorDirection = DoorDirection.NONE; // assume no door
 	}
 	
+	/**
+	 * function to draw a cell
+	 * 
+	 * @param g
+	 * @param cellWidth
+	 * @param cellHeight
+	 * @param xOffset
+	 * @param yOffset
+	 */
 	public void draw(Graphics2D g, int cellWidth, int cellHeight, int xOffset, int yOffset) {
+		// solid background
 		g.setColor(color);
 		g.fillRect(xOffset, yOffset, cellWidth, cellHeight);
+		// hallways have a grid
 		if (!isRoom()) {	
 			g.setColor(Color.BLACK);
 			g.drawRect(xOffset, yOffset, cellWidth, cellHeight);
 		}
+		// coloring doors
 		g.setColor(Color.BLUE);
 		switch (doorDirection) {
 			case UP: g.fillRect(xOffset, yOffset, cellWidth, 5);
@@ -45,6 +57,14 @@ public class BoardCell {
 		}
 	}
 	
+	/**
+	 * a function to draw room names
+	 * 
+	 * @param g
+	 * @param roomName
+	 * @param cellWidth
+	 * @param cellHeight
+	 */
 	public void drawRoomName(Graphics2D g, String roomName, int cellWidth, int cellHeight) {
 		g.setColor(Color.BLUE);
 		g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
