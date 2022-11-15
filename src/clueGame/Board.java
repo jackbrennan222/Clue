@@ -195,21 +195,25 @@ public class Board extends JPanel {
     	super.paintComponent(g);
     	int windowWidth = getWidth();
     	int windowHeight = getHeight();
+		// get the width and height for each individual cell
     	int cellWidth = windowWidth / getNumColumns();
     	int cellHeight = windowHeight / getNumRows();
     	
+		// loop through each cell and draw on the board GUI
     	for (int r = 0; r < getNumRows(); r++) {
     		for (int c = 0; c < getNumColumns(); c++) {
     			grid[r][c].draw((Graphics2D) g, cellWidth, cellHeight, cellWidth * c, cellHeight * r);
     		}
     	}
 
+		// loop through each room and draw the name on the board GUI
 		for (Room room : configMap.values()) {
 			if (room.getLabelCell() != null) {
 				room.getLabelCell().drawRoomName((Graphics2D) g, room.getName(), cellWidth, cellHeight);
 			}
 		}
 
+		// draw each player on the board GUI
 		int playerDiam = cellHeight;
 		if (playerDiam > cellWidth) { playerDiam = cellWidth; }
 
