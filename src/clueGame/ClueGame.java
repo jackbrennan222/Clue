@@ -3,7 +3,7 @@ package clueGame;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
-
+import javax.swing.JOptionPane;
 public class ClueGame extends JFrame {
 
     public static final int CELL_SIZE = 24;
@@ -29,6 +29,7 @@ public class ClueGame extends JFrame {
         add(php, BorderLayout.EAST);
         add(gcp, BorderLayout.SOUTH);
         add(board, BorderLayout.CENTER);
+
     }
     
     /**
@@ -39,7 +40,7 @@ public class ClueGame extends JFrame {
         board.setConfigFiles("ClueLayout.csv", "ClueSetup.txt");
         board.initialize();
     }
-
+    
     /**
      * updating all components
      */
@@ -47,7 +48,7 @@ public class ClueGame extends JFrame {
         php.updatePanels();
         board.repaint();
     }
-
+    
     /**
      * main method to run program
      * 
@@ -58,6 +59,7 @@ public class ClueGame extends JFrame {
         ClueGame clue = new ClueGame();
         clue.setVisible(true);
         clue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JOptionPane.showMessageDialog(clue, "You are " + board.getHuman().getName() + ".\nCan you find the solution\nbefore the computer players", "Welcome to Clue", 1);
         clue.update();
     }
 }

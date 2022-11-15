@@ -34,7 +34,10 @@ public class Board extends JPanel {
 	private Set<Card> roomCards = new HashSet<Card>();
 	private Set<Card> playerCards = new HashSet<Card>();
 	private Set<Card> weaponCards = new HashSet<Card>();
+	private HumanPlayer human;
 
+	
+	
 	private HashMap<String, Color> colorMap = new HashMap<>(); // Map to switch strings to awt.colors objects
 	
 	private Board() {
@@ -66,7 +69,7 @@ public class Board extends JPanel {
 		theAnswer = createSolution();
 		deal();
 	}
-
+	
 	/**
 	 * loading setup file and throwing exceptions when necessary
 	 * 
@@ -107,29 +110,30 @@ public class Board extends JPanel {
 				Card card;
 				switch (type) {
 					case "Room":
-						roomSet.add(extra.charAt(0)); // add room to map if not currently in map
+					roomSet.add(extra.charAt(0)); // add room to map if not currently in map
 						configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
 						card = new Card(name, CardType.ROOM);
 						deck.add(card);
 						roomCards.add(card);
 						break;
-					case "Space":
+						case "Space":
 						configMap.put(extra.charAt(0), new Room(name)); // add room to map if not currently in map
 						break;
 					case "Human":
-						if (!colorMap.containsKey(extra.toLowerCase())) {
-							in.close();
-							throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
-						}
-						color = colorMap.get(extra.toLowerCase());
-						player = new HumanPlayer(name, color);
-						player.setPos(row, col);
+					if (!colorMap.containsKey(extra.toLowerCase())) {
+						in.close();
+						throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
+					}
+					color = colorMap.get(extra.toLowerCase());
+					player = new HumanPlayer(name, color);
+					player.setPos(row, col);
 						players.add(player); // add new player to game
 						card = new Card(name, CardType.PERSON);
 						deck.add(card); // add new card for the person
 						playerCards.add(card);
+						human = (HumanPlayer) player;
 						break;
-					case "Computer":
+						case "Computer":
 						if (!colorMap.containsKey(extra.toLowerCase())) { 
 							in.close();
 							throw new BadConfigFormatException("bad color input"); // exception: file colors not correct
@@ -143,7 +147,7 @@ public class Board extends JPanel {
 						playerCards.add(card);
 						break;
 					default:
-						in.close();
+					in.close();
 						throw new BadConfigFormatException("setup file contains incorrect lines"); // situation when we will throw an exception
 				}
 			} else {
@@ -153,7 +157,7 @@ public class Board extends JPanel {
 		}
 		in.close();
 	}
-
+	
 	/**
 	 * used to initiate the colorMap data structure
 	 */
@@ -173,26 +177,26 @@ public class Board extends JPanel {
 		colorMap.put("orange", Color.ORANGE);
 		colorMap.put("pink", Color.PINK);
 	}
-
+	
 	public Color lighter(Color color, float ratio) {
-        return mergeColors(Color.WHITE, ratio, color, 1 - ratio);
+		return mergeColors(Color.WHITE, ratio, color, 1 - ratio);
     }
-
+	
     public static Color mergeColors(Color a, float fa, Color b, float fb) {
         if (a == null) {
             return b;
         }
         if (b == null) {
-            return a;
+			return a;
         }
         return new Color((fa * a.getRed() + fb * b.getRed()) / (fa + fb) / 255f,
-                (fa * a.getGreen() + fb * b.getGreen()) / (fa + fb) / 255f,
-                (fa * a.getBlue() + fb * b.getBlue()) / (fa + fb) / 255f);
+		(fa * a.getGreen() + fb * b.getGreen()) / (fa + fb) / 255f,
+		(fa * a.getBlue() + fb * b.getBlue()) / (fa + fb) / 255f);
     }
     
     @Override
 	protected void paintComponent(Graphics g) {
-    	super.paintComponent(g);
+		super.paintComponent(g);
     	int windowWidth = getWidth();
     	int windowHeight = getHeight();
 		// get the width and height for each individual cell
@@ -201,13 +205,14 @@ public class Board extends JPanel {
     	
 		// loop through each cell and draw on the board GUI
     	for (int r = 0; r < getNumRows(); r++) {
-    		for (int c = 0; c < getNumColumns(); c++) {
-    			grid[r][c].draw((Graphics2D) g, cellWidth, cellHeight, cellWidth * c, cellHeight * r);
+			for (int c = 0; c < getNumColumns(); c++) {
+				grid[r][c].draw((Graphics2D) g, cellWidth, cellHeight, cellWidth * c, cellHeight * r);
     		}
     	}
-
+		
 		// loop through each room and draw the name on the board GUI
 		for (Room room : configMap.values()) {
+			
 			if (room.getLabelCell() != null) {
 				room.getLabelCell().drawRoomName((Graphics2D) g, room.getName(), cellWidth, cellHeight);
 			}
@@ -514,5 +519,9 @@ public class Board extends JPanel {
 
 	public Set<Card> getWeaponCards() {
 		return weaponCards;
+	}
+	
+	public HumanPlayer getHuman() {
+		return human;
 	}
 }
