@@ -31,7 +31,6 @@ public abstract class Player {
 	 * @param g
 	 * @param cellWidth
 	 * @param cellHeight
-	 * @param r
 	 */
 	public void draw(Graphics2D g, int cellWidth, int cellHeight) {
 		g.setColor(color);
