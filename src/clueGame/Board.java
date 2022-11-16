@@ -225,6 +225,8 @@ public class Board extends JPanel {
 		for (Player p : players) {
 			p.draw((Graphics2D) g, cellWidth, cellHeight, playerDiam / 2);
 		}
+
+		
     }
 
 	/**
