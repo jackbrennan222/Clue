@@ -131,7 +131,7 @@ public class PlayerHandPanel extends JPanel {
         outerPanel.add(weaponsPanel);
         // add outer panel and instruct swing to refresh
         add(outerPanel);
-        repaint();
+        revalidate();
     }
 
     /**
