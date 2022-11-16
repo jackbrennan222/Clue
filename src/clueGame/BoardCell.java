@@ -70,6 +70,14 @@ public class BoardCell {
 		g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
 		g.drawString(roomName, col * cellWidth, row * cellHeight);
 	}
+
+	
+	public void drawTarget(Graphics2D g, int cellWidth, int cellHeight) {
+		g.setColor(Color.CYAN);
+		g.fillRect(col * cellWidth, row * cellHeight, (col + 1) * cellWidth, (row + 1) * cellHeight);
+		g.setColor(Color.BLACK);
+		g.drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+	}
 	
 	// add cell to adjList
 	public void addAdjacency(BoardCell cell) {
@@ -150,6 +158,5 @@ public class BoardCell {
 	
 	public boolean isDoorway() {
 		return (doorDirection != DoorDirection.NONE); 
-	}
-	
+	}	
 }
