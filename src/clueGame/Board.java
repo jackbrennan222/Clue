@@ -219,11 +219,8 @@ public class Board extends JPanel {
 		}
 
 		// draw each player on the board GUI
-		int playerDiam = cellHeight;
-		if (playerDiam > cellWidth) { playerDiam = cellWidth; }
-
 		for (Player p : players) {
-			p.draw((Graphics2D) g, cellWidth, cellHeight, playerDiam / 2);
+			p.draw((Graphics2D) g, cellWidth, cellHeight);
 		}
 
 		
