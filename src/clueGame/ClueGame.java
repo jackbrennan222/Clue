@@ -59,7 +59,7 @@ public class ClueGame extends JFrame {
         ClueGame clue = new ClueGame();
         clue.setVisible(true);
         clue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JOptionPane.showMessageDialog(clue, "You are " + board.getHuman().getName() + ".\nCan you find the solution\nbefore the computer players", "Welcome to Clue", 1);
+        JOptionPane.showMessageDialog(clue, "<html><center>You are " + board.getHuman().getName() + ".<br>Can you find the solution<br>before the Computer Players?", "Welcome to Clue", 1);
         clue.update();
     }
 }
