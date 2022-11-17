@@ -22,5 +22,5 @@ Human, White, White, 0, 8
 Computer, Orange, Orange, 6, 0
 Computer, Magenta, Magenta, 0, 17
 Computer, Blue, Blue, 16, 24
-Computer, Red, Red, 24, 17
+Computer, Red, Cyan, 24, 17
 Computer, Green, Green, 24, 7
