@@ -113,7 +113,7 @@ public class GameControlPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			Board.getInstance().next();
 		}
 		
 	}

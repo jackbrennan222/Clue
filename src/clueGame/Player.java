@@ -2,14 +2,11 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.BasicStroke;
-import java.awt.geom.GeneralPath;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import javax.swing.CellEditor;
 
 public abstract class Player {
 	private String name;
@@ -17,12 +14,14 @@ public abstract class Player {
 	protected int row,col;
 	protected ArrayList<Card> hand;
 	protected Set<Card> seenCards;
+	private boolean turnOver;
 	
 	public Player(String name, Color color) {
 		hand = new ArrayList<Card>();
 		seenCards = new HashSet<Card>();
 		this.name = name;
 		this.color = color;
+		this.turnOver = true;
 	}
 
 	/**
@@ -104,5 +103,13 @@ public abstract class Player {
 
 	public Color getColor() {
 		return color;
+	}
+
+	public boolean isTurnOver() {
+		return turnOver;
+	}
+
+	public BoardCell getCell() {
+		return Board.getInstance().getCell(row, col);
 	}
 }

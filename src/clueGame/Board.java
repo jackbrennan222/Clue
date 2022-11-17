@@ -35,7 +35,9 @@ public class Board extends JPanel {
 	private Set<Card> playerCards = new HashSet<Card>();
 	private Set<Card> weaponCards = new HashSet<Card>();
 	private HumanPlayer human;
-
+	private Player currentPlayer;
+	private Random random;
+	private int dice;
 	
 	
 	private HashMap<String, Color> colorMap = new HashMap<>(); // Map to switch strings to awt.colors objects
@@ -68,6 +70,9 @@ public class Board extends JPanel {
 		setupAdjList();
 		theAnswer = createSolution();
 		deal();
+		currentPlayer = players.get(0);
+		random = new Random();
+		dice = random.nextInt(6) + 1;
 	}
 	
 	/**
@@ -515,12 +520,31 @@ public class Board extends JPanel {
 		return playerCards;
 	}
 
-
 	public Set<Card> getWeaponCards() {
 		return weaponCards;
 	}
 	
 	public HumanPlayer getHuman() {
 		return human;
+	}
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+	public void next() {
+		if (!currentPlayer.isTurnOver()) {
+			// TODO: error message
+		}
+		// udpate player
+		int index = players.indexOf(currentPlayer);
+		index = (index + 1) % players.size();
+		currentPlayer = players.get(index);
+		// roll dice
+		dice = random.nextInt(6) + 1;
+		// calc targets
+		calcTargets(currentPlayer.getCell(), dice);
+		// update GCP
+		
 	}
 }
