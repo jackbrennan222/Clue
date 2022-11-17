@@ -18,9 +18,9 @@ Weapon, Weapon3
 Weapon, Weapon4
 Weapon, Weapon5
 Weapon, Weapon6
-Human, Name1, White, 0, 8
-Computer, Name2, Orange, 6, 0
-Computer, Name3, Magenta, 0, 17
-Computer, Name4, Blue, 16, 24
-Computer, Name5, Red, 24, 17
-Computer, Name6, Green, 24, 7
+Human, White, White, 0, 8
+Computer, Orange, Orange, 6, 0
+Computer, Magenta, Magenta, 0, 17
+Computer, Blue, Blue, 16, 24
+Computer, Red, Red, 24, 17
+Computer, Green, Green, 24, 7
