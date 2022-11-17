@@ -41,7 +41,7 @@ public class ClueGame extends JFrame {
     /**
      * updating all components
      */
-    private void update() {
+    public static void update() {
         php.updatePanels();
         board.repaint();
     }
@@ -57,6 +57,6 @@ public class ClueGame extends JFrame {
         clue.setVisible(true);
         clue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JOptionPane.showMessageDialog(clue, "<html><center>You are " + board.getHuman().getName() + ".<br>Can you find the solution<br>before the Computer Players?", "Welcome to Clue", 1);
-        clue.update();
+        ClueGame.update();
     }
 }

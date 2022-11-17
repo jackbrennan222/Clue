@@ -72,6 +72,7 @@ public abstract class Player {
 
 	public void updateSeen(Card card) {
 		seenCards.add(card);
+		ClueGame.update();
 	}
 
 	public Card disproveSuggestion(Card room, Card person, Card weapon) {
