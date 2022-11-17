@@ -14,12 +14,10 @@ public class ClueGame extends JFrame {
     private static PlayerHandPanel php;
 
     public ClueGame() {
-        initialize();
         // setting up constants
-        numRows = board.getNumRows();
-        numCols = board.getNumColumns();
-        xDim = numCols * CELL_SIZE;
-        yDim = numRows * CELL_SIZE;
+        initialize();
+        xDim = board.getNumColumns() * CELL_SIZE;
+        yDim = board.getNumRows() * CELL_SIZE;
         // JFrame specifications
         setSize(xDim + MENU_SIZE, yDim + MENU_SIZE);
         setLayout(new BorderLayout());
@@ -29,7 +27,6 @@ public class ClueGame extends JFrame {
         add(php, BorderLayout.EAST);
         add(gcp, BorderLayout.SOUTH);
         add(board, BorderLayout.CENTER);
-
     }
     
     /**

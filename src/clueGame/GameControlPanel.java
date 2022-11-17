@@ -29,7 +29,8 @@ public class GameControlPanel extends JPanel {
 		topLeft = new JPanel();
 		topLeft.setLayout(new GridLayout(3,1));
 		whoseTurn = new JLabel("Whose Turn?", SwingConstants.CENTER);
-		turnPlayer = new JTextField();
+		turnPlayer = new JTextField(Board.getInstance().getCurrentPlayer().getName());
+		turnPlayer.setBackground(Board.getInstance().getCurrentPlayer().getColor());
 		turnPlayer.setEditable(false);
 		topLeft.add(whoseTurn);
 		topLeft.add(turnPlayer);
@@ -38,7 +39,7 @@ public class GameControlPanel extends JPanel {
 		topNextLeft.setLayout(new BorderLayout());
 		topNextLeft.setBorder(BorderFactory.createEmptyBorder(0,30,0,30));
 		rollLabel = new JLabel("Roll:", SwingConstants.RIGHT);
-		rollField = new JTextField();
+		rollField = new JTextField(Integer.toString(Board.getInstance().getDice()));
 		rollField.setEditable(false);
 		JPanel holder = new JPanel();
 		holder.setLayout(new GridLayout(0,2));
@@ -48,6 +49,7 @@ public class GameControlPanel extends JPanel {
 		// add buttons for game control
 		accuseButton = new JButton("Make Accusation");
 		nextButton = new JButton("NEXT!");
+		nextButton.addActionListener(new nextButtonListener());
 		// add other panels to top panel
 		topPanel.add(topLeft);
 		topPanel.add(topNextLeft);
@@ -113,7 +115,10 @@ public class GameControlPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Board.getInstance().next();
+			Board board = Board.getInstance();
+			board.next();
+			Player curPlayer = board.getCurrentPlayer();
+			setTurn(curPlayer, board.getDice());
 		}
 		
 	}

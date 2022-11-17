@@ -38,8 +38,8 @@ public class Board extends JPanel {
 	private Player currentPlayer;
 	private Random random;
 	private int dice;
-	
-	
+	private int cellWidth, cellHeight;
+
 	private HashMap<String, Color> colorMap = new HashMap<>(); // Map to switch strings to awt.colors objects
 	
 	private Board() {
@@ -50,13 +50,7 @@ public class Board extends JPanel {
 	 * a faux constructor 
 	 */
 	public void initialize() { // Singleton Pattern "Constructor"
-		roomSet.clear();
-		configMap.clear();
-		deck.clear();
-		players.clear();
-		roomCards.clear();
-		playerCards.clear();
-		weaponCards.clear();
+		clearData();
 		try { // loading files and catching two different types of errors
 			loadSetupConfig();
 			loadLayoutConfig();
@@ -68,11 +62,17 @@ public class Board extends JPanel {
 			return;
 		}
 		setupAdjList();
-		theAnswer = createSolution();
-		deal();
-		currentPlayer = players.get(0);
-		random = new Random();
-		dice = random.nextInt(6) + 1;
+		setupGame();
+	}
+
+	public void clearData() {
+		roomSet.clear();
+		configMap.clear();
+		deck.clear();
+		players.clear();
+		roomCards.clear();
+		playerCards.clear();
+		weaponCards.clear();
 	}
 	
 	/**
@@ -211,7 +211,9 @@ public class Board extends JPanel {
 		// loop through each cell and draw on the board GUI
     	for (int r = 0; r < getNumRows(); r++) {
 			for (int c = 0; c < getNumColumns(); c++) {
-				grid[r][c].draw((Graphics2D) g, cellWidth, cellHeight, cellWidth * c, cellHeight * r);
+				BoardCell curCell = getCell(r, c);
+				boolean inTargets = currentPlayer instanceof HumanPlayer && (targets.contains(curCell) || targets.contains(configMap.get(curCell.getInitial()).getCenterCell()));
+				grid[r][c].draw((Graphics2D) g, cellWidth, cellHeight, cellWidth * c, cellHeight * r, inTargets);
     		}
     	}
 		
@@ -350,6 +352,15 @@ public class Board extends JPanel {
 				}
 			}
 		}
+	}
+
+	private void setupGame() {
+		theAnswer = createSolution();
+		deal();
+		currentPlayer = players.get(0);
+		random = new Random();
+		dice = random.nextInt(6) + 1;
+		calcTargets(currentPlayer.getCell(), dice);
 	}
 
 	/**
@@ -532,9 +543,18 @@ public class Board extends JPanel {
         return currentPlayer;
     }
 
+	public int getDice() {
+		return dice;
+	}
+
 	public void next() {
 		if (!currentPlayer.isTurnOver()) {
 			// TODO: error message
+		}
+		cellWidth = getWidth() / getNumColumns();
+		cellHeight = getHeight() / getNumRows();
+		if (currentPlayer instanceof HumanPlayer) {
+			repaint();
 		}
 		// udpate player
 		int index = players.indexOf(currentPlayer);
@@ -544,7 +564,10 @@ public class Board extends JPanel {
 		dice = random.nextInt(6) + 1;
 		// calc targets
 		calcTargets(currentPlayer.getCell(), dice);
-		// update GCP
-		
+		if (currentPlayer instanceof HumanPlayer) {
+			repaint();
+		} else {
+
+		}
 	}
 }
