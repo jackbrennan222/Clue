@@ -6,6 +6,8 @@ import java.util.Random;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -205,8 +208,8 @@ public class Board extends JPanel {
     	int windowWidth = getWidth();
     	int windowHeight = getHeight();
 		// get the width and height for each individual cell
-    	int cellWidth = windowWidth / getNumColumns();
-    	int cellHeight = windowHeight / getNumRows();
+    	cellWidth = windowWidth / getNumColumns();
+    	cellHeight = windowHeight / getNumRows();
     	
 		// loop through each cell and draw on the board GUI
     	for (int r = 0; r < getNumRows(); r++) {
@@ -355,6 +358,7 @@ public class Board extends JPanel {
 	}
 
 	private void setupGame() {
+		addMouseListener(new BoardListener());
 		theAnswer = createSolution();
 		deal();
 		currentPlayer = players.get(0);
@@ -549,25 +553,83 @@ public class Board extends JPanel {
 
 	public void next() {
 		if (!currentPlayer.isTurnOver()) {
-			// TODO: error message
-		}
-		cellWidth = getWidth() / getNumColumns();
-		cellHeight = getHeight() / getNumRows();
-		if (currentPlayer instanceof HumanPlayer) {
-			repaint();
-		}
-		// udpate player
-		int index = players.indexOf(currentPlayer);
-		index = (index + 1) % players.size();
-		currentPlayer = players.get(index);
-		// roll dice
-		dice = random.nextInt(6) + 1;
-		// calc targets
-		calcTargets(currentPlayer.getCell(), dice);
-		if (currentPlayer instanceof HumanPlayer) {
-			repaint();
+			ClueGame.errorMessage("Please finish your turn!");
 		} else {
-
+			cellWidth = getWidth() / getNumColumns();
+			cellHeight = getHeight() / getNumRows();
+			if (currentPlayer instanceof HumanPlayer) {
+				repaint();
+			}
+			// udpate player
+			int index = players.indexOf(currentPlayer);
+			index = (index + 1) % players.size();
+			currentPlayer = players.get(index);
+			// roll dice
+			dice = random.nextInt(6) + 1;
+			// calc targets
+			calcTargets(currentPlayer.getCell(), dice);
+			if (currentPlayer instanceof HumanPlayer) {
+				repaint();
+				currentPlayer.setTurnOver(false);
+			} else {
+				ComputerPlayer comp = (ComputerPlayer) currentPlayer;
+				comp.doAccusation();
+				comp.doMove();
+				comp.makeSuggestion();
+				currentPlayer.setTurnOver(true);
+			}
 		}
 	}
+
+	 private class BoardListener implements MouseListener {
+		 @Override
+		 public void mousePressed(MouseEvent e) {}
+		 @Override
+		 public void mouseReleased(MouseEvent e) {}
+		 @Override
+		 public void mouseEntered(MouseEvent e) {}
+		 @Override
+		 public void mouseExited(MouseEvent e) {}
+
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if (currentPlayer.isTurnOver()) {
+				return;
+			}
+			if (currentPlayer instanceof HumanPlayer) {
+				HumanPlayer human = (HumanPlayer) currentPlayer;
+				boolean onTarget = false;
+
+				int cellCol = e.getX() / cellWidth;
+				int cellRow = e.getY() / cellHeight;
+
+				BoardCell cell = getCell(cellRow, cellCol);
+
+				if (targets.contains(cell)) {
+					onTarget = true;
+					human.doMove(cell);
+					targets.clear();
+					repaint();
+					if (human.getCell().isRoom()) {
+						human.makeSuggestion();
+					}
+					currentPlayer.setTurnOver(true);
+				} else if (cell.isRoom() && targets.contains(configMap.get(cell.getInitial()).getCenterCell())) {
+					onTarget = true;
+					human.doMove(configMap.get(cell.getInitial()).getCenterCell());
+					targets.clear();
+					repaint();
+					if (human.getCell().isRoom()) {
+						human.makeSuggestion();
+					}
+					currentPlayer.setTurnOver(true);
+
+				}
+				if (!onTarget) {
+					ClueGame.errorMessage("That is not a target.");
+				}
+			}		
+		}
+	 }
 }

@@ -21,7 +21,7 @@ public abstract class Player {
 		seenCards = new HashSet<Card>();
 		this.name = name;
 		this.color = color;
-		this.turnOver = true;
+		this.turnOver = false;
 	}
 
 	/**
@@ -97,6 +97,11 @@ public abstract class Player {
 		this.row = row;
 		this.col = col;
 	}
+
+	public void setPos(BoardCell cell) {
+		this.row = cell.getRow();
+		this.col = cell.getCol();
+	}
 	
 	public String getName() {
 		return name;
@@ -113,4 +118,12 @@ public abstract class Player {
 	public BoardCell getCell() {
 		return Board.getInstance().getCell(row, col);
 	}
+
+	public void setTurnOver(boolean b) {
+		turnOver = b;
+	}
+
+	public abstract void doAccusation();
+
+	public abstract void makeSuggestion();
 }

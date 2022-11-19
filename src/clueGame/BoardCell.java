@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -78,6 +80,12 @@ public class BoardCell {
 		g.fillRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
 		g.setColor(Color.BLACK);
 		g.drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+	}
+
+	public boolean containsClick(int mouseX, int mouseY, int cellWidth, int cellHeight) {
+		
+		Rectangle rect = new Rectangle(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
+		return rect.contains(new Point(mouseX,mouseY));
 	}
 	
 	// add cell to adjList

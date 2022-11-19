@@ -14,4 +14,22 @@ public class HumanPlayer extends Player {
 	public void updateSeen(Card card) {
 		return;
 	}
+
+	@Override
+	public void doAccusation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void makeSuggestion() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void doMove(BoardCell cell) {
+		getCell().setOccupied(false);
+		setPos(cell);
+		cell.setOccupied(true);
+	}
 }

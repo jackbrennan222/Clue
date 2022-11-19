@@ -70,4 +70,31 @@ public class ComputerPlayer extends Player {
 	public void setVisitedRooms(Set<BoardCell> visitedRooms) {
 		this.visitedRooms = visitedRooms;
 	}
+
+	@Override
+	public void doAccusation() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void makeSuggestion() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void doMove() {
+		getCell().setOccupied(false);
+		Set<BoardCell> targets = Board.getInstance().getTargets();
+		int index = new Random().nextInt(targets.size());
+		int i = 0;
+		for (BoardCell cell : targets) {
+			if (i == index) {
+				Board.getInstance().getCurrentPlayer().setPos(cell);
+				cell.setOccupied(true);
+			}
+			i++;
+		}
+		ClueGame.update();
+	}
 }
