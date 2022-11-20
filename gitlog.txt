@@ -1,3 +1,112 @@
+commit c3c2559a83ee7230158b6a9bcaa091f9b775fcf2
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Sat Nov 19 20:00:19 2022 -0700
+
+    Commented
+
+commit d0e892f410df0406f03f095aa78e4e473df3ca5e
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Sat Nov 19 14:40:48 2022 -0700
+
+    C24A Done -no comments
+
+commit 2b8d45cca3a8f36e75b446267ac70e6a59556c95
+Author: jackbrennan222 <jbrennan@mines.edu>
+Date:   Thu Nov 17 10:59:33 2022 -0700
+
+    Setup Correction
+
+commit 079fc217d4b9f8ddfa88416a3153afee1c15b7db
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 19:46:48 2022 -0700
+
+    staticifying update so seeing a card will update
+
+commit d40c6901dce6dcfa8c6355f37280ecaaed8dfe07
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 19:43:57 2022 -0700
+
+    You are White
+
+commit 371f13c470fd17ce34d5655c85c4d4c1fb6b833e
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 19:33:55 2022 -0700
+
+    Renamed crewmates
+
+commit 915d00cd52e1486f8d62894328d090f1da57b495
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Wed Nov 16 19:29:18 2022 -0700
+
+    made changes to GUI drawing
+
+commit 1fef6f1fd857aa7ae1081c574fea1ab17a62f93b
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 18:09:55 2022 -0700
+
+    some gameplay mechanics update
+
+commit ab11984a40e2dd094c93a4b1dfb1b60ff8fee9fb
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 16:21:04 2022 -0700
+
+    now it's better, maybe
+
+commit dc046c001db4414ab9a0a292a50697081ed10e05
+Merge: 8727421 a861890
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 16:20:04 2022 -0700
+
+    Merge branch 'main' of https://github.com/jackbrennan222/Clue
+
+commit 87274215c8f0d723c0c430c2ffdda1f551783a57
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 16:20:01 2022 -0700
+
+    idk whats going on
+
+commit 09a086b9f184d83b8928e1f6722bf226adec47f7
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 16:19:52 2022 -0700
+
+    Player draw refactor
+
+commit a861890c9bdfeb0d371fec029eaf142f29acb192
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 15:36:41 2022 -0700
+
+    ditto
+
+commit 4b9c71e3f4de482e6160e82eb3763bef9bcb97cf
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 15:35:04 2022 -0700
+
+    Player draw refactor
+
+commit 3c9ae760f6173d8a733e0924f7358903861cd8e4
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 12:23:44 2022 -0700
+
+    added Amongles
+
+commit f8ec558d287082f8a4089b244944f3d90870085c
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Wed Nov 16 10:35:01 2022 -0700
+
+    Centered JOptionPane
+
+commit 80619d13882febdd9e99b60c7256f3b0b5824df4
+Author: eswanson224 <eswanson224@gmail.com>
+Date:   Tue Nov 15 12:06:04 2022 -0700
+
+    added stuff for C24
+
+commit fd0a5a5b39f164f95f8944eb3442d13dc68c2cf6
+Author: Jack Brennan <jackbrennan222@gmail.com>
+Date:   Mon Nov 14 19:59:14 2022 -0700
+
+    Gitlog
+
 commit 269dabb4359ae08ee3d0818a65060220b6e16623
 Merge: 8dece32 7625d75
 Author: eswanson224 <eswanson224@gmail.com>
