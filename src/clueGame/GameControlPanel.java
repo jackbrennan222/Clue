@@ -111,6 +111,9 @@ public class GameControlPanel extends JPanel {
         return new Dimension(super.getPreferredSize().width, 150);
     }
 
+	/**
+	 * logic for the next button
+	 */
 	public class nextButtonListener implements ActionListener {
 
 		@Override

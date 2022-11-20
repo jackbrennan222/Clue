@@ -551,12 +551,17 @@ public class Board extends JPanel {
 		return dice;
 	}
 
+	/**
+	 * function called when next button is hit
+	 */
 	public void next() {
+		// if the players turn isn't over, prompt them to finish their turn first
 		if (!currentPlayer.isTurnOver()) {
 			ClueGame.errorMessage("Please finish your turn!");
 		} else {
 			cellWidth = getWidth() / getNumColumns();
 			cellHeight = getHeight() / getNumRows();
+			// if "previous" player was human, paint over targeted cells
 			if (currentPlayer instanceof HumanPlayer) {
 				repaint();
 			}
@@ -569,9 +574,11 @@ public class Board extends JPanel {
 			// calc targets
 			calcTargets(currentPlayer.getCell(), dice);
 			if (currentPlayer instanceof HumanPlayer) {
+				// paint targeted cells
 				repaint();
 				currentPlayer.setTurnOver(false);
 			} else {
+				// logic for a computer's turn
 				ComputerPlayer comp = (ComputerPlayer) currentPlayer;
 				comp.doAccusation();
 				comp.doMove();
@@ -580,8 +587,11 @@ public class Board extends JPanel {
 			}
 		}
 	}
-
+	/**
+	 * Mouse Action Listener for the Board
+	 */
 	 private class BoardListener implements MouseListener {
+		// unnecessary methods for implementation
 		 @Override
 		 public void mousePressed(MouseEvent e) {}
 		 @Override
@@ -591,21 +601,23 @@ public class Board extends JPanel {
 		 @Override
 		 public void mouseExited(MouseEvent e) {}
 
-
+		// logic for a mouse click
 		@Override
 		public void mouseClicked(MouseEvent e) {
+			// if there turn is over, ignore the click
 			if (currentPlayer.isTurnOver()) {
 				return;
 			}
+			// human player logic
 			if (currentPlayer instanceof HumanPlayer) {
 				HumanPlayer human = (HumanPlayer) currentPlayer;
 				boolean onTarget = false;
-
+				// calculate cell clicked based on mouse position
 				int cellCol = e.getX() / cellWidth;
 				int cellRow = e.getY() / cellHeight;
-
+				// calculated clicked cell
 				BoardCell cell = getCell(cellRow, cellCol);
-
+				// if the cell is a valid target, move player there and continue game
 				if (targets.contains(cell)) {
 					onTarget = true;
 					human.doMove(cell);
@@ -615,6 +627,7 @@ public class Board extends JPanel {
 						human.makeSuggestion();
 					}
 					currentPlayer.setTurnOver(true);
+				// if clicked cell is a valid room, move player there and continue game
 				} else if (cell.isRoom() && targets.contains(configMap.get(cell.getInitial()).getCenterCell())) {
 					onTarget = true;
 					human.doMove(configMap.get(cell.getInitial()).getCenterCell());
@@ -626,6 +639,7 @@ public class Board extends JPanel {
 					currentPlayer.setTurnOver(true);
 
 				}
+				// warn player if they clicked somewhere invalid
 				if (!onTarget) {
 					ClueGame.errorMessage("That is not a target.");
 				}

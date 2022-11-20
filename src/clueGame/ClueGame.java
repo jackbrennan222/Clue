@@ -47,10 +47,20 @@ public class ClueGame extends JFrame {
         board.repaint();
     }
 
+    /**
+     * print an error message in a JOptionPane
+     * 
+     * @param message
+     */
     public static void errorMessage(String message) {
         JOptionPane.showMessageDialog(theInstance, message, "Message", 1);
     }
 
+    /**
+     * singleton pattern method
+     * 
+     * @return
+     */
     private static ClueGame getInstance() {
         return theInstance;
     }

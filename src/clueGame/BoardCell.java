@@ -73,20 +73,6 @@ public class BoardCell {
 		g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
 		g.drawString(roomName, col * cellWidth, row * cellHeight);
 	}
-
-	
-	public void drawTarget(Graphics2D g, int cellWidth, int cellHeight) {
-		g.setColor(Color.CYAN);
-		g.fillRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
-		g.setColor(Color.BLACK);
-		g.drawRect(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
-	}
-
-	public boolean containsClick(int mouseX, int mouseY, int cellWidth, int cellHeight) {
-		
-		Rectangle rect = new Rectangle(col * cellWidth, row * cellHeight, cellWidth, cellHeight);
-		return rect.contains(new Point(mouseX,mouseY));
-	}
 	
 	// add cell to adjList
 	public void addAdjacency(BoardCell cell) {
