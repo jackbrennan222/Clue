@@ -79,6 +79,7 @@ public class HumanPlayer extends Player {
 		suggestionDialog.add(bottomPanel);
 		
 		suggestionDialog.setSize(300, 200);
+		suggestionDialog.setLocation(Board.getInstance().getWidth() / 2, Board.getInstance().getHeight() / 2);
 		suggestionDialog.setVisible(true);
 	}
 	
