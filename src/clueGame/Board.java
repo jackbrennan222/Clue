@@ -582,7 +582,7 @@ public class Board extends JPanel {
 				ComputerPlayer comp = (ComputerPlayer) currentPlayer;
 				comp.doAccusation();
 				comp.doMove();
-				comp.makeSuggestion();
+				// comp.makeSuggestion(); --needs to have a room, more logic required before calling
 				currentPlayer.setTurnOver(true);
 			}
 		}
@@ -624,7 +624,7 @@ public class Board extends JPanel {
 					targets.clear();
 					repaint();
 					if (human.getCell().isRoom()) {
-						human.makeSuggestion();
+						human.makeSuggestion(configMap.get(human.getCell().getInitial()));
 					}
 					currentPlayer.setTurnOver(true);
 				// if clicked cell is a valid room, move player there and continue game
@@ -634,7 +634,7 @@ public class Board extends JPanel {
 					targets.clear();
 					repaint();
 					if (human.getCell().isRoom()) {
-						human.makeSuggestion();
+						human.makeSuggestion(configMap.get(human.getCell().getInitial()));
 					}
 					currentPlayer.setTurnOver(true);
 

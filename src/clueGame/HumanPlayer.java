@@ -38,10 +38,28 @@ public class HumanPlayer extends Player {
 	public void makeSuggestion(Room room) {
 		suggestionDialog = new JDialog(ClueGame.getInstance(), "Make a Suggestion", true);
 		suggestionDialog.setLayout(new GridLayout(4,0));
+
+		JPanel roomPanel = new JPanel(new GridLayout(0,2));
+		JPanel personPanel = new JPanel(new GridLayout(0,2));
+		JPanel weaponPanel = new JPanel(new GridLayout(0,2));
 		
-		JPanel roomPanel = createSuggestionSubPanel("", CardType.ROOM, room);
-		JPanel personPanel = createSuggestionSubPanel("", CardType.PERSON, room);
-		JPanel weaponPanel = createSuggestionSubPanel("", CardType.WEAPON, room);
+		JLabel roomLabel = new JLabel("Current Room");		
+		JLabel personLabel = new JLabel("Person");		
+		JLabel weaponLabel = new JLabel("Weapon");		
+		
+		JTextField roomTextField = new JTextField(room.getName());
+		roomTextField.setEditable(false);
+		JComboBox<String> personCombo = createComboBox(CardType.PERSON);
+		JComboBox<String> weaponCombo = createComboBox(CardType.WEAPON);
+
+		roomPanel.add(roomLabel);
+		roomPanel.add(roomTextField);
+
+		personPanel.add(personLabel);
+		personPanel.add(personCombo);
+
+		weaponPanel.add(weaponLabel);
+		weaponPanel.add(weaponCombo);
 		
 		suggestionDialog.add(roomPanel);
 		suggestionDialog.add(personPanel);
@@ -60,47 +78,59 @@ public class HumanPlayer extends Player {
 		
 		suggestionDialog.add(bottomPanel);
 		
+		suggestionDialog.setSize(300, 200);
 		suggestionDialog.setVisible(true);
-		
 	}
 	
-	private JPanel createSuggestionSubPanel(String labelString, CardType type, Room room) {
-		JPanel panel = new JPanel(new GridLayout(0,2));
-		
-		JLabel label = new JLabel(labelString);
-		panel.add(label);
-		
-		if (type == CardType.ROOM) {
-			JTextField textField = new JTextField(room.getName());
-			textField.setEditable(false);
-			panel.add(textField);
-		} else {
-			String[] list = new String[Board.getInstance().getRoomCards().size()];
-			int i = 0;
-			for (Card c : Board.getInstance().getDeck()) {
-				if (c.getCardType() == type) {
-					list[i] = c.getCardName();
-					i++;
-				}
+	private JComboBox<String> createComboBox(CardType type) {
+		String[] list = new String[Board.getInstance().getRoomCards().size()];
+		int i = 0;
+		for (Card c : Board.getInstance().getDeck()) {
+			if (c.getCardType() == type) {
+				list[i] = c.getCardName();
+				i++;
 			}
-			JComboBox<String> comboBox = new JComboBox<String>(list);
-			panel.add(comboBox);
 		}
-		
-		return panel;
+		return new JComboBox<String>(list);
 	}
 	
 	private class submitButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Object[] components = suggestionDialog.getComponents();
-			for (Object o : components) {
-				if (o instanceof JComboBox) {
-					
+			String[] selectedStrings = new String[3];
+			int i = 0;
+			Object[] components = suggestionDialog.getContentPane().getComponents();
+			for (Object panel : components) {
+				JPanel panelObj = (JPanel) panel;
+				for (Object o : panelObj.getComponents()) {
+					if (o instanceof JTextField) {
+						JTextField tf = (JTextField) o;
+						selectedStrings[i] = tf.getText();
+						i++;
+					} else if (o instanceof JComboBox) {
+						JComboBox cb = (JComboBox) o;
+						selectedStrings[i] = cb.getSelectedItem().toString();
+						i++;
+					}
 				}
 			}
+			Card roomCard = new Card();
+			Card personCard = new Card();
+			Card weaponCard = new Card();
+			for (Card c: Board.getInstance().getDeck()) {
+				if (c.getCardName() == selectedStrings[0]) { roomCard = c; }
+				if (c.getCardName() == selectedStrings[1]) { personCard = c; }
+				if (c.getCardName() == selectedStrings[2]) { weaponCard = c; }
+			}
+			Solution suggestion = new Solution(roomCard, personCard, weaponCard);
+			sendSolution(suggestion);
+			suggestionDialog.dispose();
 		}
+	}
+	
+	private void sendSolution(Solution solution) {
+		this.seenCards.add(Board.getInstance().handleSuggestion(this, solution));
 	}
 	
 	private class cancelButtonListener implements ActionListener {
