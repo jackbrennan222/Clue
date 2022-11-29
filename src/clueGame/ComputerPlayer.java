@@ -78,7 +78,7 @@ public class ComputerPlayer extends Player {
 	}
 
 	@Override
-	public void makeSuggestion() {
+	public void makeSuggestion(Room room) {
 		// TODO Auto-generated method stub
 		
 	}
