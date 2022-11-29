@@ -11,3 +11,4 @@ Room, Hall, H
 // other spaces on board
 Space, Unused, X
 Space, Walkway, W
+Human, White, White, 0, 8

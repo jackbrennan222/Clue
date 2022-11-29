@@ -37,7 +37,7 @@ public class BoardCell {
 	public void draw(Graphics2D g, int cellWidth, int cellHeight, int xOffset, int yOffset, boolean inTargets) {
 		// solid background
 		g.setColor(color);
-		if (inTargets || (this.isRoom && Board.getInstance().getTargets().contains(this.roomCenter))) g.setColor(Color.CYAN);
+		if (inTargets || (isRoom && Board.getInstance().getTargets().contains(roomCenter))) g.setColor(Color.CYAN);
 		g.fillRect(xOffset, yOffset, cellWidth, cellHeight);
 		// hallways have a grid
 		if (!isRoom()) {	
