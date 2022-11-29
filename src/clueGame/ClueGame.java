@@ -61,7 +61,7 @@ public class ClueGame extends JFrame {
      * 
      * @return
      */
-    private static ClueGame getInstance() {
+    public static ClueGame getInstance() {
         return theInstance;
     }
     
