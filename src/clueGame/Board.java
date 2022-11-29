@@ -573,6 +573,9 @@ public class Board extends JPanel {
 			dice = random.nextInt(6) + 1;
 			// calc targets
 			calcTargets(currentPlayer.getCell(), dice);
+			if (targets.size() == 0) {
+				return;
+			}
 			if (currentPlayer instanceof HumanPlayer) {
 				// paint targeted cells
 				repaint();
