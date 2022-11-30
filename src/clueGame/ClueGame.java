@@ -56,6 +56,10 @@ public class ClueGame extends JFrame {
         JOptionPane.showMessageDialog(theInstance, message, "Message", 1);
     }
 
+    public static void gamePanelUpdate() {
+        
+    }
+
     /**
      * singleton pattern method
      * 

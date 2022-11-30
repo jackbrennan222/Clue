@@ -24,10 +24,6 @@ public class HumanPlayer extends Player {
 		hand.add(card);
 	}
 
-	public void updateSeen(Card card) {
-		return;
-	}
-
 	@Override
 	public void doAccusation() {
 		// TODO Auto-generated method stub
@@ -131,7 +127,7 @@ public class HumanPlayer extends Player {
 	}
 	
 	private void sendSolution(Solution solution) {
-		this.seenCards.add(Board.getInstance().handleSuggestion(this, solution));
+		seenCards.add(Board.getInstance().handleSuggestion(this, solution));
 	}
 	
 	private class cancelButtonListener implements ActionListener {

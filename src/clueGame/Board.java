@@ -31,7 +31,7 @@ public class Board extends JPanel {
 	private Map<Character, Room> configMap = new HashMap<Character, Room>();
 	private static Board theInstance = new Board(); // Singleton Pattern instance
 	private Set<BoardCell> targets,visited; // Sets to store unique cells for targets of cell motion, and to store visited cells
-	private ArrayList<Player> players = new ArrayList<Player>();; // ArrayList to store the players
+	private ArrayList<Player> players = new ArrayList<Player>(); // ArrayList to store the players
 	private Solution theAnswer; // Solution instance to hold the referential answer to the game
 	private ArrayList<Card> deck = new ArrayList<Card>(); // ArrayList to hold all of the cards
 	private Set<Card> roomCards = new HashSet<Card>();
