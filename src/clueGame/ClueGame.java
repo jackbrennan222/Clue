@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -56,10 +57,23 @@ public class ClueGame extends JFrame {
         JOptionPane.showMessageDialog(theInstance, message, "Message", 1);
     }
 
-    public static void gamePanelUpdate() {
-        
+    public static void gamePanelUpdate(Solution solution) {
+        gcp.setGuess(solution);
+        ClueGame.update();
     }
 
+    public static void gamePanelResultUpdate(String string, Color color) {
+        gcp.setGuessResult(string, color);
+        ClueGame.update();
+    }
+
+    public static void humanAccuse(boolean win) {
+        String message = "That was not the Correct Solution. You Lose!";
+        if (win) { message = "That was the Correct Solution. You Win!"; }
+        JOptionPane.showMessageDialog(getInstance(), message, "Game Over!", 1);
+        System.exit(0);
+    }
+    
     /**
      * singleton pattern method
      * 
@@ -82,5 +96,4 @@ public class ClueGame extends JFrame {
         JOptionPane.showMessageDialog(clue, "<html><center>You are " + board.getHuman().getName() + ".<br>Can you find the solution<br>before the Computer Players?", "Welcome to Clue", 1);
         ClueGame.update();
     }
-
 }

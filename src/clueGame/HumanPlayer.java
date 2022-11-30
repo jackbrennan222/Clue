@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 public class HumanPlayer extends Player {
 	
-	JDialog suggestionDialog;
+	JDialog suggestionDialog,accusationDialog;
 	
 	public HumanPlayer(String name, Color color) {
 		super(name, color);
@@ -26,7 +26,50 @@ public class HumanPlayer extends Player {
 
 	@Override
 	public void doAccusation() {
-		// TODO Auto-generated method stub
+		accusationDialog = new JDialog(ClueGame.getInstance(), "Make a Suggestion", true);
+		accusationDialog.setLayout(new GridLayout(4,0));
+
+		JPanel roomPanel = new JPanel(new GridLayout(0,2));
+		JPanel personPanel = new JPanel(new GridLayout(0,2));
+		JPanel weaponPanel = new JPanel(new GridLayout(0,2));
+		
+		JLabel roomLabel = new JLabel("Room");		
+		JLabel personLabel = new JLabel("Person");		
+		JLabel weaponLabel = new JLabel("Weapon");		
+		
+		JComboBox<String> roomCombo = createComboBox(CardType.ROOM);
+		JComboBox<String> personCombo = createComboBox(CardType.PERSON);
+		JComboBox<String> weaponCombo = createComboBox(CardType.WEAPON);
+
+		roomPanel.add(roomLabel);
+		roomPanel.add(roomCombo);
+
+		personPanel.add(personLabel);
+		personPanel.add(personCombo);
+
+		weaponPanel.add(weaponLabel);
+		weaponPanel.add(weaponCombo);
+		
+		accusationDialog.add(roomPanel);
+		accusationDialog.add(personPanel);
+		accusationDialog.add(weaponPanel);
+		
+		JPanel bottomPanel = new JPanel(new GridLayout(0,2));
+		
+		JButton submitButton = new JButton("Submit");
+		submitButton.addActionListener(new submitAccusationButtonListener());
+		
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new cancelButtonListener());
+		
+		bottomPanel.add(submitButton);
+		bottomPanel.add(cancelButton);
+		
+		accusationDialog.add(bottomPanel);
+		
+		accusationDialog.setSize(300, 200);
+		accusationDialog.setLocation(Board.getInstance().getWidth() / 2, Board.getInstance().getHeight() / 2);
+		accusationDialog.setVisible(true);
 		
 	}
 
@@ -64,7 +107,7 @@ public class HumanPlayer extends Player {
 		JPanel bottomPanel = new JPanel(new GridLayout(0,2));
 		
 		JButton submitButton = new JButton("Submit");
-		submitButton.addActionListener(new submitButtonListener());
+		submitButton.addActionListener(new submitSuggestionButtonListener());
 		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(new cancelButtonListener());
@@ -91,7 +134,7 @@ public class HumanPlayer extends Player {
 		return new JComboBox<String>(list);
 	}
 	
-	private class submitButtonListener implements ActionListener {
+	private class submitSuggestionButtonListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -116,14 +159,46 @@ public class HumanPlayer extends Player {
 			Card personCard = new Card();
 			Card weaponCard = new Card();
 			for (Card c: Board.getInstance().getDeck()) {
-				if (c.getCardName() == selectedStrings[0]) { roomCard = c; }
-				if (c.getCardName() == selectedStrings[1]) { personCard = c; }
-				if (c.getCardName() == selectedStrings[2]) { weaponCard = c; }
+				if (c.getCardName().equals(selectedStrings[0])) { roomCard = c; }
+				if (c.getCardName().equals(selectedStrings[1])) { personCard = c; }
+				if (c.getCardName().equals(selectedStrings[2])) { weaponCard = c; }
 			}
 			Solution suggestion = new Solution(roomCard, personCard, weaponCard);
 			sendSolution(suggestion);
+			ClueGame.getInstance().gamePanelUpdate(suggestion);
 			suggestionDialog.dispose();
 		}
+	}
+
+	private class submitAccusationButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String[] selectedStrings = new String[3];
+			int i = 0;
+			Object[] components = accusationDialog.getContentPane().getComponents();
+			for (Object panel : components) {
+				JPanel panelObj = (JPanel) panel;
+				for (Object o : panelObj.getComponents()) {
+					if (o instanceof JComboBox) {
+						JComboBox cb = (JComboBox) o;
+						selectedStrings[i] = cb.getSelectedItem().toString();
+						i++;
+					}
+				}
+			}
+			Card roomCard = new Card();
+			Card personCard = new Card();
+			Card weaponCard = new Card();
+			for (Card c: Board.getInstance().getDeck()) {
+				if (c.getCardName().equals(selectedStrings[0])) { roomCard = c; }
+				if (c.getCardName().equals(selectedStrings[1])) { personCard = c; }
+				if (c.getCardName().equals(selectedStrings[2])) { weaponCard = c; }
+			}
+			accusationDialog.dispose();
+			ClueGame.humanAccuse(Board.getInstance().checkAccusation(roomCard, personCard, weaponCard));
+		}
+		
 	}
 	
 	private void sendSolution(Solution solution) {

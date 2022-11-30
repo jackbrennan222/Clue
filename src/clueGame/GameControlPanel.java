@@ -3,6 +3,8 @@ package clueGame;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Dimension;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -48,6 +50,7 @@ public class GameControlPanel extends JPanel {
 		topNextLeft.add(holder, BorderLayout.NORTH);
 		// add buttons for game control
 		accuseButton = new JButton("Make Accusation");
+		accuseButton.addActionListener(new accuseButtonListener());
 		nextButton = new JButton("NEXT!");
 		nextButton.addActionListener(new nextButtonListener());
 		// add other panels to top panel
@@ -93,6 +96,7 @@ public class GameControlPanel extends JPanel {
 	 * @param guess
 	 */
 	public void setGuess(Solution sol) {
+		guessField.setFont(new Font(getFont().getFontName(), getFont().getStyle(), 30));
 		guessField.setText(sol.getPerson().getCardName() + ", " + sol.getRoom().getCardName() + ", " + sol.getWeapon().getCardName());
 		guessField.setBackground(Board.getInstance().getCurrentPlayer().getColor());
 	}
@@ -100,8 +104,9 @@ public class GameControlPanel extends JPanel {
 	/** 
 	 * @param result
 	 */
-	public void setGuessResult(String result) {
+	public void setGuessResult(String result, Color color) {
 		guessResultField.setText(result);
+		guessResultField.setBackground(color);
 	}
 
 	/**
@@ -124,6 +129,13 @@ public class GameControlPanel extends JPanel {
 			Player curPlayer = board.getCurrentPlayer();
 			setTurn(curPlayer, board.getDice());
 		}
-		
+	}
+
+	public class accuseButtonListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Board.getInstance().makeAccusation();
+		}
 	}
 }

@@ -408,7 +408,7 @@ public class Board extends JPanel {
 		Card solWeapon = weapons[rand.nextInt(weapons.length)];
 		return new Solution(solRoom, solPerson, solWeapon);
 	}
-
+	
 	private void deal() {
 		if (players.size() < 1) { return; }
 		ArrayList<Card> cardsAvailable = new ArrayList<Card>(deck);
@@ -426,15 +426,21 @@ public class Board extends JPanel {
 		}
 	}
 
+	public void makeAccusation() {
+		currentPlayer.doAccusation();
+	}
+	
+	
 	public boolean checkAccusation(Card room, Card person, Card weapon) {
 		return room.equals(theAnswer.getRoom()) && person.equals(theAnswer.getPerson()) && weapon.equals(theAnswer.getWeapon());
 	}
-
+	
 	public Card handleSuggestion(Player player, Solution suggestion) {
 		for (Player p : players) {
 			if (p.equals(player)) { continue; }
 			Card dispute = p.disproveSuggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
 			if (dispute != null) {
+				ClueGame.gamePanelResultUpdate(dispute.getCardName(), p.getColor());
 				return dispute;
 			}
 		}
@@ -585,6 +591,7 @@ public class Board extends JPanel {
 				ComputerPlayer comp = (ComputerPlayer) currentPlayer;
 				comp.doAccusation();
 				comp.doMove();
+				// TODO
 				// comp.makeSuggestion(); --needs to have a room, more logic required before calling
 				currentPlayer.setTurnOver(true);
 			}
