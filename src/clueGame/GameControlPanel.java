@@ -96,7 +96,6 @@ public class GameControlPanel extends JPanel {
 	 * @param guess
 	 */
 	public void setGuess(Solution sol) {
-		guessField.setFont(new Font(getFont().getFontName(), getFont().getStyle(), 30));
 		guessField.setText(sol.getPerson().getCardName() + ", " + sol.getRoom().getCardName() + ", " + sol.getWeapon().getCardName());
 		guessField.setBackground(Board.getInstance().getCurrentPlayer().getColor());
 	}
