@@ -24,12 +24,13 @@ public class ComputerPlayer extends Player {
 
 	public Solution createSuggestion() {
 		Board board = Board.getInstance();
-		BoardCell currentCell = board.getCell(row, col);
+		Room room = board.getRoom(getCell());
 		Card suggestedRoom = new Card();
 
 		for (Card c : board.getRoomCards()) {
-			if (c.getCardName().equals(board.getRoom(currentCell).getName())) {
+			if (c.getCardName().equals(room.getName())) {
 				suggestedRoom = c;
+				break;
 			}
 		}
 		ArrayList<Card> unseenPeople = new ArrayList<Card>();
@@ -73,17 +74,29 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public void doAccusation() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void makeSuggestion(Room room) {
-		// TODO Auto-generated method stub
-		
+		Card roomCard = null;
+		Card personCard = null;
+		Card weaponCard = null;
+		for (Card c : Board.getInstance().getRoomCards()) {
+			if (seenCards.contains(c) || hand.contains(c)) { continue; }
+			roomCard = c;
+			break;
+		}
+		for (Card c : Board.getInstance().getPlayerCards()) {
+			if (seenCards.contains(c) || hand.contains(c)) { continue; }
+			personCard = c;
+			break;
+		}
+		for (Card c : Board.getInstance().getWeaponCards()) {
+			if (seenCards.contains(c) || hand.contains(c)) { continue; }
+			weaponCard = c;
+			break;
+		}
+		Board.getInstance().checkAccusation(roomCard, personCard, weaponCard);
 	}
 
 	public void doMove() {
+		// TODO: pick rooms first
 		getCell().setOccupied(false);
 		Set<BoardCell> targets = Board.getInstance().getTargets();
 		int index = new Random().nextInt(targets.size());

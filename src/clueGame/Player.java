@@ -125,5 +125,5 @@ public abstract class Player {
 
 	public abstract void doAccusation();
 
-	public abstract void makeSuggestion(Room room);
+	public abstract Solution createSuggestion();
 }

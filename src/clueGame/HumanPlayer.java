@@ -73,8 +73,14 @@ public class HumanPlayer extends Player {
 		
 	}
 
-	@Override
-	public void makeSuggestion(Room room) {
+	public Solution createSuggestion() {
+		return new Solution(null, null, null);
+	}
+
+	public void selectSuggestion() {
+		Board board = Board.getInstance();
+		Room room = board.getRoom(getCell());
+
 		suggestionDialog = new JDialog(ClueGame.getInstance(), "Make a Suggestion", true);
 		suggestionDialog.setLayout(new GridLayout(4,0));
 

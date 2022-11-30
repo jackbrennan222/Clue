@@ -571,7 +571,7 @@ public class Board extends JPanel {
 			if (currentPlayer instanceof HumanPlayer) {
 				repaint();
 			}
-			// udpate player
+			// update player
 			int index = players.indexOf(currentPlayer);
 			index = (index + 1) % players.size();
 			currentPlayer = players.get(index);
@@ -589,8 +589,18 @@ public class Board extends JPanel {
 			} else {
 				// logic for a computer's turn
 				ComputerPlayer comp = (ComputerPlayer) currentPlayer;
-				comp.doAccusation();
+				if (comp.seenCards.size() + comp.getHand().size() >= deck.size() - 3) {
+					comp.doAccusation();
+				}
 				comp.doMove();
+				if (comp.getCell().isRoom()) {
+					Card re = handleSuggestion(comp, comp.createSuggestion());
+					if (re != null) { 
+						comp.updateSeen(re);
+					} else {
+						
+					}
+				}
 				// TODO
 				// comp.makeSuggestion(); --needs to have a room, more logic required before calling
 				currentPlayer.setTurnOver(true);
@@ -634,7 +644,7 @@ public class Board extends JPanel {
 					targets.clear();
 					repaint();
 					if (human.getCell().isRoom()) {
-						human.makeSuggestion(configMap.get(human.getCell().getInitial()));
+						human.selectSuggestion();
 					}
 					currentPlayer.setTurnOver(true);
 				// if clicked cell is a valid room, move player there and continue game
@@ -644,7 +654,7 @@ public class Board extends JPanel {
 					targets.clear();
 					repaint();
 					if (human.getCell().isRoom()) {
-						human.makeSuggestion(configMap.get(human.getCell().getInitial()));
+						human.selectSuggestion();
 					}
 					currentPlayer.setTurnOver(true);
 
