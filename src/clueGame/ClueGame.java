@@ -70,7 +70,7 @@ public class ClueGame extends JFrame {
     public static void humanAccuse(boolean win) {
         String message = "That was not the Correct Solution. You Lose!";
         if (win) { message = "That was the Correct Solution. You Win!"; }
-        JOptionPane.showMessageDialog(getInstance(), message, "Game Over!", 1);
+        JOptionPane.showMessageDialog(theInstance, message, "Game Over!", 1);
         System.exit(0);
     }
     
