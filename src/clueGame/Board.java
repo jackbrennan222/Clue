@@ -427,7 +427,11 @@ public class Board extends JPanel {
 	}
 
 	public void makeAccusation() {
-		currentPlayer.doAccusation();
+		if (currentPlayer instanceof HumanPlayer) {
+			currentPlayer.doAccusation();
+		} else {
+			ClueGame.errorMessage("You can't accuse on another players turn!");
+		}
 	}
 	
 	

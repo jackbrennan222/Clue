@@ -116,7 +116,7 @@ public class HumanPlayer extends Player {
 		submitButton.addActionListener(new submitSuggestionButtonListener());
 		
 		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new cancelButtonListener());
+		cancelButton.addActionListener(new accCancelButtonListener());
 		
 		bottomPanel.add(submitButton);
 		bottomPanel.add(cancelButton);
@@ -211,6 +211,14 @@ public class HumanPlayer extends Player {
 		seenCards.add(Board.getInstance().handleSuggestion(this, solution));
 	}
 	
+	private class accCancelButtonListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			accusationDialog.dispose();
+		}
+	}
+
 	private class cancelButtonListener implements ActionListener {
 		
 		@Override
