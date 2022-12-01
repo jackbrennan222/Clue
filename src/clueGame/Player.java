@@ -15,6 +15,7 @@ public abstract class Player {
 	protected ArrayList<Card> hand;
 	protected Set<Card> seenCards;
 	private boolean turnOver;
+	private boolean wasMoved;
 	
 	public Player(String name, Color color) {
 		hand = new ArrayList<Card>();
@@ -113,6 +114,14 @@ public abstract class Player {
 
 	public boolean isTurnOver() {
 		return turnOver;
+	}
+
+	public void setWasMoved(boolean bool) {
+		wasMoved = bool;
+	}
+
+	public boolean getWasMoved() {
+		return wasMoved;
 	}
 
 	public BoardCell getCell() {

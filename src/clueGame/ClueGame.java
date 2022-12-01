@@ -1,10 +1,12 @@
 package clueGame;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.sound.sampled.*;
+
 public class ClueGame extends JFrame {
 
     private static ClueGame theInstance = new ClueGame();
@@ -14,6 +16,7 @@ public class ClueGame extends JFrame {
     private int numRows,numCols,yDim,xDim;
     private static GameControlPanel gcp;
     private static PlayerHandPanel php;
+    private static Clip clip;
 
     private ClueGame() {
         // setting up constants
@@ -83,6 +86,20 @@ public class ClueGame extends JFrame {
         return theInstance;
     }
     
+    private static void music() {
+        File musicFile = new File("./src/clueGame/music.wav");
+        try {
+            AudioInputStream sound = AudioSystem.getAudioInputStream(musicFile);
+            clip = AudioSystem.getClip();
+            clip.open(sound);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        clip.setFramePosition(0);
+        clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+
     /**
      * main method to run program
      * 
@@ -95,5 +112,6 @@ public class ClueGame extends JFrame {
         clue.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JOptionPane.showMessageDialog(clue, "<html><center>You are " + board.getHuman().getName() + ".<br>Can you find the solution<br>before the Computer Players?", "Welcome to Clue", 1);
         ClueGame.update();
+        music();
     }
 }

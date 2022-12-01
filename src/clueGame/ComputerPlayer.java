@@ -96,18 +96,28 @@ public class ComputerPlayer extends Player {
 	}
 
 	public void doMove() {
-		// TODO: pick rooms first
 		getCell().setOccupied(false);
-		Set<BoardCell> targets = Board.getInstance().getTargets();
-		int index = new Random().nextInt(targets.size());
-		int i = 0;
+		Board board = Board.getInstance();
+		Set<BoardCell> targets = board.getTargets();
 		for (BoardCell cell : targets) {
-			if (i == index) {
+			if (cell.isRoom()) {
+				Card roomCard = null;
+				for (Card c : board.getRoomCards()) {
+					if (c.getCardName().equals(board.getRoom(cell).getName())) {
+						roomCard = c;
+					}
+				}
+				if (seenCards.contains(roomCard) || hand.contains(roomCard)) {
+					targets.remove(cell);
+				}
 				Board.getInstance().getCurrentPlayer().setPos(cell);
-				cell.setOccupied(true);
+				return;
 			}
-			i++;
 		}
+		BoardCell[] targetsArr = targets.toArray(new BoardCell[0]);
+		BoardCell targetCell = targetsArr[new Random().nextInt(targetsArr.length)];
+		board.getCurrentPlayer().setPos(targetCell);
+		targetCell.setOccupied(true);
 		ClueGame.update();
 	}
 }

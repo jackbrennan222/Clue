@@ -437,6 +437,13 @@ public class Board extends JPanel {
 	
 	public Card handleSuggestion(Player player, Solution suggestion) {
 		for (Player p : players) {
+			if (p.getName().equals(suggestion.getPerson().getCardName()) && !p.equals(currentPlayer)) {
+				p.getCell().setOccupied(false);
+				p.setPos(player.getCell());
+				p.setWasMoved(true);
+			}
+		}
+		for (Player p : players) {
 			if (p.equals(player)) { continue; }
 			Card dispute = p.disproveSuggestion(suggestion.getRoom(), suggestion.getPerson(), suggestion.getWeapon());
 			if (dispute != null) {
@@ -458,8 +465,13 @@ public class Board extends JPanel {
 		targets = new HashSet<>();
 		
 		visited.add(startCell);
-		
+
 		findAllTargets(startCell, pathLength);
+
+		if (currentPlayer.getWasMoved()) {
+			targets.add(startCell);
+			currentPlayer.setWasMoved(false);
+		}
 	}
 	
 	/**
@@ -594,12 +606,16 @@ public class Board extends JPanel {
 				}
 				comp.doMove();
 				if (comp.getCell().isRoom()) {
-					Card re = handleSuggestion(comp, comp.createSuggestion());
+					Solution suggestion = comp.createSuggestion();
+					Card re = handleSuggestion(comp, suggestion);
+					ClueGame.gamePanelUpdate(suggestion);
 					if (re != null) { 
 						comp.updateSeen(re);
+						ClueGame.gamePanelResultUpdate("Suggestion was disproven.", Color.GREEN);
 					} else {
-						
+						ClueGame.gamePanelResultUpdate("Suggestion was not disproven.", Color.RED);
 					}
+					ClueGame.update();
 				}
 				// TODO
 				// comp.makeSuggestion(); --needs to have a room, more logic required before calling
