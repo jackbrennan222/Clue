@@ -76,6 +76,14 @@ public class ClueGame extends JFrame {
         JOptionPane.showMessageDialog(theInstance, message, "Game Over!", 1);
         System.exit(0);
     }
+
+    public static void compAccuse(Card roomCard, Card personCard, Card weaponCard) {
+        if (Board.getInstance().checkAccusation(roomCard, personCard, weaponCard)) {
+            String message = "Computer wins, you lose ♥";
+            JOptionPane.showMessageDialog(theInstance, message, "Game Over!", 1);
+            System.exit(0);
+        }
+    }
     
     /**
      * singleton pattern method

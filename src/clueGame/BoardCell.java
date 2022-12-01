@@ -38,12 +38,13 @@ public class BoardCell {
 		// solid background
 		g.setColor(color);
 		if (inTargets) g.setColor(Color.CYAN);
-		g.fillRect(xOffset, yOffset, cellWidth, cellHeight);
-		// hallways have a grid
-		if (!isRoom()) {	
-			g.setColor(Color.BLACK);
-			g.drawRect(xOffset, yOffset, cellWidth, cellHeight);
+		
+		if (isRoom) {
+			g.fillRect(xOffset + 1, yOffset + 1, cellWidth, cellHeight);
+		} else {
+			g.fillRect(xOffset, yOffset, cellWidth, cellHeight);
 		}
+		// hallways have a grid
 		// coloring doors
 		g.setColor(Color.BLUE);
 		switch (doorDirection) {
@@ -57,6 +58,10 @@ public class BoardCell {
 				break;
 			default:
 				break;
+		}
+		if (!isRoom()) {	
+			g.setColor(Color.BLACK);
+			g.drawRect(xOffset, yOffset, cellWidth, cellHeight);
 		}
 	}
 	

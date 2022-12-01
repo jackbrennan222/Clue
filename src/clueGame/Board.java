@@ -18,6 +18,7 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  * @author Erik Swanson
@@ -205,6 +206,7 @@ public class Board extends JPanel {
     @Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		setBackground(Color.BLACK);
     	int windowWidth = getWidth();
     	int windowHeight = getHeight();
 		// get the width and height for each individual cell
@@ -232,7 +234,6 @@ public class Board extends JPanel {
 		for (Player p : players) {
 			p.draw((Graphics2D) g, cellWidth, cellHeight);
 		}
-
 		
     }
 
@@ -390,7 +391,6 @@ public class Board extends JPanel {
 	 * @return a randomly selected Solution object
 	 */
 	private Solution createSolution() {
-		// TODO: remove line below after computerAI test / class has been refactored
 		Collections.sort(deck);
 		Card[] rooms = roomCards.toArray(new Card[0]);
 		Card[] people = playerCards.toArray(new Card[0]);
@@ -451,6 +451,7 @@ public class Board extends JPanel {
 				return dispute;
 			}
 		}
+		ClueGame.gamePanelResultUpdate("Suggestion could not be disproven.", Color.RED);
 		return null;
 	}
 	

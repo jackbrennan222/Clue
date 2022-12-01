@@ -4,7 +4,7 @@ Room, Marquez, M
 Room, Hill, H
 Room, Alderson, A
 Room, Library, L
-Room, Green, G
+Room, Green Hall, G
 Room, Market, R
 Room, Dober, D
 Room, Kaff, K
@@ -12,12 +12,12 @@ Room, Kaff, K
 Space, Unused, X
 Space, Walkway, W
 // Weapons and players
-Weapon, Weapon1
-Weapon, Weapon2
-Weapon, Weapon3
-Weapon, Weapon4
-Weapon, Weapon5
-Weapon, Weapon6
+Weapon, Knife
+Weapon, Fist
+Weapon, Gun
+Weapon, Laser
+Weapon, Pointy Tongue
+Weapon, Cool Sword
 Human, White, White, 0, 8
 Computer, Orange, Orange, 6, 0
 Computer, Magenta, Magenta, 0, 17

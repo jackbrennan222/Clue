@@ -92,13 +92,14 @@ public class ComputerPlayer extends Player {
 			weaponCard = c;
 			break;
 		}
-		Board.getInstance().checkAccusation(roomCard, personCard, weaponCard);
+		ClueGame.compAccuse(roomCard, personCard, weaponCard);
 	}
 
 	public void doMove() {
 		getCell().setOccupied(false);
 		Board board = Board.getInstance();
 		Set<BoardCell> targets = board.getTargets();
+		ArrayList<BoardCell> targetsArr = new ArrayList<>(targets);
 		for (BoardCell cell : targets) {
 			if (cell.isRoom()) {
 				Card roomCard = null;
@@ -108,14 +109,17 @@ public class ComputerPlayer extends Player {
 					}
 				}
 				if (seenCards.contains(roomCard) || hand.contains(roomCard)) {
-					targets.remove(cell);
+					targetsArr.remove(cell);
+				} else {
+					Board.getInstance().getCurrentPlayer().setPos(cell);
+					return;
 				}
-				Board.getInstance().getCurrentPlayer().setPos(cell);
-				return;
 			}
 		}
-		BoardCell[] targetsArr = targets.toArray(new BoardCell[0]);
-		BoardCell targetCell = targetsArr[new Random().nextInt(targetsArr.length)];
+		if (targetsArr.size() == 0) {
+			targetsArr = new ArrayList<>(targets);
+		}
+		BoardCell targetCell = targetsArr.get(new Random().nextInt(targetsArr.size()));
 		board.getCurrentPlayer().setPos(targetCell);
 		targetCell.setOccupied(true);
 		ClueGame.update();
